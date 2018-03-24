@@ -46,14 +46,11 @@ require("../config/paginas.php");
         
     </head>
     <body>
-
         <?php include "../erp/navegacion.php";  ?>
         <div id="page-wrapper">
-            <?php
-                $seccion = "home";
+            <?php $seccion = "home";
                 include($src);
             ?>
         </div>
-
     </body>
 </html>

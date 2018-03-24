@@ -11,24 +11,15 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
 
-<!--                    <li class="sidebar-search">-->
-<!--                        <div class="input-group custom-search-form">-->
-<!--                            <input type="text" class="form-control" placeholder="Search">-->
-<!--                            <span class="input-group-btn">-->
-<!--                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </li> --> <!-- sidebar-search -->
-
-                    <li><a href="./index.php"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                    <li><a href="index.php"><i class="fa fa-home fa-fw"></i>Home</a></li>
                     <li>
                         <a href="#">
                             <i class="fa fa-dashboard fa-fw"></i>Servicios
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a href="modulos/servicios/main.php">Defunciones</a></li>
-                            <li><a href="modulos/servicios/main.php">Clientes</a></li>
+                            <li><a href="modulos/servicios/main.php?op=defunciones">Defunciones</a></li>
+                            <li><a href="modulos/servicios/main.php?op=clientes">Clientes</a></li>
                         </ul>
                     </li>
                     <li>
@@ -38,7 +29,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a href="modulos/documentos/main.php?op=esquelas">Esquelas</a></li>
-                            <li><a href="modulos/documentos/main.php?op=misa_funeral">Misa Funeral</a></li>
+                            <li><a href="#">Misa Funeral</a></li>
                             <li><a href="#">Recordatorias</a></li>
                         </ul>
                     </li>
@@ -49,7 +40,7 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a href="./modulos/contabilidad/main.php">Facturas</a></li>
+                            <li><a href="modulos/contabilidad/main.php?op=facturas">Facturas</a></li>
                             <li><a href="#">Proveedores</a></li>
                             <li><a href="#">Gastos</a></li>
                         </ul>

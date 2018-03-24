@@ -1,32 +1,31 @@
-<!-- Dentro de page-wrapper -->
-<div class="row">
-    <div class="page-header padding_home">
-        <!--<div class="col-md-3"><h1>Home</h1></div>-->
-<!--        <h1 class="col-md-3">Editar</h1>-->
-<!--        <div class="col-md-9">-->
+<div class="container-fluid">
+    <div class="row border_nav">
+        <div class="col-md-2"><h2>Defunción:</h2></div>
+        <div class="col-md-10 alinear_nav">
+            <div class="col-md-5"><h4>Jose María del Carmen Garcia Ruiz</h4></div>
+            <div class="col-md-5">
+                <nav>
+                    <ul class="nav nav-tabs">
+                        <li class="espaciar_nav" role="presentation" >
+                            <a href="main.php?op=v_esquela">Ver</a>
+                        </li>
+                        <li class="espaciar_nav" role="presentation">
+                            <a href="../servicios/main.php?op=v_difunto">Difunto</a>
+                        </li>
+                        <li class="espaciar_nav" role="presentation">
+                            <a href="../servicios/main.php?op=v_cliente">Cliente</a>
+                        </li>
+                        <li class="espaciar_nav" role="presentation">
+                            <a href="../contabilidad/main.php?op=v_factura">Factura</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div> <!-- row navegacion -->
 
-            <nav>
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="active" style="width: 100px;">
-                        <a href="#">Esquela</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="../servicios/main.php?op=v_defuncion">Defuncion</a>
-                        <!-- Nos dirige a los datos visuales de la defuncion -->
-                    </li>
-                    <li role="presentation">
-                        <a href="#">Cliente</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#">Factura</a>
-                    </li>
-                </ul>
-            </nav>
+    <div class="row">
+        <h3>EDITANDO CONTENIDO PRINCIPAL</h3>
+    </div> <!-- row contenido_principal -->
 
-<!--        </div>-->
-    </div> <!-- Fin page-header -->
-</div>
-
-<div class="row">
-    <!-- Contenido -->
 </div>

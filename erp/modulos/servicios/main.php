@@ -49,9 +49,9 @@
         else if($op == "v_defuncion") include "./v_defuncion.php";      // ver
         else if($op == "e_defuncion") include "./e_defuncion.php";      // editar
         else if($op == "nuevoCliente") include "./nuevoCliente.php";    // CLIENTES
-        else if($op == "clientes") include "./clientes.php";      // listado
-        else if($op == "v_cliente") include "./v_cliente.php";      // ver
-        else if($op == "e_cliente") include "./e_cliente.php";      // editar
+        else if($op == "clientes") include "./clientes.php";            // listado
+        else if($op == "v_cliente") include "./v_cliente.php";          // ver
+        else if($op == "e_cliente") include "./e_cliente.php";          // editar
 
         ?>
     </div> <!-- fin page-wrapper -->

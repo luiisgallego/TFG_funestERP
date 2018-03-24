@@ -1,5 +1,14 @@
 <div class="container-fluid">
-    <div class="row page-header"><h1>Defunciones</h1></div>
+<!--    <div class="row page-header"><h1 >Defunciones</h1></div>-->
+
+    <div class="row page-header">
+        <h1 class="col-md-3">Defunciones</h1>
+        <div class="col-md-9">
+            <a href="main.php?op=nuevoServicio">
+                <button type="button" class="btn btn-info btn-lg boton_nuevo">Nuevo Servicio</button>
+            </a>
+        </div>
+    </div>
 
     <div class="row">
         <div class="panel panel-default">
@@ -17,7 +26,7 @@
                     <tbody>
                     <tr>
                         <td class="iconos_td">
-                            <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                            <a href="./main.php?op=v_defuncion&ID=1234" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                             <a href="./main.php?op=e_defuncion" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
                             <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
                             <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>

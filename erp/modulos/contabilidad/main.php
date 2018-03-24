@@ -42,80 +42,14 @@
 <body>
     <?php include "../navModulos.php"; ?>
     <div id="page-wrapper">
-        <!-- Aqui es donde trabajamos -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Contabilidad</h1>
-            </div>
-        </div>
+        <?php $op = $_GET['op'];
 
-        <div class="row">
-            <div class="col-lg-12"> <!-- Lo mismo que hacer container-fluid -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Facturas</div>
-                    <div class="panel-body">
-                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>ID_Factura</th>
-                                    <th>Cliente</th>
-                                    <th>Fecha Factura</th>
-                                    <th>Número Factura</th>
-                                    <th>Emitida</th>
-                                    <th>Pagada</th>
-                                    <th>Total</th>
-                                    <!-- Numero factura estará relacionada con ID_Factura -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td>Iconos</td>
-                                    <td>001</td>
-                                    <td>Nuria Jalon</td>
-                                    <td>23-Enero-2018</td>
-                                    <td class="center">A/001445</td>
-                                    <td class="center">No</td>
-                                    <td class="center">No</td>
-                                    <td class="center">1.597,57E</td>
-                                </tr>
-                                <tr class="even gradeC">
-                                    <td>Iconos</td>
-                                    <td>002</td>
-                                    <td>Maria del Mar Ruano</td>
-                                    <td>15-Diciembre-2017</td>
-                                    <td class="center">A/001345</td>
-                                    <td class="center">Si</td>
-                                    <td class="center">No</td>
-                                    <td class="center">1.597,57E</td>
-                                </tr>
-                                <tr class="odd gradeA">
-                                    <td>Iconos</td>
-                                    <td>003</td>
-                                    <td>Juan Maria Beltran</td>
-                                    <td>10-Octubre-2017</td>
-                                    <td class="center">A/001215</td>
-                                    <td class="center">Si</td>
-                                    <td class="center">Si</td>
-                                    <td class="center">1.597,57E</td>
-                                </tr>
-                                <tr class="even gradeA">
-                                    <td>Iconos</td>
-                                    <td>004</td>
-                                    <td>Jose Carlos Garcia</td>
-                                    <td>5-Junio-2017</td>
-                                    <td class="center">A/001087</td>
-                                    <td class="center">Si</td>
-                                    <td class="center">Si</td>
-                                    <td class="center">1.597,57E</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        if($op == "nuevaFactura") include "./nuevaFactura.php";         // FACTURAS
+        else if($op == "facturas") include "./facturas.php";            // listado
+        else if($op == "v_factura") include "./v_factura.php";          // ver
+        else if($op == "e_factura") include "./e_factura.php";          // editar
+
+        ?>
     </div> <!-- fin page-wrapper -->
-
 </body>
 </html>

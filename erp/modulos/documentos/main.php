@@ -42,16 +42,14 @@
 <body>
     <?php include "../navModulos.php"; ?>
     <div id="page-wrapper">
-        <!-- Aqui es donde trabajamos -->
+        <?php $op = $_GET['op'];
 
-        <?php
-            $op = $_GET['op'];
-            if($op == "esquelas") include "./esquelas.php";
-            else if($op == "misa_funeral") include "./misa_funeral.php";
-            else if($op == "editar") include "./e_esquela.php";
+        if($op == "nuevaEsquela") include "./nuevaEsquela.php";         // ESQUELAS
+        else if($op == "esquelas") include "./esquelas.php";            // listado
+        else if($op == "v_esquela") include "./v_esquela.php";          // ver
+        else if($op == "e_esquela") include "./e_esquela.php";          // editar
+
         ?>
-
     </div> <!-- fin page-wrapper -->
-
 </body>
 </html>
