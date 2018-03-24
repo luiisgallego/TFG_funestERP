@@ -1,0 +1,69 @@
+/* === PÁGINA MANTENIMIENTO === */
+
+#bodyComingSoon {
+    background-color: #46b8da;
+}
+
+.centrar {
+    font-family: 'pacifico', cursive;
+    position: fixed;
+    margin-top: 250px;
+    margin-left: 430px;
+}
+
+/* === RETOQUES GENERALES === */
+
+body {
+    padding-top: 50px; /* Los 50px de la barra superior */
+}
+
+h1 {
+    font-family: 'graduate', cursive;
+}
+
+h2 {
+    font-family: 'pacifico', cursive;
+}
+
+
+.separador {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* === TITLE & ENROLL === */
+#title-enroll {
+    top: 100px;
+}
+
+#title-enroll {
+
+}
+
+#title-enroll .jumbotron {
+    height: 400px;
+    background: url('img/forestbridge.jpg') 100% fixed;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    background-size: cover; /* ocupamos el fluid al completo */
+    /*-webkit-background-size: cover;  Tambien hace que se ocupe el fluid al completo */
+    color: white;
+    text-align: center;
+
+    /* background-attachment: scroll; ¿necesario? */
+}
+
+/* === NOSOTROS === */
+#nosotros {
+    text-align: center;
+}
+
+/* === CONTACTO === */
+#contacto {
+    background-color: #BF3E11;
+    color: white;
+    text-align: center;
+}
+
+
