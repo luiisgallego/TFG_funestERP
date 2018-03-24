@@ -12,7 +12,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Listado</div>
             <div class="panel-body">
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
                         <th></th>
@@ -48,6 +48,6 @@
                 </table>
             </div> <!-- panel-body-->
         </div> <!-- panel -->
-    </div> <!-- row page-header -->
+    </div> <!-- row -->
 
-</div>
+</div> <!--  container-fluid -->

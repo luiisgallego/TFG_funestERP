@@ -18,6 +18,12 @@ if($op == "login") {
     $ApiClient->logout();
     header("Location: http://localhost/funerariagallego/erp/login.php");
 
+} else if($op == "nuevoServicio") {
+    $user = $_POST['nombre'];
+    $pass = $_POST['apellidos'];
+
+    if($ApiClient->login($user, $pass)) header("Location: http://localhost/funerariagallego/erp/index.php");
+    else header("Location: http://localhost/funerariagallego/erp/login.php");
 }
 
 ?>

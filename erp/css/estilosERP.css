@@ -163,3 +163,12 @@ body {
     margin-top: 10px;
 }
 /* === FIN LISTADOS === */
+
+/* === FORMULARIOS === */
+.info_seccion span{
+    font-size: large;
+}
+.info_seccion span i {
+    margin-right: 10px;
+}
+/* === FIN FORMULARIOS === */
