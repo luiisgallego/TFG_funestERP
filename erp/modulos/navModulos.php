@@ -61,6 +61,6 @@
 
                 </ul>
             </div>
-        </div>
-    </nav> <!-- FIN NAVEGACION -->
-</div> <!-- FIN WRAPPER -->
+        </div> <!-- navbar-default sidebar
+    </nav> <!-- navbar -->
+</div> <!-- wrapper -->

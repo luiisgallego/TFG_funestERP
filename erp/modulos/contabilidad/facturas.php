@@ -28,8 +28,9 @@
                     <tbody>
                     <tr>
                         <td class="iconos_td">
-                            <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                            <a href="./main.php?op=e_defuncion" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
+<!--                            <a href="./main.php?op=v_factura" title="Ver"><i class="fa fa-eye fa-fw"></i></a>-->
+                            <a href="./main.php?op=v_factura" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                            <a href="./main.php?op=e_factura" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
                             <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
                             <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
                         </td>
@@ -43,8 +44,8 @@
                     </tr>
                     <tr>
                         <td class="iconos_td">
-                            <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                            <a href="./main.php?op=e_defuncion" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
+                            <a href="./main.php?op=v_factura" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                            <a href="./main.php?op=e_factura" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
                             <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
                             <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
                         </td>
