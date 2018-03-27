@@ -65,6 +65,17 @@ class apiBD {       // Clase provisional
         $_SESSION["ws_login_info"] = $this->loginInfo = null;
     }
 
+    public function nuevoServicio($datos) {
+        $datos = json_decode($datos);
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos->nombre, TRUE).PHP_EOL, FILE_APPEND );
+
+        $query = "INSERT INTO servicios (nombre, apellidos, dni, tipo_servicio) 
+        VALUES ('$datos->nombre', '$datos->apellidos', '$datos->DNI', '$datos->tipo_servicio')";
+
+        if($this->BD_CONEXION->query($query)) return true;
+
+        return false;
+    }
 }
 
 //class LoginInfo {
