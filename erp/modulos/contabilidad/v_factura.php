@@ -179,7 +179,6 @@
             </div>
 
         </div> <!-- dina4 -->
-    </div>
+    </div> <!-- body_factura -->
 
 </div>
-

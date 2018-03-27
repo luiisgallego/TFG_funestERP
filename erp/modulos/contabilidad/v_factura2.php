@@ -24,7 +24,7 @@
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
 
     <!-- CSS -->
-    <link href="estilosFactura.css" rel="stylesheet">
+    <link href="estilosContabilidad.css" rel="stylesheet">
     <!-- FontAwesome Icons (http://fontawesome.io) -->
     <link href="../../../bootstrap/fontAwesome/css/font-awesome.min.css" rel="stylesheet"> <!-- Icons -->
     <!-- incluir posteriormente en el CSS para hacer uso de ellas -->
