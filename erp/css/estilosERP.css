@@ -119,6 +119,10 @@ body {
         margin-left: auto;
     }
 }
+
+#side-menu li i {
+    margin-right: 5px;
+}
 /* === FIN NAVEGACION LATERAL === */
 
 /* === NAVEGACION GLOBAL === */
@@ -165,10 +169,11 @@ body {
 /* === FIN LISTADOS === */
 
 /* === FORMULARIOS === */
-.info_seccion span{
+.info_seccion {
+    color: #2aabd2;
     font-size: large;
 }
-.info_seccion span i {
+.info_seccion i {
     margin-right: 10px;
 }
 /* === FIN FORMULARIOS === */
