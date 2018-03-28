@@ -53,4 +53,17 @@ class APIClient {
         return false;
     }
 
+    public function getDifunto($nombre, $apellidos) {
+
+        $query = "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'";
+
+        if($res = $this->BD_CONEXION->query($query)){ // Existe
+            if($row = $res->fetch_object()){
+                // Probar el caso en que haya varios difuntos con igual nombre ( while )
+                return $row;
+            } else return null;
+        } else return null;
+
+    }
+
 }

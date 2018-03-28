@@ -40,7 +40,11 @@
 
 </head>
 <body>
-    <?php include "../navModulos.php"; ?>
+    <?php
+        @session_start();
+        require '../../../config/swagger.php';
+        include "../navModulos.php";
+    ?>
     <div id="page-wrapper">
         <?php $op = $_GET['op'];
 

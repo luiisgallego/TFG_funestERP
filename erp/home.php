@@ -1,11 +1,11 @@
 <!-- Dentro de page-wrapper -->
 <div class="container-fluid">
 
-    <div class="row page-header">
-        <h1 class="col-md-3">Home</h1>
-        <div class="col-md-9">
+    <div class="row page_header">
+        <div class="col-md-3"><h1>Home</h1></div>
+        <div class="col-md-2 col-md-offset-1">
             <a href="./modulos/servicios/main.php?op=nuevoServicio">
-                <button type="button" class="btn btn-info btn-lg boton_nuevo">Nuevo Servicio</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block">Nuevo Servicio</button>
             </a>
         </div>
     </div>

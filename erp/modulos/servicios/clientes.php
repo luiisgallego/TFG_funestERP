@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row page-header">
+    <div class="row page_header">
         <h1 class="col-md-3">Clientes</h1>
         <div class="col-md-9">
             <a href="main.php?op=nuevoCliente">

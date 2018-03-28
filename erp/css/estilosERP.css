@@ -131,7 +131,8 @@ body {
     border-bottom: 1px solid #eee;
 }
 .alinear_nav {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
+    margin-top: 18px;
 }
 .espaciar_nav {
     width: 85px;
@@ -140,12 +141,15 @@ body {
 /* === FIN NAVEGACION === */
 
 /* === HOME === */
-.page-header {
+.page_header {
     margin: 5px 0 20px 0;
     border-bottom: 1px solid #eee;
 }
-.page-header h1 {
+.page_header h1 {
     font-size: 200%;
+}
+.page_header button {
+    margin-top: 5px;
 }
 
 .nuevo_servicio_button{
@@ -170,16 +174,24 @@ body {
 
 /* === FORMULARIOS === */
 .info_seccion {
-    color: #2aabd2;
+    color: #ffffff;
     font-size: large;
 }
 .info_seccion i {
     margin-right: 10px;
 }
+.diseño_formulario li {
+    height: 85px;
+}
 /* === FIN FORMULARIOS === */
 
 /* === V_DEFUNCION === */
-.contenido_principal {
-    margin-top: 20px;
+/*.contenido_principal {*/
+    /*margin-top: 20px;*/
+/*}*/
+.diseño_span span {
+    font-weight: bold;
+    margin-right: 10px;
 }
+
 /* === FIN V_DEFUNCION === */
