@@ -8,5 +8,5 @@ require __DIR__ . "/APIClient.php";
 //$ApiClient = new APIClient($apibase, $apiversion);
 //$ApiClient->debug = true;
 
-$ApiClient = new apiBD();
+$ApiClient = new APIClient();
 $ApiClient->debug = true;
