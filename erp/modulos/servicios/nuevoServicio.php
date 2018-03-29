@@ -227,7 +227,7 @@
                     </div> <!-- #datos_familiares panel-body -->
                 </div> <!-- panel -->
 
-                <div class="row" style="margin-bottom: 50px;">
+                <div class="row">
                     <div class="col-md-2 col-md-offset-4">
                         <input type="submit" class="btn btn-primary btn-lg btn-block nuevo_servicio_button" value="Añadir datos">
                     </div>

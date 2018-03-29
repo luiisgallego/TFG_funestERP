@@ -1,9 +1,9 @@
 <div class="container-fluid">
-    <div class="row border_nav">
-        <div class="col-md-2"><h2>Cliente:</h2></div>
+    <div class="row page_header">
+        <div class="col-md-2"><h1>Cliente:</h1></div>
         <div class="col-md-10 alinear_nav">
             <div class="col-md-5"><h4>Jose Miguel del Carmen Garcia Ruiz</h4></div>
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <nav>
                     <ul class="nav nav-tabs">
                         <li class="espaciar_nav" role="presentation" >
@@ -24,8 +24,10 @@
         </div>
     </div> <!-- row navegacion -->
 
-    <div class="row">
-        <h3>EDITANDO CONTENIDO PRINCIPAL</h3>
-    </div> <!-- row contenido_principal -->
+    <div class="row page_content">
+        <div class="col-md-12">
+
+        </div> <!-- col-md-12 -->
+    </div> <!-- row page_content -->
 
 </div>

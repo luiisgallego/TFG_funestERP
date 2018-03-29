@@ -1,3 +1,8 @@
+<?php
+@session_start();
+require '../../../config/swagger.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,11 +45,7 @@
 
 </head>
 <body>
-    <?php
-        @session_start();
-        require '../../../config/swagger.php';
-        include "../navModulos.php";
-    ?>
+    <?php include "../navModulos.php"; ?>
     <div id="page-wrapper">
         <?php $op = $_GET['op'];
 
