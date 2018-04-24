@@ -126,7 +126,7 @@ class APIClient {
      */
     public function __construct($apibase, $version = null, $device = null)
     {
-        // Esto se construye desde swagger.php
+        // Esto se construye desde API_Global.php
         $version AND $version = "$version/";
 
         $this->apibase = $apibase;
