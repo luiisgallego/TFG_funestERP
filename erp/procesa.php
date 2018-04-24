@@ -1,6 +1,6 @@
 <?php
 @session_start();
-require '../config/swagger.php';
+require '../config/API_Global.php';
 
 if($_POST['op']) $op = $_POST['op'];
 else $op = $_GET['op'];

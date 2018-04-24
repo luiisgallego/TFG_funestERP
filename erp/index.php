@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("../config/swagger.php");
+require("../config/API_Global.php");
 require("../config/sesion.php");
 require("../config/friendly_url.php");
 require("../config/config.php");

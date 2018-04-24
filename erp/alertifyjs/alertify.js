@@ -162,7 +162,9 @@
       
         if(src instanceof RegExp){
             cpy = new RegExp(src.source);
+            //noinspection JSAnnotator
             cpy.global = src.global;
+            //noinspection JSAnnotator
             cpy.ignoreCase = src.ignoreCase;
             cpy.multiline = src.multiline;
             cpy.lastIndex = src.lastIndex;
