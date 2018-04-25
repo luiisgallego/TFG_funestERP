@@ -1,3 +1,5 @@
+<pre><?= print_r($_SESSION["login_info"]); ?></pre>
+
 <!-- Dentro de page-wrapper -->
 <div class="container-fluid">
 
