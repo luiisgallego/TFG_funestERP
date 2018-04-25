@@ -34,26 +34,9 @@ class APIClient {
                             FUNCIONES BASE SQL
    ---------------------------------------------------------------------- */
 
-    public function prueba(){
-        //$resultado = $this->getRows("servicios", null, null, "nombre", 5);
-        //$resultado = $this->getRows("servicios", "dni = '77375026 - J'", "nombre, apellidos");
-//        INSERT INTO `usuarios`(`nombre`, `pass`, `rol`) VALUES ("luisss","pass_luis","jefe")
-        $valores = [
-            "nombre" => "luis_prueba2xx1",
-            "pass" => "luis_pas2s",
-            "rol" => "admin2"
-        ];
-
-        $resultado = $this->insertar($valores, "usuarios");
-
-        print("<pre>");
-        print_r($resultado);
-        print("</pre>");
-    }
-
-    /* SUCESIÓN: getRows -> preparaSQL -> getArray -> ejecutarSQL */
+    /* SUCESIÓN: select -> preparaSQL -> getRows -> ejecutarSQL */
     /**
-     * Función auxiliar SELECT en BD
+     * Función SELECT en BD
      *
      * @param string $modulo Módulo a consultar
      * @param string $cond Condiciones de la consulta
@@ -62,10 +45,7 @@ class APIClient {
      * @param string $limit Limite de filas
      * @return array Filas devueltas por la consulta sql
      */
-    public function getRows($modulo, $cond = null, $campos = "*", $order = null, $limit = null) {
-
-        /* Elimino la posibilidad de que el modulo sea null */
-        //if($modulo == null) global $modulo;       // Necesario?
+    public function select($modulo, $cond = null, $campos = "*", $order = null, $limit = null) {
 
         // Preparamos la consulta SQL
         $sql = $this->preparaSQL([
@@ -76,8 +56,7 @@ class APIClient {
             "limit" => $limit
         ]);
 
-        // Recogemos los valores devueltos por la consulta
-        $resultado = $this->getArray($sql);
+        $resultado = $this->getRows($sql);      // Recogemos los valores devueltos por la consulta
 
         return $resultado;
     }
@@ -90,11 +69,10 @@ class APIClient {
      */
     public function preparaSQL($parametros) {
 
-        //global $modulo;     // Necesario?
+        // Inicializamos
         $parametros = (object)$parametros;
 
         // Comprobaciones y adaptaciones
-        //if($parametros->modulo == null) $parametros->modulo = $modulo;  // Necesario?
         if($parametros->cond === false) $parametros->cond = "false";
         if(!isset($parametros->cond)) $parametros->cond = 1;
         if($parametros->campos == null) $parametros->campos = "*";
@@ -121,17 +99,16 @@ class APIClient {
      * @param string $sql Consulta SQL
      * @return array Filas devueltas por la consulta
      */
-    public function getArray($sql) {
+    public function getRows($sql) {
 
         if(!$res = $this->ejecutarSQL($sql)) return null;
 
         // Si la consulta tiene resultado
         $resultado = [];
         while($row = mysqli_fetch_object($res)) {
-            // Copiamos las columnas devueltas
-            $resultado[] = $row;
+            $resultado[] = $row;        // Copiamos las columnas devueltas
         }
-        mysqli_free_result($res);   // Limpiamos memoria
+        mysqli_free_result($res);       // Limpiamos memoria
 
         return $resultado;
     }
@@ -149,32 +126,31 @@ class APIClient {
         $sql = trim($sql);  // Eliminarmos espacios en blanco (ini y fin)
 
         /****************************************/
-        file_put_contents (__DIR__."/SOMELOG_SQL.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
+        //file_put_contents (__DIR__."/SOMELOG_SQL.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
         print("<pre>");
         print_r("CONSULTA SQL: ");
         print_r($sql);
         print("</pre>");
         /****************************************/
 
-        // Ejecutamos
-        $resultado = mysqli_query($this->BD_CONEXION, $sql);
-
+        $resultado = mysqli_query($this->BD_CONEXION, $sql);     // Ejecutamos
+        //
         if($resultado) return $resultado;
 
         return false;
     }
 
     /**
-     * Función auxiliar para insertar en BD
+     * Inserción de registros en BD
      *
      * @param array|object $valores Valores a insertar
      * @param string $modulo Módulo en el que insertar
      * @return bool true si ha tenido éxito
      */
-    public function insertar($valores, $modulo) {
+    public function insert($valores, $modulo) {
 
         // Preparamos la consulta
-        $sql = $this->insertar_getSQL($valores, $modulo);
+        $sql = $this->insert_getSQL($valores, $modulo);
         // Ejecutamos
         if($this->ejecutarSQL($sql)) return true;
 
@@ -188,13 +164,13 @@ class APIClient {
      * @param string $modulo Módulo en el que insertar
      * @return string  Consulta SQL completa
      */
-    public function insertar_getSQL($valores, $modulo) {
+    public function insert_getSQL($valores, $modulo) {
 
         // Inicializamos
         $row = (object)$valores;
 
         // Preparamos la cabecera de la consulta
-        $sql = $this->insertar_getSQL_Cabecera($valores, $modulo);
+        $sql = $this->insert_getSQL_Cabecera($valores, $modulo);
 
         // Añadimos la parte de VALUES
         $sql .= "(";
@@ -204,7 +180,7 @@ class APIClient {
         }
 
         $sql = rtrim($sql, ",");    // Eliminamos la "," del final de la consulta
-        $sql .= ")";     // Concatenamos
+        $sql .= ")";                        // Concatenamos
 
         return $sql;
     }
@@ -217,22 +193,87 @@ class APIClient {
      * @param string $modulo Módulo en el que insertar
      * @return string  Consulta SQL parcial
      */
-    public function insertar_getSQL_Cabecera($valores, $modulo) {
+    public function insert_getSQL_Cabecera($valores, $modulo) {
 
         // Inicializamos
         $row = (object)$valores;
 
-        // Preparamos la cabecera de la consulta
-        $sql = "INSERT INTO $modulo(";
+        $sql = "INSERT INTO $modulo(";      // Preparamos la cabecera de la consulta
         foreach($row as $var => $valor) {
-            $sql .= "$var,";    // INSERT INTO servicios (nombre, apellidos, dni, ....)
+            $sql .= "$var,";                // INSERT INTO servicios (nombre, apellidos, dni, ....)
         }
 
         $sql = rtrim($sql, ",");    // Eliminamos la "," del final de la consulta
-        $sql .= ") VALUES";     // Concatenamos
+        $sql .= ") VALUES";                 // Concatenamos
 
         return $sql;
     }
+
+    /**
+     * Actualizacion de registros en BD
+     *
+     * @param array|object $valores Valores a actualizar
+     * @param string $modulo Módulo sobre el que actualizar
+     * @param string $cond Condicion
+     * @return bool true si ha tenido éxito
+     */
+    public function update($valores, $modulo, $cond){
+        /* Especial cuidado con la condicion, 1 actualiza el modulo al completo */
+        // UPDATE `modulo` SET `nom_valor1`=valor1,`nom_valor2`=valor1 WHERE 1
+
+        // Inicializamos
+        $valores = (object)$valores;
+        $sql = "";
+
+        // Montamos la parte segunda de la consulta
+        foreach ($valores as $var => $valor) {
+            $aux = mysqli_real_escape_string($this->BD_CONEXION, $valor);
+            $sql .= "$var=" . "'$valor'" . ",";
+        }
+
+        $sql = rtrim($sql, ",");                // Eliminamos la "," del final de la consulta
+        $sql = "UPDATE $modulo SET $sql WHERE $cond";   // Montamos la consulta SQL completa
+
+        if($this->ejecutarSQL($sql)) return true;       // Ejecutamos
+
+        return false;
+    }
+
+    /**
+     * Borrado de registros en BD
+     *
+     * @param string $modulo Módulo sobre el que borrar
+     * @param string $cond Condicion
+     * @return bool true si ha tenido éxito
+     */
+    public function delete($modulo, $cond) {
+
+        $sql = "DELETE FROM $modulo WHERE $cond";   // Montamos la consulta SQL completa
+
+        if($this->ejecutarSQL($sql)) return true;       // Ejecutamos
+
+        return false;
+    }
+
+    /*********************************************************************************************/
+    public function prueba(){
+        //$resultado = $this->select("servicios", null, null, "nombre", 5);
+        //$resultado = $this->select("servicios", "dni = '77375026 - J'", "nombre, apellidos");
+//        INSERT INTO `usuarios`(`nombre`, `pass`, `rol`) VALUES ("luisss","pass_luis","jefe")
+        $valores = [
+            "nombre" => "pruebaUpdateXXX222",
+            "pass" => "pruebaUpdate",
+            "rol" => "admin"
+        ];
+
+        $cond = "rol=''";
+        $resultado = $this->delete("usuarios", $cond);
+
+        print("<pre>");
+        print_r($resultado);
+        print("</pre>");
+    }
+    /*********************************************************************************************/
 
     /* ----------------------------------------------------------------------
                        FIN FUNCIONES BASE SQL
@@ -242,7 +283,7 @@ class APIClient {
     public function login($user, $pass) {
 
 //        $query = "SELECT * FROM usuarios WHERE nombre = '$user' AND pass = '$pass' ";
-        $row = $this->getRows("usuarios", "nombre = '$user' AND pass = '$pass'");
+        $row = $this->select("usuarios", "nombre = '$user' AND pass = '$pass'");
 
         if($row[0]->nombre == $user) {
             $this->loginInfo = $_SESSION["login_info"] = $row[0];
@@ -275,7 +316,7 @@ class APIClient {
             "estado_civil" => $datos->estado_civil,
         ];
 
-        $resultado = $this->insertar($valores, "servicios", "insertar");
+        $resultado = $this->insert($valores, "servicios");
 
         return $resultado;
     }
@@ -283,7 +324,7 @@ class APIClient {
     public function getDifunto($nombre, $apellidos) {
 
 //        $query = "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'";
-        $row = $this->getRows("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
+        $row = $this->select("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
 
         if($row[0]) return $row[0];
 
