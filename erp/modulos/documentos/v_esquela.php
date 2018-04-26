@@ -108,7 +108,7 @@
                         <div class="row contenido_superior">
                             <!--                    <img class="tam_img" src="img/cruz_esquela.jpg">-->
                             <div class="col-md-10 col-md-offset-1" style="text-align: center;">
-                                <img class="tam_img" src="img/cruz_esquela.jpg">
+                                <img class="tam_img" src="../../img/cruz_esquela.jpg">
                                 <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
                                 <div class="separado_row" style="font-size: 220%; font-weight: bold">D. MANUEL RODRIGUEZ PRIMO</div>
                                 <div class="separado_row" style="font-size: 130%;">Que falleció en Zaragoza el 20 de junio del 2014 a los 66 años,

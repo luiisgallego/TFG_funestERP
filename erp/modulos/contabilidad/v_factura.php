@@ -70,8 +70,8 @@
                     <span>23790 Porcuna ( Jaén )</span>
                 </div>
                 <div class="col-md-6">
-                    <img class="tam_img pull-right" src="img/cruz_esquela.jpg">
-                    <img class="tam_img pull-right" src="img/cruz_esquela.jpg">
+                    <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
+                    <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
                 </div>
             </div> <!-- row datos_funeraria -->
 

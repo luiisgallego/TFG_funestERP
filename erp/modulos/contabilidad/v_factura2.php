@@ -24,7 +24,7 @@
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
 
     <!-- CSS -->
-    <link href="estilosContabilidad.css" rel="stylesheet">
+    <link href="../../css/estilosContabilidad.css" rel="stylesheet">
     <!-- FontAwesome Icons (http://fontawesome.io) -->
     <link href="../../../bootstrap/fontAwesome/css/font-awesome.min.css" rel="stylesheet"> <!-- Icons -->
     <!-- incluir posteriormente en el CSS para hacer uso de ellas -->
@@ -52,8 +52,8 @@
                 <span>23790 Porcuna ( Jaén )</span>
             </div>
             <div class="col-md-6">
-                <img class="tam_img pull-right" src="img/cruz_esquela.jpg">
-                <img class="tam_img pull-right" src="img/cruz_esquela.jpg">
+                <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
+                <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
             </div>
         </div> <!-- row datos_funeraria -->
 

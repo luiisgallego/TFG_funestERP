@@ -2,6 +2,8 @@
 @session_start();
 require '../config/API_Global.php';
 
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
 if($_POST['op']) $op = $_POST['op'];
 else $op = $_GET['op'];
 
@@ -19,7 +21,6 @@ if($op == "login") {
     header("Location: http://localhost/funerariagallego/erp/login.php");
 
 } else if($op == "nuevoServicio") {
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
     $datos = $_POST;
     unset($datos['op']);

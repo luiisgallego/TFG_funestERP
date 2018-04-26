@@ -5,7 +5,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="./index.php">FunestERP</a>
+    <a class="navbar-brand" href="../../index.php">FunestERP</a>
 </div> <!-- .navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
@@ -130,7 +130,7 @@
             <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a></li>
             <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a></li>
             <li class="divider"></li>
-            <li><a href="./procesa.php?op=logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
+            <li><a href="../procesa.php?op=logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
         </ul> <!-- dropdown-user -->
     </li>
 
