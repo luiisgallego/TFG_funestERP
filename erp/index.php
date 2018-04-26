@@ -2,9 +2,6 @@
 session_start();
 require("../config/API_Global.php");
 require("../config/sesion.php");
-require("../config/friendly_url.php");
-require("../config/config.php");
-require("../config/paginas.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,8 +45,8 @@ require("../config/paginas.php");
     <body>
         <?php include "../erp/navegacion.php";  ?>
         <div id="page-wrapper">
-            <?php $seccion = "home";
-                include($src);
+            <?php $seccion = "home.php";
+                include($seccion);
             ?>
         </div>
     </body>
