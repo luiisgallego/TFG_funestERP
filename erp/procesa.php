@@ -25,7 +25,9 @@ if($op == "login") {
     $datos = $_POST;
     unset($datos['op']);
 
-    if($datos['nombre'] !== "") {
+    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+    if($datos['nombre'] !== "" && !empty($datos)) {
         $datos = json_encode($datos);
 
         if($ApiClient->nuevoServicio($datos) === true) {

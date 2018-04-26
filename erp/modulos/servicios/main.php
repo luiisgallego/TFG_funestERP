@@ -7,6 +7,7 @@ require '../../../config/API_Global.php';
 <html>
 <head>
     <?php include('../head_main.php'); ?>
+    <script src="func_servicios.js"></script>
 </head>
 <body>
     <?php include "../navModulos.php"; ?>
