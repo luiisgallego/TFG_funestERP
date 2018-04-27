@@ -11,6 +11,8 @@ function construyeJSON_Servicios($datos) {
     // Inicializamos
     $datos = json_decode($datos);
     $aux_difunto = [];
+    $aux_servicio = [];
+    $aux_cliente = [];
     $aux_familiares = [];
 
     foreach($datos as $clave => $valor) {
@@ -21,12 +23,16 @@ function construyeJSON_Servicios($datos) {
 
         // Guardamos los distintos bloques en var auxiliares
         if($inicial == "d_") $aux_difunto[$clave] = $valor;
+        else if($inicial == "s_") $aux_servicio[$clave] = $valor;
+        else if($inicial == "c_") $aux_cliente[$clave] = $valor;
         else if($inicial == "f_") $aux_familiares[$clave] = $valor;
     }
 
     // Montamos JSON
     $json = [
         "difunto" => $aux_difunto,
+        "servicio" => $aux_servicio,
+        "cliente" => $aux_cliente,
         "familiares" => $aux_familiares
     ];
 

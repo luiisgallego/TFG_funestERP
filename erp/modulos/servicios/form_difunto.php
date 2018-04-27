@@ -26,7 +26,7 @@
                     <label>DNI</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_DNI" placeholder=""/>
+                        <input type="text" class="form-control" name="d_dni" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -46,7 +46,7 @@
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_natural_de" placeholder=""/>
+                        <input type="text" class="form-control" name="d_poblacion" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -76,7 +76,7 @@
                     <label>Código Postal</label>
                     <div class="input-group ">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_calle" placeholder=""/>
+                        <input type="number" class="form-control" name="d_codigo_postal" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">

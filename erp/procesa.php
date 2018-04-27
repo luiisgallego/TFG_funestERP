@@ -27,20 +27,48 @@ if($op == "login") {
     $datos = $_POST;
     unset($datos['op']);
 
-    if(!empty($datos) && $datos['nombre'] !== "") {
+    if(!empty($datos) && $datos['d_nombre'] !== "") {
 
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Servicios($datos));
+        //$op = "nuevoServicio";
+        $modulo = "difunto";
 
-        if($ApiClient->nuevoServicio(json_encode($json->difunto))) {
-            redirige("modulos/servicios/main.php?op=nuevoServicio");
+        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+
+        if($ApiClient->insert($json->difunto, $modulo)) {
+            $res = compruebaVacio($json->servicio);
+            if($res) {
+                redirige("index.php");
+            } else {
+                redirige("modulos/servicios/main.php?op=nuevoServicio");
+            }
         } else {
             redirige("index.php");
         }
-    } else redirige("index.php");
+
+    } else {
+//        $mensaje = "PROBANDO";
+//        alerta($mensaje);
+        redirige("index.php");
+    }
 }
 
 function redirige($direccion){
     header("Location: http://localhost/funerariagallego/erp/" . $direccion);
 }
+
+function alerta($mensaje) {
+    echo "<script>alert('$mensaje');</script>";
+}
+
+function compruebaVacio($datos){
+
+    foreach ($datos as $valor) {
+        if(empty($valor)) return true;
+    }
+
+    return false;
+}
+
 ?>

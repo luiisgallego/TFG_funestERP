@@ -279,10 +279,11 @@ class APIClient {
                        FIN FUNCIONES BASE SQL
    ---------------------------------------------------------------------- */
 
-
+    /**
+     * SELECT * FROM usuarios WHERE nombre = '$user' AND pass = '$pass'"
+     */
     public function login($user, $pass) {
 
-//        $query = "SELECT * FROM usuarios WHERE nombre = '$user' AND pass = '$pass' ";
         $row = $this->select("usuarios", "nombre = '$user' AND pass = '$pass'");
 
         if($row[0]->nombre == $user) {
@@ -293,37 +294,25 @@ class APIClient {
         return false;
     }
 
-    public function nuevoServicio($datos) {
-
-//        $query = "INSERT INTO servicios (nombre, apellidos, dni, tipo_servicio, tanatorio,
-//        poblacion, provincia, calle, numero, fecha_nacimiento,estado_civil)
-//        VALUES ('$datos->nombre', '$datos->apellidos', '$datos->DNI', '$datos->tipo_servicio',
-//        '$datos->tanatorio', '$datos->natural_de', '$datos->provincia', '$datos->calle',
-//        '$datos->numero', '$datos->fecha_nacimiento', '$datos->estado_civil')";
+    public function insertarDatos($datos, $modulo) {
 
         $datos = json_decode($datos);
-        $valores = [
-            "nombre" => $datos->nombre,
-            "apellidos" => $datos->apellidos,
-            "dni" => $datos->DNI,
-            "tipo_servicio" => $datos->tipo_servicio,
-            "tanatorio" => $datos->tanatorio,
-            "poblacion" => $datos->natural_de,
-            "provincia" => $datos->provincia,
-            "calle" => $datos->calle,
-            "numero" => $datos->numero,
-            "fecha_nacimiento" => $datos->fecha_nacimiento,
-            "estado_civil" => $datos->estado_civil,
-        ];
 
-        $resultado = $this->insert($valores, "servicios");
+//        $resultado = false;
+//        if($op == "global") {
+//            $resultado = $this->insert($datos, "nuevoServicio");
+//        }
+
+        $resultado = $this->insert($datos, $modulo);
 
         return $resultado;
     }
 
-    public function getDifunto($nombre, $apellidos) {
+    /**
+     * "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'"
+     */
+    public function selectDifunto($nombre, $apellidos) {
 
-//        $query = "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'";
         $row = $this->select("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
 
         if($row[0]) return $row[0];

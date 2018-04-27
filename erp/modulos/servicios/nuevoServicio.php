@@ -13,8 +13,8 @@
             <div class="col-md-12">
 
                 <div class="difunto"> <?php include('form_difunto.php'); ?> </div>
-<!--                <div class="servicio"> --><?php //include('form_servicio.php'); // S ?><!-- </div>-->
-<!--                <div class="cliente"> --><?php //include('form_cliente.php'); ?><!-- </div>-->
+                <div class="servicio"> <?php include('form_servicio.php'); // S ?> </div>
+                <div class="cliente"> <?php include('form_cliente.php'); ?> </div>
                 <div class="familiares"> <?php include('form_familiares.php'); ?> </div>
 <!--                <div class="seguros"> --><?php //include('form_seguros.php'); // Z ?><!-- </div>-->
 <!--                <div class="floristeria"> --><?php //include('form_floristeria.php'); ?><!-- </div>-->
