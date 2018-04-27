@@ -34,8 +34,6 @@
 
 
 
-
-
 <script>
     $(".j_sexo").change(function () {
         var valor = $("#j_sexo").val();

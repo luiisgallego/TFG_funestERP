@@ -12,28 +12,28 @@
                     <label>Nombre</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="nombre" placeholder=""/>
+                        <input type="text" class="form-control" name="d_nombre" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Apellidos</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="apellidos" placeholder=""/>
+                        <input type="text" class="form-control" name="d_apellidos" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>DNI</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="DNI" placeholder=""/>
+                        <input type="text" class="form-control" name="d_DNI" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Tipo Servicio</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <select class="form-control" name="tipo_servicio">
+                        <select class="form-control" name="d_tipo_servicio">
                             <option>Particular</option>
                             <option>Compañia</option>
                             <option>Recepción</option>
@@ -46,28 +46,28 @@
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="natural_de" placeholder=""/>
+                        <input type="text" class="form-control" name="d_natural_de" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Provincia</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="provincia" placeholder=""/>
+                        <input type="text" class="form-control" name="d_provincia" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Calle</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="calle" placeholder=""/>
+                        <input type="text" class="form-control" name="d_calle" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Número</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="number" class="form-control" name="numero" placeholder=""/>
+                        <input type="number" class="form-control" name="d_numero" placeholder=""/>
                     </div>
                 </div>
             </li>
@@ -76,21 +76,21 @@
                     <label>Código Postal</label>
                     <div class="input-group ">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="calle" placeholder=""/>
+                        <input type="text" class="form-control" name="d_calle" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Fecha nacimiento</label>
                     <div class="input-group ">
                         <div class="input-group-addon"><!--<span class="glyphicon glyphicon-calendar"></span>--></div>
-                        <input type="date" class="form-control" name="fecha_nacimiento" placeholder=""/>
+                        <input type="date" class="form-control" name="d_fecha_nacimiento" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Estado civil</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <select class="form-control" name="estado_civil" title="estado civil">
+                        <select class="form-control" name="d_estado_civil" title="estado civil">
                             <option>Casado</option>
                             <option>Viudo</option>
                             <option>Soltero</option>
@@ -101,7 +101,7 @@
                     <label>Nombre Pareja</label>
                     <div class="input-group ">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="nombre_pareja" placeholder=""/>
+                        <input type="text" class="form-control" name="d_nombre_pareja" placeholder=""/>
                     </div>
                 </div>
             </li>
