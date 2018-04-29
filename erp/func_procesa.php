@@ -1,5 +1,9 @@
 <?php
 
+/* ----------------------------------------------------------------------
+                        FUNCIONES nuevoServicio
+---------------------------------------------------------------------- */
+
 /**
  * Dividimos Array formulario nuevoServicio en secciones
  *
@@ -37,6 +41,27 @@ function construyeJSON_Servicios($datos) {
     ];
 
     return json_encode($json);
+}
+
+function compruebaVacio($datos, $excepciones){
+    // $aux = count($datos);
+    foreach ($datos as $valor) {
+        if(empty($valor)) return true;
+    }
+
+    return false;
+}
+
+/* ----------------------------------------------------------------------
+                        FUNCIONES AUXILIARES
+---------------------------------------------------------------------- */
+
+function redirige($direccion){
+    header("Location: http://localhost/funerariagallego/erp/" . $direccion);
+}
+
+function alerta($mensaje) {
+    echo "<script>alert('$mensaje');</script>";
 }
 
 ?>

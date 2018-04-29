@@ -1,6 +1,8 @@
 
+/**
+ * Añade nueva linea dinámicamente en FORM_FAMILIARES
+ */
 var cont_parRolNombres = 1;
-
 function addParRolNombres() {
 
     cont_parRolNombres++;
@@ -27,3 +29,15 @@ function addParRolNombres() {
     bloqueCompleto.innerHTML = bloqueRol + bloqueNombres;
     document.getElementById('parRolNombre').appendChild(bloqueCompleto);
 }
+<!-- ******************************************************* -->
+
+/**
+ * JQUERY para ajustar los FORM en funcion del sexo
+ */
+var valor = $(".d_sexo");
+valor.change(function () {
+
+    if(valor.val() === "Hombre") $(".d_hijo_de").text("Hijo de");
+    else $(".d_hijo_de").text("Hija de");
+});
+<!-- ******************************************************* -->

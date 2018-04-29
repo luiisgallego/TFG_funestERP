@@ -134,7 +134,7 @@ class APIClient {
         /****************************************/
 
         $resultado = mysqli_query($this->BD_CONEXION, $sql);     // Ejecutamos
-        //
+
         if($resultado) return $resultado;
 
         return false;

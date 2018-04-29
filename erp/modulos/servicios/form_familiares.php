@@ -5,7 +5,7 @@
             <i class="fa fa-caret-square-o-right"></i>Datos Familiares
         </a>
     </div> <!-- panel-heading -->
-    <div id="form_familiares" class="panel-body collapse in">
+    <div id="form_familiares" class="panel-body collapse">
         <ul id="parRolNombre" class="list-group diseño_formulario">
             <li class="list-group-item">
                 <div class="col-md-2">

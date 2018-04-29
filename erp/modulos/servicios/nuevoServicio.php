@@ -30,15 +30,3 @@
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
-
-
-
-
-<script>
-    $(".j_sexo").change(function () {
-        var valor = $("#j_sexo").val();
-
-        if(valor == "Hombre") $(".j_hijo_de").text("Hijo de");
-        else $(".j_hijo_de").text("Hija de");
-    });
-</script>

@@ -29,14 +29,12 @@
                         <input type="text" class="form-control" name="d_dni" placeholder=""/>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label>Tipo Servicio</label>
+                <div class="col-md-2">
+                    <label>Sexo</label>
                     <div class="input-group">
-                        <span class="input-group-addon"></span>
-                        <select class="form-control" name="d_tipo_servicio">
-                            <option>Particular</option>
-                            <option>Compañia</option>
-                            <option>Recepción</option>
+                        <select class="form-control d_sexo" name="d_sexo" title="sexo">
+                            <option>Hombre</option>
+                            <option>Mujer</option>
                         </select>
                     </div>
                 </div>
@@ -105,7 +103,39 @@
                     </div>
                 </div>
             </li>
+            <li class="list-group-item">
+                <div class="col-md-3">
+                    <label class="d_hijo_de">Hijo de</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="d_hijo_de" placeholder=""/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Natural de</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="d_poblacion2" placeholder=""/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Y de</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="d_hijo_de2" placeholder=""/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Natural de</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="d_poblacion3" placeholder=""/>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div> <!-- #form_difunto panel-body collapse -->
 </div> <!-- panel panel-primary -->
 <!-- ****************     FIN DIFUNTO      ************************* -->
+
+

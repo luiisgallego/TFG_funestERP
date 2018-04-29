@@ -1,7 +1,7 @@
 <?php
 @session_start();
 require '../config/API_Global.php';
-include_once('./modulos/servicios/func_servicios.php');
+include_once('func_procesa.php');
 
 //    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
@@ -31,18 +31,19 @@ if($op == "login") {
 
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Servicios($datos));
-        //$op = "nuevoServicio";
         $modulo = "difunto";
 
-        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+       file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         if($ApiClient->insert($json->difunto, $modulo)) {
-            $res = compruebaVacio($json->servicio);
-            if($res) {
-                redirige("index.php");
-            } else {
-                redirige("modulos/servicios/main.php?op=nuevoServicio");
-            }
+//            $excepciones = ["tanatorio", "tipo_servicio"];
+//            $res = compruebaVacio($json->servicio, $excepciones);
+//            if($res) {
+//                redirige("index.php");
+//            } else {
+//                redirige("modulos/servicios/main.php?op=nuevoServicio");
+//            }
+            redirige("modulos/servicios/main.php?op=nuevoServicio");
         } else {
             redirige("index.php");
         }
@@ -52,23 +53,6 @@ if($op == "login") {
 //        alerta($mensaje);
         redirige("index.php");
     }
-}
-
-function redirige($direccion){
-    header("Location: http://localhost/funerariagallego/erp/" . $direccion);
-}
-
-function alerta($mensaje) {
-    echo "<script>alert('$mensaje');</script>";
-}
-
-function compruebaVacio($datos){
-
-    foreach ($datos as $valor) {
-        if(empty($valor)) return true;
-    }
-
-    return false;
 }
 
 ?>
