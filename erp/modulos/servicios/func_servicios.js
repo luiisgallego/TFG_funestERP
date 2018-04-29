@@ -2,10 +2,10 @@
 /**
  * Añade nueva linea dinámicamente en FORM_FAMILIARES
  */
-var cont_parRolNombres = 1;
+//var cont_parRolNombres = 1;
 function addParRolNombres() {
 
-    cont_parRolNombres++;
+   // cont_parRolNombres++;
     var bloqueCompleto = document.createElement('li');
     bloqueCompleto.setAttribute('class', 'list-group-item');
 
@@ -14,7 +14,7 @@ function addParRolNombres() {
             '<label>Rol</label>'+
             '<div class="input-group">'+
                 '<span class="input-group-addon"></span>'+
-                '<input type="text" class="form-control" name="f_rol_'+cont_parRolNombres+'" placeholder=""/>'+
+                '<input type="text" class="form-control" name="f_rol" placeholder=""/>'+
             '</div>'+
         '</div>';
     var bloqueNombres =
@@ -22,7 +22,7 @@ function addParRolNombres() {
             '<label>Nombre</label>'+
             '<div class="input-group">'+
                 '<span class="input-group-addon"></span>'+
-                '<input type="text" class="form-control" name="f_nombre_'+cont_parRolNombres+'" placeholder=""/>'+
+                '<input type="text" class="form-control" name="f_nombres" placeholder=""/>'+
             '</div>'+
         '</div>';
 

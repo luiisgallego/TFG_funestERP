@@ -43,13 +43,14 @@ function construyeJSON_Servicios($datos) {
     return json_encode($json);
 }
 
-function compruebaVacio($datos, $excepciones){
-    // $aux = count($datos);
-    foreach ($datos as $valor) {
-        if(empty($valor)) return true;
+function compruebaVacio($datos, $excepciones = null){
+
+    foreach ($datos as $clave => $valor) {
+
+        if(!empty($valor) && !in_array($clave, $excepciones)) return false;
     }
 
-    return false;
+    return true;
 }
 
 /* ----------------------------------------------------------------------

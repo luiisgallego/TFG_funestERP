@@ -8,20 +8,20 @@
     <div id="form_difunto" class="panel-body collapse in">
         <ul class="list-group diseño_formulario">
             <li class="list-group-item">
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <label>Nombre</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
                         <input type="text" class="form-control" name="d_nombre" placeholder=""/>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label>Apellidos</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_apellidos" placeholder=""/>
-                    </div>
-                </div>
+<!--                <div class="col-md-3">-->
+<!--                    <label>Apellidos</label>-->
+<!--                    <div class="input-group">-->
+<!--                        <span class="input-group-addon"></span>-->
+<!--                        <input type="text" class="form-control" name="d_apellidos" placeholder=""/>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-md-3">
                     <label>DNI</label>
                     <div class="input-group">

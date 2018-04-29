@@ -6,20 +6,21 @@
         </a>
     </div> <!-- panel-heading -->
     <div id="form_familiares" class="panel-body collapse">
+        <input type="hidden" name="f_id_dif" />
         <ul id="parRolNombre" class="list-group diseño_formulario">
             <li class="list-group-item">
                 <div class="col-md-2">
                     <label>Rol</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="f_rol_1" placeholder=""/>
+                        <input type="text" class="form-control" name="f_rol" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <label>Nombres</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="f_nombre_1" placeholder=""/>
+                        <input type="text" class="form-control" name="f_nombres" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-2">

@@ -151,6 +151,9 @@ class APIClient {
 
         // Preparamos la consulta
         $sql = $this->insert_getSQL($valores, $modulo);
+
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
+
         // Ejecutamos
         if($this->ejecutarSQL($sql)) return true;
 

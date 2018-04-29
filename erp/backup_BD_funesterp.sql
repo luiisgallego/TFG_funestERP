@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2018 a las 12:34:51
+-- Tiempo de generación: 29-04-2018 a las 15:48:54
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -52,6 +52,7 @@ CREATE TABLE `difunto` (
   `nombre` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dni` text COLLATE utf8_unicode_ci,
+  `sexo` enum('Hombre','Mujer') COLLATE utf8_unicode_ci DEFAULT NULL,
   `poblacion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `provincia` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `calle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -59,7 +60,11 @@ CREATE TABLE `difunto` (
   `codigo_postal` int(5) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `estado_civil` enum('Casado','Viudo','Soltero','') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nombre_pareja` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+  `nombre_pareja` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hijo_de` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `poblacion2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hijo_de2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `poblacion3` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -124,7 +129,8 @@ INSERT INTO `usuarios` (`id`, `pass`, `nombre`, `rol`) VALUES
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_dif` (`id_dif`);
 
 --
 -- Indices de la tabla `difunto`
@@ -136,13 +142,15 @@ ALTER TABLE `difunto`
 -- Indices de la tabla `familiares`
 --
 ALTER TABLE `familiares`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_dif` (`id_dif`);
 
 --
 -- Indices de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_dif` (`id_dif`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -164,7 +172,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `difunto`
 --
 ALTER TABLE `difunto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `familiares`
@@ -176,13 +184,35 @@ ALTER TABLE `familiares`
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_dif`) REFERENCES `difunto` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `familiares`
+--
+ALTER TABLE `familiares`
+  ADD CONSTRAINT `familiares_ibfk_1` FOREIGN KEY (`id_dif`) REFERENCES `difunto` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `servicio`
+--
+ALTER TABLE `servicio`
+  ADD CONSTRAINT `servicio_ibfk_1` FOREIGN KEY (`id_dif`) REFERENCES `difunto` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
