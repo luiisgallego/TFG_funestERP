@@ -14,14 +14,16 @@ require '../../../config/API_Global.php';
     <div id="page-wrapper">
         <?php
         $op = $_GET['op'];
-        $estado = "hola";
 
-        if($op == "nuevoServicio") include "./nuevoServicio.php";       // DIFUNTOS
+        if($op == "nuevoServicio") {                                    // DIFUNTOS
+            $editar = false;
+            include "./nuevoServicio.php";
+        }
         else if($op == "defunciones") include "./defunciones.php";          // listado
         else if($op == "v_defuncion") include "./v_defuncion.php";          // ver
         else if($op == "e_defuncion") {                                     // editar
+            $editar = true;
             include "./e_defuncion.php";
-            $estado = "editar";
         }
         else if($op == "nuevoCliente") include "./nuevoCliente.php";    // CLIENTES
         else if($op == "clientes") include "./clientes.php";                // listado
@@ -33,5 +35,30 @@ require '../../../config/API_Global.php';
     </div> <!-- fin page-wrapper -->
 
     <script src="func_servicios.js"></script>
+    <script>
+        /**
+         * JQUERY para ajustar los VALUE en función
+         * de si estamos viendo o editando
+         */
+        $(document).ready(function () {
+            var editar = "<?php print_r($editar); ?>";
+            var hayServicio = "<?php print_r($hayServicio); ?>";
+            var input_difunto = $("#form_difunto input");
+            var input_servicio = $("#form_servicio input");
+            var input_cliente = $("#form_cliente input");
+            var input_familiares = $("#form_familiares input");
+
+            if(editar !== "1") {    // Caso general
+                input_difunto.attr("value","");
+                input_servicio.attr("value","");
+                input_cliente.attr("value","");
+                input_familiares.attr("value","");
+            }
+
+            // Estamos editando pero no existe servicio en difunto
+            if(hayServicio !== "1") input_servicio.attr("value","");
+        });
+    </script>
+
 </body>
 </html>

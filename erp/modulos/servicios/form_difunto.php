@@ -6,6 +6,9 @@
         </a>
     </div> <!-- panel-heading -->
     <div id="form_difunto" class="panel-body collapse in">
+        <?php if($editar === true) { ?>
+            <input type="hidden" name="d_id" value="<?= $difunto->id ?>" />
+        <?php } ?>
         <ul class="list-group diseño_formulario">
             <li class="list-group-item">
                 <div class="col-md-6">
@@ -26,15 +29,23 @@
                     <label>DNI</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_dni" value="probando" placeholder=""/>
+                        <input type="text" class="form-control" name="d_dni" value="<?= $difunto->dni ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <label>Sexo</label>
                     <div class="input-group">
                         <select class="form-control d_sexo" name="d_sexo" title="sexo">
-                            <option>Hombre</option>
-                            <option>Mujer</option>
+                            <?php if($editar === false) { ?>
+                                <option>Hombre</option>
+                                <option>Mujer</option>
+                            <?php } else {
+                                $estados = array('Hombre', 'Mujer');
+                                foreach ($estados as $estado){
+                                    if($estado == $difunto->sexo) echo '<option selected="selected">' .$estado. '</option>';
+                                    else echo '<option>' .$estado. '</option>';
+                                }
+                            } ?>
                         </select>
                     </div>
                 </div>
@@ -44,28 +55,28 @@
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_poblacion" value="probando2" placeholder=""/>
+                        <input type="text" class="form-control" name="d_poblacion" value="<?= $difunto->poblacion ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Provincia</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_provincia" placeholder=""/>
+                        <input type="text" class="form-control" name="d_provincia" value="<?= $difunto->provincia ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Calle</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_calle" placeholder=""/>
+                        <input type="text" class="form-control" name="d_calle" value="<?= $difunto->calle ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Número</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="number" class="form-control" name="d_numero" placeholder=""/>
+                        <input type="number" class="form-control" name="d_numero" value="<?= $difunto->numero ?>" placeholder=""/>
                     </div>
                 </div>
             </li>
@@ -74,14 +85,14 @@
                     <label>Código Postal</label>
                     <div class="input-group ">
                         <span class="input-group-addon"></span>
-                        <input type="number" class="form-control" name="d_codigo_postal" placeholder=""/>
+                        <input type="number" class="form-control" name="d_codigo_postal" value="<?= $difunto->codigo_postal ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Fecha nacimiento</label>
                     <div class="input-group ">
                         <div class="input-group-addon"><!--<span class="glyphicon glyphicon-calendar"></span>--></div>
-                        <input type="date" class="form-control" name="d_fecha_nacimiento" placeholder=""/>
+                        <input type="date" class="form-control" name="d_fecha_nacimiento" value="<?= $difunto->fecha_nacimiento ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -89,9 +100,17 @@
                     <div class="input-group">
                         <span class="input-group-addon"></span>
                         <select class="form-control" name="d_estado_civil" title="estado civil">
-                            <option>Casado</option>
-                            <option>Viudo</option>
-                            <option>Soltero</option>
+                            <?php if($editar === false) { ?>
+                                <option>Casado</option>
+                                <option>Viudo</option>
+                                <option>Soltero</option>
+                            <?php } else {
+                                $estados = array('Casado', 'Viudo', 'Soltero');
+                                foreach ($estados as $estado){
+                                    if($estado == $difunto->estado_civil) echo '<option selected="selected">' .$estado. '</option>';
+                                    else echo '<option>' .$estado. '</option>';
+                                }
+                            } ?>
                         </select>
                     </div>
                 </div>
@@ -99,7 +118,7 @@
                     <label>Nombre Pareja</label>
                     <div class="input-group ">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_nombre_pareja" placeholder=""/>
+                        <input type="text" class="form-control" name="d_nombre_pareja" value="<?= $difunto->nombre_pareja ?>" placeholder=""/>
                     </div>
                 </div>
             </li>
@@ -108,28 +127,28 @@
                     <label class="d_hijo_de">Hijo de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_hijo_de" placeholder=""/>
+                        <input type="text" class="form-control" name="d_hijo_de" value="<?= $difunto->hijo_de ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_poblacion2" placeholder=""/>
+                        <input type="text" class="form-control" name="d_poblacion2" value="<?= $difunto->poblacion2 ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Y de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_hijo_de2" placeholder=""/>
+                        <input type="text" class="form-control" name="d_hijo_de2" value="<?= $difunto->hijo_de2 ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_poblacion3" placeholder=""/>
+                        <input type="text" class="form-control" name="d_poblacion3" value="<?= $difunto->poblacion3 ?>" placeholder=""/>
                     </div>
                 </div>
             </li>
@@ -137,20 +156,3 @@
     </div> <!-- #form_difunto panel-body collapse -->
 </div> <!-- panel panel-primary -->
 <!-- ****************     FIN DIFUNTO      ************************* -->
-
-<script>
-    /**
-     * JQUERY para ajustar los VALUE en función
-     * de si estamos viendo o editando
-     */
-
-</script>
-
-<script>
-    $(document).ready(function () {
-        var estado = "<?php echo $estado; ?>";
-        var input = $("#form_difunto input");
-
-        if(estado !==  "editar") input.attr("value","");
-    });
-</script>

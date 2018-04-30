@@ -1,13 +1,27 @@
 <?php
-$estado = "editar";
 $ref = $_GET['ref'];
+
 $difunto = $ApiClient->select("difunto", "id='$ref'");
 $difunto = $difunto[0];
+
+$servicio = $ApiClient->select("servicio", "id_dif='$difunto->id'");
+$hayServicio = false;
+if(!empty($servicio)) {
+    $servicio = $servicio[0];
+    $hayServicio = true;
+}
+
+//print("<pre>");
+//print_r($servicio);
+//print("</pre>");
 ?>
 
 <div class="container-fluid">
     <form class="form-horizontal" method="post" action="../../procesa.php">
         <input type="hidden" name="op" value="updateDifunto" />
+        <?php if(!$hayServicio) { ?>
+            <input type="hidden" name="aniadirServicio" value="true" />
+        <?php } ?>
 
         <div class="row page_header">
             <div class="col-md-2"><h1>Defunción:</h1></div>
@@ -19,16 +33,16 @@ $difunto = $difunto[0];
                         <nav>
                             <ul class="nav nav-tabs">
                                 <li class="espaciar_nav" role="presentation" >
-                                    <a href="main.php?op=v_defuncion">Ver</a>
+                                    <a href="main.php?op=v_defuncion&ref=<?= $difunto->id ?>">Ver</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="main.php?op=clientes">Cliente</a>
+                                    <a href="main.php?op=clientes&ref=<?= $difunto->id ?>">Cliente</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="../documentos/main.php?op=v_esquela">Esquela</a>
+                                    <a href="../documentos/main.php?op=v_esquela&ref=<?= $difunto->id ?>">Esquela</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="../contabilidad/main.php?op=v_factura">Factura</a>
+                                    <a href="../contabilidad/main.php?op=v_factura&ref=<?= $difunto->id ?>">Factura</a>
                                 </li>
                             </ul>
                         </nav>
@@ -41,6 +55,9 @@ $difunto = $difunto[0];
             <div class="col-md-12">
 
                 <div class="difunto"> <?php include('form_difunto.php'); ?> </div>
+<!--                --><?php //if($hayServicio) { ?>
+                    <div class="servicio"> <?php include('form_servicio.php'); // S ?> </div>
+<!--                --><?php //} ?>
 
                 <div class="row">
                     <div class="col-md-2 col-md-offset-4">
@@ -52,3 +69,7 @@ $difunto = $difunto[0];
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
+
+<script>
+
+</script>
