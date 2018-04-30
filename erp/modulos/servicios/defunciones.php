@@ -1,3 +1,22 @@
+<?php
+/* Creamos union de datos DIFUNTO - SERVICIO para tabla */
+
+$defunciones = $ApiClient->select("difunto");
+$serv = [];
+
+foreach ($defunciones as $def) {
+    $servicio = $ApiClient->select("servicio", "id_dif='$def->id'");
+
+    if(!empty($servicio)) $serv[$def->id] = $servicio[0];
+    else $serv[$def->id] = (object)["tipo_servicio" => "", "tanatorio" => "", "fecha_defuncion" => ""];
+}
+
+//print("<pre>");
+//print_r($defunciones);
+//print("</pre>");
+
+?>
+
 <div class="container-fluid">
     <div class="row page_header">
         <div class="col-md-3"><h1>Defunciones</h1></div>
@@ -17,41 +36,52 @@
                 <div class="panel-body">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
-                        <tr>
-                            <th></th>
-                            <th>ID_Esquela</th>
-                            <th>Cliente</th>
-                            <th>Fecha Defuncion</th>
-                        </tr>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Fecha Defuncion</th>
+                                <th>Tanatorio</th>
+                                <th>Población</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="iconos_td">
-                                <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                                <a href="./main.php?op=e_defuncion&ref=1" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
-                            </td>
-                            <td class="id_td">001</td>
-                            <td>Nuria Jalon</td>
-                            <td>23-Enero-2018</td>
-                        </tr>
-                        <tr>
-                            <td class="iconos_td">
-                                <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                                <a href="./main.php?op=e_defuncion" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
-                            </td>
-                            <td class="id_td">002</td>
-                            <td>Maria del Mar Ruano</td>
-                            <td>15-Diciembre-2017</td>
-                        </tr>
+                            <tr>
+                                <td class="iconos_td">
+                                    <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                                    <a href="./main.php?op=e_defuncion&ref=1" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
+                                    <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
+                                    <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
+                                </td>
+                                <td class="id_td">001</td>
+                                <td>Nuria Jalon</td>
+                                <td>23-Enero-2018</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <?php
+                            foreach ($defunciones as $def){ ?>
+                                <tr>
+                                    <td class="iconos_td">
+                                        <a href="./main.php?op=v_defuncion&ref=<?= $def->id ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                                        <a href="./main.php?op=e_defuncion&ref=<?= $def->id ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
+                                    </td>
+                                    <td class="id_td"><?=  $def->id; ?></td>
+                                    <td><?= $def->nombre; ?></td>
+                                    <td><?= $serv[$def->id]->tipo_servicio; ?></td>
+                                    <td><?= $serv[$def->id]->fecha_defuncion; ?></td>
+                                    <td><?= $serv[$def->id]->tanatorio; ?></td>
+                                    <td><?= $def->poblacion; ?></td>
+                                </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div> <!-- panel-body-->
             </div> <!-- panel -->
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
-
 </div> <!-- container-fluid -->

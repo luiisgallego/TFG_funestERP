@@ -127,10 +127,10 @@ class APIClient {
 
         /****************************************/
         //file_put_contents (__DIR__."/SOMELOG_SQL.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
-        print("<pre>");
-        print_r("CONSULTA SQL: ");
-        print_r($sql);
-        print("</pre>");
+//        print("<pre>");
+//        print_r("CONSULTA SQL: ");
+//        print_r($sql);
+//        print("</pre>");
         /****************************************/
 
         $resultado = mysqli_query($this->BD_CONEXION, $sql);     // Ejecutamos
@@ -297,30 +297,25 @@ class APIClient {
         return false;
     }
 
-    public function insertarDatos($datos, $modulo) {
-
-        $datos = json_decode($datos);
-
-//        $resultado = false;
-//        if($op == "global") {
-//            $resultado = $this->insert($datos, "nuevoServicio");
-//        }
-
-        $resultado = $this->insert($datos, $modulo);
-
-        return $resultado;
-    }
+//    public function insertarDatos($datos, $modulo) {
+//
+//        $datos = json_decode($datos);
+//
+//        $resultado = $this->insert($datos, $modulo);
+//
+//        return $resultado;
+//    }
 
     /**
      * "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'"
      */
-    public function selectDifunto($nombre, $apellidos) {
-
-        $row = $this->select("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
-
-        if($row[0]) return $row[0];
-
-        return false; // Anteriormente null
-    }
+//    public function selectDifunto($nombre, $apellidos) {
+//
+//        $row = $this->select("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
+//
+//        if($row[0]) return $row[0];
+//
+//        return false; // Anteriormente null
+//    }
 
 }

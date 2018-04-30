@@ -82,6 +82,9 @@ if($op == "login") {
         } else redirige("index.php");
 
     } else redirige("index.php");
+
+} else if($op == "updateDifunto") {
+
 }
 
 ?>

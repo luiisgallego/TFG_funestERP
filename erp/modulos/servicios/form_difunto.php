@@ -12,7 +12,7 @@
                     <label>Nombre</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_nombre" placeholder=""/>
+                        <input type="text" class="form-control" name="d_nombre" value="<?= $difunto->nombre ?>" placeholder=""/>
                     </div>
                 </div>
 <!--                <div class="col-md-3">-->
@@ -26,7 +26,7 @@
                     <label>DNI</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_dni" placeholder=""/>
+                        <input type="text" class="form-control" name="d_dni" value="probando" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -44,7 +44,7 @@
                     <label>Natural de</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_poblacion" placeholder=""/>
+                        <input type="text" class="form-control" name="d_poblacion" value="probando2" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -138,4 +138,19 @@
 </div> <!-- panel panel-primary -->
 <!-- ****************     FIN DIFUNTO      ************************* -->
 
+<script>
+    /**
+     * JQUERY para ajustar los VALUE en función
+     * de si estamos viendo o editando
+     */
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        var estado = "<?php echo $estado; ?>";
+        var input = $("#form_difunto input");
+
+        if(estado !==  "editar") input.attr("value","");
+    });
+</script>
