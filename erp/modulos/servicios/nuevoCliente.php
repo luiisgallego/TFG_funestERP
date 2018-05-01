@@ -12,8 +12,23 @@
         <div class="row page_content">
             <div class="col-md-12">
 
+                <!-- *************** BUSCADOR **************** -->
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-3">
+                        <form class="navbar-form" role="search" method="post">
+                            <div class="form-group col-md-8">
+                                <input type="text" class="form-control" name="busqueda" onkeyup="buscarCliente();" placeholder="Buscar difunto">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="resBusqueda" class="col-md-8 col-md-offset-3"></div>
+                </div>
+
+                <!-- *************** FIN BUSCADOR **************** -->
+
+                <div class="cliente"> <?php include('form_cliente.php'); ?> </div>
+
             </div> <!-- col-md-12 -->
         </div><!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
-

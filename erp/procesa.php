@@ -2,8 +2,9 @@
 @session_start();
 require '../config/API_Global.php';
 include_once('func_procesa.php');
+//error_reporting(E_ERROR | E_PARSE);
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($_POST, TRUE).PHP_EOL, FILE_APPEND );
 
 // Obtenemos la opcion mandada
 if($_POST['op']) $op = $_POST['op'];
@@ -37,7 +38,7 @@ if($op == "login") {
         $datos_difunto = $json->difunto;
         $modulo = "difunto";
 
-      file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         // El caso más importante es la INSERCION de los datos del DIFUNTO
         if($ApiClient->insert($datos_difunto, $modulo)) {
@@ -54,20 +55,36 @@ if($op == "login") {
             // Preparamos la INSERCION del SERVICIO
             $datos_servicio = $json->servicio;
             $excepciones = ["tanatorio", "tipo_servicio", "compañia"];
+
             if(!compruebaVacio($datos_servicio, $excepciones)) {
+
                 $datos_servicio->id_dif = $id_difunto;
                 $modulo = "servicio";
 
                 if(!$ApiClient->insert($datos_servicio, $modulo)) redirige("index.php");
             }
 
-            // Preparamos la INSERCION del CLIENTE
+            // Preparamos la INSERCION del CLIENTE y relacion DIFUNTO - CLIENTE
             $datos_cliente = $json->cliente;
-            if(!compruebaVacio($datos_cliente)) {
-                $datos_cliente->id_dif = $id_difunto;
-                $modulo = "cliente";
 
+            if(!compruebaVacio($datos_cliente)) {
+
+                // Primero insertamos el cliente
+                $modulo = "cliente";
                 if(!$ApiClient->insert($datos_cliente, $modulo)) redirige("index.php");
+
+                // Ahora creamos relacion con difunto
+                $cond = "nombre='$datos_cliente->nombre'";
+                $campos = "id";
+                $id_cliente = $ApiClient->select($modulo, $cond, $campos);
+                $difunto_cliente = [
+                    "id_dif" => $id_difunto,
+                    "id_cli" => $id_cliente[0]->id
+                ];
+
+                // Insertamos la relacion
+                $modulo = "difunto_cliente";
+                if(!$ApiClient->insert($difunto_cliente, $modulo)) redirige("index.php");
             }
 
             // Preparamos la INSERCION de los FAMILIARES
@@ -110,21 +127,51 @@ if($op == "login") {
 
         if($ApiClient->update($datos_difunto, $modulo, $cond)) {
 
-            // UPDATE O INSERT ?????
+            // Tenemos que diferenciar entre UPDATE o INSERT
+            if($aniadirServicio) {      // INSERT
 
-            // Preparamos el UPDATE del SERVICIO
-            $datos_servicio = $json->servicio;
-            $modulo = "servicio";
-            $cond = "id='$datos_servicio->id'";
+                // Preparamos la INSERCION del SERVICIO
+                $datos_servicio = $json->servicio;
+                $excepciones = ["tanatorio", "tipo_servicio", "compañia"];
 
-            if($ApiClient->update($datos_servicio, $modulo, $cond)) {
+                if(!compruebaVacio($datos_servicio, $excepciones)) {
 
-                redirige("modulos/servicios/main.php?op=e_defuncion&ref=$datos_difunto->id");
+                    $datos_servicio->id_dif = $datos_difunto->id;
+                    $modulo = "servicio";
 
-            } else redirige("index.php");
+                    if($ApiClient->insert($datos_servicio, $modulo)) redirige("modulos/servicios/main.php?op=e_defuncion&ref=$datos_difunto->id");
+                    else redirige("index.php");
+                }
+            } else {                    // UPDATE
 
+                // Preparamos el UPDATE del SERVICIO
+                $datos_servicio = $json->servicio;
+                $modulo = "servicio";
+                $cond = "id='$datos_servicio->id'";
+
+                if($ApiClient->update($datos_servicio, $modulo, $cond))  redirige("modulos/servicios/main.php?op=e_defuncion&ref=$datos_difunto->id");
+                else redirige("index.php");
+            }
         } else redirige("index.php");
     }
+
+} else if($op == "nuevoCliente") {
+
+} else if($op == "buscarCliente") {
+
+    $nom = $_POST['nombreDifunto'];
+
+    // Obtenemos los datos del posible/s DIFUNTO
+    $modulo = "difunto";
+    $cond = "nombre LIKE '$nom%'";
+    $campos = "*";
+    $res = $ApiClient->select($modulo, $cond, $campos);
+
+    $res2 = "";
+    if(!empty($res)) $res2 = "YES";
+    else $res2 = "</p>NO</p>";
+
+    echo json_encode($res);
 }
 
 ?>

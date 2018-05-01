@@ -42,5 +42,22 @@ valor.change(function () {
 });
 <!-- ******************************************************* -->
 
+function buscarCliente() {
+    var nombre = $("input[name=busqueda]").val();
+
+    if(nombre !== "") {
+        $.post("../../procesa.php", {op: "buscarCliente",nombreDifunto: nombre}, function (mensaje) {
+
+//                $("#resBusqueda").html("<p>" +mensaje+ "</p>");
+            console.log("RETURN");
+            var json = JSON.parse(mensaje);
+            if(json == "") $("#resBusqueda").html("<p>NOTHING</p>");
+            console.log(json);
+            $("#resBusqueda").html("<pre>"+ json[0]['nombre'] +"</pre>");
+        });
+    } else {
+        $("#resBusqueda").html("<p>NOTHING</p>");
+    }
+}
 
 <!-- ******************************************************* -->

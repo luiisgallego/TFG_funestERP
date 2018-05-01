@@ -5,8 +5,7 @@
             <i class="fa fa-caret-square-o-right"></i>Datos Cliente
         </a>
     </div> <!-- panel-heading -->
-    <div id="form_cliente" class="panel-body collapse">
-        <input type="hidden" name="c_id_dif" />
+    <div id="form_cliente" class="panel-body collapse in">
         <ul class="list-group diseño_formulario">
             <li class="list-group-item">
                 <div class="col-md-3">

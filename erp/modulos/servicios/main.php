@@ -1,6 +1,7 @@
 <?php
 @session_start();
 require '../../../config/API_Global.php';
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 
 <!DOCTYPE html>
@@ -13,23 +14,28 @@ require '../../../config/API_Global.php';
     <?php include "../navModulos.php"; ?>
     <div id="page-wrapper">
         <?php
-        $op = $_GET['op'];
+            $op = $_GET['op'];
 
-        if($op == "nuevoServicio") {                                    // DIFUNTOS
-            $editar = false;
-            include "./nuevoServicio.php";
-        }
-        else if($op == "defunciones") include "./defunciones.php";          // listado
-        else if($op == "v_defuncion") include "./v_defuncion.php";          // ver
-        else if($op == "e_defuncion") {                                     // editar
-            $editar = true;
-            include "./e_defuncion.php";
-        }
-        else if($op == "nuevoCliente") include "./nuevoCliente.php";    // CLIENTES
-        else if($op == "clientes") include "./clientes.php";                // listado
-        else if($op == "v_cliente") include "./v_cliente.php";              // ver
-        else if($op == "e_cliente") include "./e_cliente.php";              // editar
-
+            if($op == "nuevoServicio") {                                    // DIFUNTOS
+                $editar = false;
+                include "./nuevoServicio.php";
+            }
+            else if($op == "defunciones") include "./defunciones.php";          // listado
+            else if($op == "v_defuncion") include "./v_defuncion.php";          // ver
+            else if($op == "e_defuncion") {                                     // editar
+                $editar = true;
+                include "./e_defuncion.php";
+            }
+            else if($op == "nuevoCliente") {                                // CLIENTES
+                $editar = false;
+                include "./nuevoCliente.php";
+            }
+            else if($op == "clientes") include "./clientes.php";                // listado
+            else if($op == "v_cliente") include "./v_cliente.php";              // ver
+            else if($op == "e_cliente") {                                       // editar
+                $editar = true;
+                include "./e_cliente.php";
+            }
         ?>
 
     </div> <!-- fin page-wrapper -->

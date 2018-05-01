@@ -1,6 +1,11 @@
 <?php
 /* Creamos union de datos DIFUNTO - SERVICIO para tabla */
 
+/* AÑADIR EL CASO PARA CUANDO VENGAMOS DE CLIENTE
+    - Consultar relacion difunto_cliente
+    - Buscar los difuntos asociados
+*/
+
 $defunciones = $ApiClient->select("difunto");
 $serv = [];
 
@@ -61,8 +66,7 @@ foreach ($defunciones as $def) {
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <?php
-                            foreach ($defunciones as $def){ ?>
+                            <?php foreach ($defunciones as $def){ ?>
                                 <tr>
                                     <td class="iconos_td">
                                         <a href="./main.php?op=v_defuncion&ref=<?= $def->id ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
@@ -77,7 +81,7 @@ foreach ($defunciones as $def) {
                                     <td><?= $serv[$def->id]->tanatorio; ?></td>
                                     <td><?= $def->poblacion; ?></td>
                                 </tr>
-                        <?php } ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div> <!-- panel-body-->
