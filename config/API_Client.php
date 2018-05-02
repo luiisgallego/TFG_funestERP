@@ -297,25 +297,4 @@ class APIClient {
         return false;
     }
 
-//    public function insertarDatos($datos, $modulo) {
-//
-//        $datos = json_decode($datos);
-//
-//        $resultado = $this->insert($datos, $modulo);
-//
-//        return $resultado;
-//    }
-
-    /**
-     * "SELECT * FROM servicios WHERE nombre = '$nombre' AND apellidos = '$apellidos'"
-     */
-//    public function selectDifunto($nombre, $apellidos) {
-//
-//        $row = $this->select("servicios", "nombre = '$nombre' AND apellidos = '$apellidos'");
-//
-//        if($row[0]) return $row[0];
-//
-//        return false; // Anteriormente null
-//    }
-
 }

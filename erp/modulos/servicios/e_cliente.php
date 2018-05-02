@@ -1,7 +1,10 @@
 <?php
+/* ¡¡ CLIENTE NO ES UNA RELACION 1-1 !! */
 $ref = $_GET['ref'];
 $cliente = $ApiClient->select("cliente", "id='$ref'");
 $cliente = $cliente[0];
+
+$difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$ref'");
 ?>
 
 <div class="container-fluid">
@@ -20,7 +23,11 @@ $cliente = $cliente[0];
                                     <a href="main.php?op=v_cliente&ref=<?= $cliente->id ?>">Ver</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="main.php?op=defunciones&cliente=1&ref=<?= $cliente->id ?>">Difunto</a>
+                                    <?php if(count($difuntosCliente) > 1) { ?>
+                                        <a href="main.php?op=defunciones&miga=cliente&ref=<?= $cliente->id ?>">Difuntos</a>
+                                    <?php } else { ?>
+                                        <a href="main.php?op=v_defuncion&miga=cliente&ref=<?= $difuntosCliente[0]->id_dif ?>">Difunto</a>
+                                    <?php } ?>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
                                     <a href="../documentos/main.php?op=v_esquela&ref=<?= $cliente->id ?>">Esquela</a>

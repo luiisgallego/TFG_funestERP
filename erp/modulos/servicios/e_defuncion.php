@@ -9,10 +9,6 @@ if(!empty($servicio)) {
     $servicio = $servicio[0];
     $hayServicio = true;
 }
-
-//print("<pre>");
-//print_r($servicio);
-//print("</pre>");
 ?>
 
 <div class="container-fluid">
@@ -35,7 +31,7 @@ if(!empty($servicio)) {
                                     <a href="main.php?op=v_defuncion&ref=<?= $difunto->id ?>">Ver</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="main.php?op=clientes&ref=<?= $difunto->id ?>">Cliente</a>
+                                    <a href="main.php?op=v_cliente&miga=difunto&ref=<?= $difunto->id ?>">Cliente</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
                                     <a href="../documentos/main.php?op=v_esquela&ref=<?= $difunto->id ?>">Esquela</a>

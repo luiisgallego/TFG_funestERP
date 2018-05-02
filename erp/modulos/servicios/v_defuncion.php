@@ -1,8 +1,10 @@
 <?php
-/* DENTRO DE DEFUNCIÓN MOSTRAMOS LOS DATOS DE TODAS LAS TABLAS */
+/* ¿DENTRO DE DEFUNCIÓN MOSTRAMOS LOS DATOS DE TODAS LAS TABLAS? */
 
 $ref = $_GET['ref'];
-$difunto = $ApiClient->select("difunto", "id='$ref'");
+$modulo = "difunto";
+$cond = "id='$ref'"; // Nos llega un ID_DIFUNTO
+$difunto = $ApiClient->select($modulo,$cond);
 $difunto = $difunto[0];
 
 $servicio = $ApiClient->select("servicio", "id_dif='$difunto->id'");
@@ -30,7 +32,7 @@ if(!empty($servicio)) {
                             <a href="main.php?op=e_defuncion&ref=<?= $difunto->id ?>">Editar</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="main.php?op=clientes&ref=<?= $difunto->id ?>">Cliente</a>
+                            <a href="main.php?op=v_cliente&miga=difunto&ref=<?= $difunto->id ?>">Cliente</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="../documentos/main.php?op=v_esquela&ref=<?= $difunto->id ?>">Esquela</a>

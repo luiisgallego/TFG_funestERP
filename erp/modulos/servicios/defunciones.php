@@ -1,17 +1,32 @@
 <?php
+
+/* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
+$defunciones = [];
+if(!isset($_GET['miga'])) {     // DIFUNTO
+    $defunciones = $ApiClient->select("difunto");
+} else {
+
+    $miga = $_GET['miga'];
+    $ref = $_GET['ref'];
+
+    if($miga === "cliente"){    // CLIENTE
+
+        // Consultamos los DIFUNTOS asociados al CLIENTE
+        $modulo = "difunto_cliente";
+        $cond = "id_cli='$ref'";
+        $difuntosCliente = $ApiClient->select($modulo, $cond);
+
+        // Tomamos los datos de cada DIFUNTO
+        foreach ($difuntosCliente as $par) {
+            $modulo = "difunto";
+            $cond = "id='$par->id_dif'";
+            $aux = $ApiClient->select($modulo, $cond);
+            array_push($defunciones, $aux[0]);
+        }
+    }
+}
+
 /* Creamos union de datos DIFUNTO - SERVICIO para tabla */
-
-/* AÑADIR EL CASO PARA CUANDO VENGAMOS DE CLIENTE
-    - Consultar relacion difunto_cliente
-    - Buscar los difuntos asociados
-*/
-//if(isset($_GET['cliente'])) {
-//    $id_dif = $_GET['ref'];
-//    $cond = "id='$id_dif'";
-//    $defunciones = $ApiClient->select("difunto", $cond);
-//} else
-$defunciones = $ApiClient->select("difunto");
-
 $serv = [];
 foreach ($defunciones as $def) {
     $servicio = $ApiClient->select("servicio", "id_dif='$def->id'");
