@@ -1,6 +1,5 @@
 <?php
 $ref = $_GET['ref'];
-
 $difunto = $ApiClient->select("difunto", "id='$ref'");
 $difunto = $difunto[0];
 
@@ -69,7 +68,3 @@ if(!empty($servicio)) {
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
-
-<script>
-
-</script>

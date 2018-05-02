@@ -42,21 +42,25 @@ valor.change(function () {
 });
 <!-- ******************************************************* -->
 
-function buscarCliente() {
+function buscarDifunto_Cliente() {
     var nombre = $("input[name=busqueda]").val();
 
     if(nombre !== "") {
-        $.post("../../procesa.php", {op: "buscarCliente",nombreDifunto: nombre}, function (mensaje) {
+        $.post("../../procesa.php", {op: "buscarDifunto_Cliente",nombreDifunto: nombre}, function (mensaje) {
 
-//                $("#resBusqueda").html("<p>" +mensaje+ "</p>");
-            console.log("RETURN");
+            /*
+            Actualmente arriesgamos a tener una sola coincidencia final. Hay que hacer más precisa esta lógica.
+            Una buena resolución seria listar las opciones y poder seleccionar la que queramos, posteriormente
+            guardar los datos de solo esta.
+             */
+
             var json = JSON.parse(mensaje);
-            if(json == "") $("#resBusqueda").html("<p>NOTHING</p>");
-            console.log(json);
-            $("#resBusqueda").html("<pre>"+ json[0]['nombre'] +"</pre>");
+
+            if(json.length === 1) $("#resBusqueda").html("<input type='hidden' name='c_id_diff' value='"+json[0]['id']+"' />");
+            // $("#resBusqueda").html("<pre>"+ json[0]['nombre'] +"</pre>");
         });
     } else {
-        $("#resBusqueda").html("<p>NOTHING</p>");
+        //$("#resBusqueda").html("<p>NOTHING</p>");
     }
 }
 

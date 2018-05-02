@@ -5,12 +5,12 @@
 ---------------------------------------------------------------------- */
 
 /**
- * Dividimos Array formulario nuevoServicio en secciones
+ * Dividimos Array en secciones
  *
- * @param string $datos (JSON) Datos formulario nuevoServicio
+ * @param string $datos (JSON) Datos de formularios
  * @return string JSON {difunto, servicio, cliente, familiares,...}
  */
-function construyeJSON_Servicios($datos) {
+function construyeJSON_Datos($datos) {
 
     // Inicializamos
     $datos = json_decode($datos);

@@ -1,5 +1,4 @@
 <?php
-
 $ref = $_GET['ref'];
 $cliente = $ApiClient->select("cliente", "id='$ref'");
 $cliente = $cliente[0];
@@ -18,10 +17,10 @@ $cliente = $cliente[0];
                 <nav>
                     <ul class="nav nav-tabs">
                         <li class="espaciar_nav" role="presentation" >
-                            <a href="main.php?op=e_defuncion&ref=<?= $cliente->id ?>">Editar</a>
+                            <a href="main.php?op=e_cliente&ref=<?= $cliente->id ?>">Editar</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="main.php?op=defunciones&ref=<?= $cliente->id ?>">Difuntos</a>
+                            <a href="main.php?op=defunciones&cliente=1&ref=<?= $cliente->id ?>">Difuntos</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="../documentos/main.php?op=esquelas&ref=<?= $cliente->id ?>">Esquela</a>
@@ -67,4 +66,4 @@ $cliente = $cliente[0];
             </div>
         </div> <!-- col-md-12 -->
     </div> <!-- row page_content -->
-</div>
+</div> <!--  container-fluid -->

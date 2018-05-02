@@ -32,7 +32,7 @@ if($op == "login") {
 
         // Adaptamos los datos correctamente
         $datos = json_encode($datos);
-        $json = json_decode(construyeJSON_Servicios($datos));
+        $json = json_decode(construyeJSON_Datos($datos));
 
         // Preparamos la INSERCION del DIFUNTO
         $datos_difunto = $json->difunto;
@@ -94,7 +94,7 @@ if($op == "login") {
 //            if(!$ApiClient->insert($datos_familiares, $modulo)) redirige("index.php");
 
             // Si el proceso ha ido bien
-            redirige("modulos/servicios/main.php?op=nuevoServicio");
+            redirige("modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto");
 
         } else redirige("index.php");
 
@@ -116,14 +116,12 @@ if($op == "login") {
 
         // Adaptamos los datos correctamente
         $datos = json_encode($datos);
-        $json = json_decode(construyeJSON_Servicios($datos));
+        $json = json_decode(construyeJSON_Datos($datos));
 
         // Preparamos el UPDATE del DIFUNTO
         $datos_difunto = $json->difunto;
         $modulo = "difunto";
         $cond = "id='$datos_difunto->id'";
-
-        //file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         if($ApiClient->update($datos_difunto, $modulo, $cond)) {
 
@@ -139,7 +137,7 @@ if($op == "login") {
                     $datos_servicio->id_dif = $datos_difunto->id;
                     $modulo = "servicio";
 
-                    if($ApiClient->insert($datos_servicio, $modulo)) redirige("modulos/servicios/main.php?op=e_defuncion&ref=$datos_difunto->id");
+                    if($ApiClient->insert($datos_servicio, $modulo)) redirige("modulos/servicios/main.php?op=v_defuncion&ref=$datos_difunto->id");
                     else redirige("index.php");
                 }
             } else {                    // UPDATE
@@ -149,7 +147,7 @@ if($op == "login") {
                 $modulo = "servicio";
                 $cond = "id='$datos_servicio->id'";
 
-                if($ApiClient->update($datos_servicio, $modulo, $cond))  redirige("modulos/servicios/main.php?op=e_defuncion&ref=$datos_difunto->id");
+                if($ApiClient->update($datos_servicio, $modulo, $cond)) redirige("modulos/servicios/main.php?op=v_defuncion&ref=$datos_difunto->id");
                 else redirige("index.php");
             }
         } else redirige("index.php");
@@ -157,21 +155,76 @@ if($op == "login") {
 
 } else if($op == "nuevoCliente") {
 
-} else if($op == "buscarCliente") {
+    $datos = $_POST;
+    unset($datos['op']);
+    unset($datos['busqueda']);
+
+    if(!empty($datos) && $datos['c_nombre'] !== "") {
+
+        // Adaptamos los datos correctamente
+        $id_dif = $datos['c_id_diff'];
+        unset($datos['c_id_diff']);
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // Preparamos la INSERCION del CLIENTE
+        $datos_cliente = $json->cliente;
+        $modulo = "cliente";
+
+        if ($ApiClient->insert($datos_cliente, $modulo)) {
+
+            // Obtenemos el ID del CLIENTE
+            $cond = "nombre='$datos_cliente->nombre'";
+            $campos = "id";
+            $id_cliente = $ApiClient->select($modulo, $cond, $campos);
+            $id_cliente = $id_cliente[0]->id;
+
+            // Creamos la relacion SERVICIO - CLIENTE
+            $datos_relacion = [
+                "id_dif" => $id_dif,
+                "id_cli" => $id_cliente
+            ];
+            $modulo = "difunto_cliente";
+
+            if ($ApiClient->insert($datos_relacion, $modulo)) redirige("modulos/servicios/main.php?op=v_cliente&ref=$id_cliente");
+            else redirige("index.php");
+
+        } else redirige("index.php");
+    } else redirige("index.php");
+
+} else if($op == "buscarDifunto_Cliente") {
 
     $nom = $_POST['nombreDifunto'];
 
     // Obtenemos los datos del posible/s DIFUNTO
     $modulo = "difunto";
-    $cond = "nombre LIKE '$nom%'";
+    $cond = "nombre LIKE '%$nom%'";
     $campos = "*";
     $res = $ApiClient->select($modulo, $cond, $campos);
 
-    $res2 = "";
-    if(!empty($res)) $res2 = "YES";
-    else $res2 = "</p>NO</p>";
-
     echo json_encode($res);
+
+} else if($op == "updateCliente") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+    if(!empty($datos) && $datos['c_nombre'] !== "") {
+        
+        // Adaptamos los datos correctamente
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // Preparamos el UPDATE del CLIENTE
+        $datos_cliente = $json->cliente;
+        $modulo = "cliente";
+        $cond = "id='$datos_cliente->id'";
+
+        if($ApiClient->update($datos_cliente, $modulo, $cond))  redirige("modulos/servicios/main.php?op=v_cliente&ref=$datos_cliente->id");
+        else redirige("index.php");
+
+    } else redirige("index.php");
+
 }
 
 ?>

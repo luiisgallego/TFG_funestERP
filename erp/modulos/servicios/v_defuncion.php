@@ -88,29 +88,29 @@ if(!empty($servicio)) {
             <?php if($hayServicio) { ?>
                 <div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Difunto</div>
+                        <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Servicio</div>
                         <div class="panel-body">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <div class="row diseño_span">
-                                        <div class="col-md-3"><span>Nombre: </span><?= $servicio->fecha_defuncion ?></div>
-                                        <div class="col-md-3"><span>DNI: </span><?= $servicio->hora_defuncion ?></div>
-                                        <div class="col-md-3"><span>Sexo: </span><?= $servicio->fecha_entierro ?></div>
-                                        <div class="col-md-3"><span>Sexo: </span><?= $servicio->hora_entierro ?></div>
+                                        <div class="col-md-3"><span>Fecha Defunción: </span><?= $servicio->fecha_defuncion ?></div>
+                                        <div class="col-md-3"><span>Hora Defunción: </span><?= $servicio->hora_defuncion ?></div>
+                                        <div class="col-md-3"><span>Fecha Entierro: </span><?= $servicio->fecha_entierro ?></div>
+                                        <div class="col-md-3"><span>Hora Entierro: </span><?= $servicio->hora_entierro ?></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div class="row diseño_span">
-                                        <div class="col-md-3"><span>Natural de: </span><?= $servicio->poblacion_entierro ?></div>
-                                        <div class="col-md-3"><span>Provincia: </span><?= $servicio->fecha_misa ?></div>
-                                        <div class="col-md-3"><span>Calle: </span><?= $servicio->hora_misa ?></div>
-                                        <div class="col-md-3"><span>Número: </span><?= $servicio->tanatorio ?></div>
+                                        <div class="col-md-3"><span>Población Entierro: </span><?= $servicio->poblacion_entierro ?></div>
+                                        <div class="col-md-3"><span>Fecha Misa: </span><?= $servicio->fecha_misa ?></div>
+                                        <div class="col-md-3"><span>Hora Misa: </span><?= $servicio->hora_misa ?></div>
+                                        <div class="col-md-3"><span>Tanatorio: </span><?= $servicio->tanatorio ?></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div class="row diseño_span">
-                                        <div class="col-md-3"><span>Código Postal: </span><?= $servicio->tipo_servicio ?></div>
-                                        <div class="col-md-3"><span>Código Postal: </span><?= $servicio->compañia ?></div>
+                                        <div class="col-md-3"><span>Tipo Servicio: </span><?= $servicio->tipo_servicio ?></div>
+                                        <div class="col-md-3"><span>Compañia: </span><?= $servicio->compañia ?></div>
                                     </div>
                                 </li>
                             </ul>

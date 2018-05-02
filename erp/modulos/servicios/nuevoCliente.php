@@ -17,7 +17,7 @@
                     <div class="col-md-8 col-md-offset-3">
                         <form class="navbar-form" role="search" method="post">
                             <div class="form-group col-md-8">
-                                <input type="text" class="form-control" name="busqueda" onkeyup="buscarCliente();" placeholder="Buscar difunto">
+                                <input type="text" class="form-control" name="busqueda" onkeyup="buscarDifunto_Cliente();" placeholder="Buscar difunto">
                             </div>
                         </form>
                     </div>

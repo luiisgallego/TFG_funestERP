@@ -1,8 +1,4 @@
-<?php
-
-$clientes = $ApiClient->select("cliente");
-
-?>
+<?php $clientes = $ApiClient->select("cliente"); ?>
 
 <div class="container-fluid">
     <div class="row page_header">
@@ -64,5 +60,4 @@ $clientes = $ApiClient->select("cliente");
             </div> <!-- panel -->
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
-
 </div> <!--  container-fluid -->

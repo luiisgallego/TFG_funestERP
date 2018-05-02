@@ -5,10 +5,14 @@
     - Consultar relacion difunto_cliente
     - Buscar los difuntos asociados
 */
-
+//if(isset($_GET['cliente'])) {
+//    $id_dif = $_GET['ref'];
+//    $cond = "id='$id_dif'";
+//    $defunciones = $ApiClient->select("difunto", $cond);
+//} else
 $defunciones = $ApiClient->select("difunto");
-$serv = [];
 
+$serv = [];
 foreach ($defunciones as $def) {
     $servicio = $ApiClient->select("servicio", "id_dif='$def->id'");
 
