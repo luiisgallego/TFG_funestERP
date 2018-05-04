@@ -20,10 +20,9 @@
                                 <input type="text" class="form-control" name="busqueda" onkeyup="buscarDifunto_Cliente();" placeholder="Buscar difunto">
                             </div>
                         </form>
+                        <div id="resBusqueda"></div>
                     </div>
-                    <div id="resBusqueda" class="col-md-8 col-md-offset-3"></div>
                 </div>
-
                 <!-- *************** FIN BUSCADOR **************** -->
 
                 <div class="cliente"> <?php include('form_cliente.php'); ?> </div>

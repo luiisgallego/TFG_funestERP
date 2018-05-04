@@ -20,7 +20,7 @@ if(!isset($_GET['miga'])) {     // CLIENTE
     }
 }
 
-$cliente = $ApiClient->select("cliente", "id='$id'");
+$cliente = $ApiClient->select("cliente", "id='$id_cliente'");
 $cliente = $cliente[0];
 
 /* DIFUNTOS del CLIENTE (salida) */

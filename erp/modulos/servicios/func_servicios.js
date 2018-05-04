@@ -55,12 +55,33 @@ function buscarDifunto_Cliente() {
              */
 
             var json = JSON.parse(mensaje);
+            var divBusqueda = $("#resBusqueda");
+            divBusqueda.html(""); // Limpiamos si hay datos mostrados
 
-            if(json.length === 1) $("#resBusqueda").html("<input type='hidden' name='c_id_diff' value='"+json[0]['id']+"' />");
-            // $("#resBusqueda").html("<pre>"+ json[0]['nombre'] +"</pre>");
+            for(i=0; i<json.length; i++){
+                var estructura = "<div class='row'>" +
+                                    "<div class='col-md-5 col-md-offset-1'>" + json[i]['nombre']+ "</div>" +
+                                    "<div class='col-md-2'><input type='checkbox' name='c_id_diff' value='"+json[i]['id']+"' /></div>" +
+                                 "</div>";
+                divBusqueda.append(estructura);
+
+
+                // var texto = "<div class='col-md-10'><p>"+ json[i]['nombre']+ "</p>";
+                // var checkbox = "<input type='checkbox' name='c_id_diff' value='"+json[i]['id']+"' /></div";
+                // divBusqueda.append(texto + checkbox);
+            }
+
+            // if(json.length === 1) {
+            //     var checkbox = "<input type='checkbox' name='c_id_diff' value='"+json[0]['id']+"' />";
+            //     $("#resBusqueda").html(texto + checkbox);
+            // }
+            // else {
+            //     $("#resBusqueda").html(texto);
+            // }
+
         });
     } else {
-        //$("#resBusqueda").html("<p>NOTHING</p>");
+        $("#resBusqueda").html("");
     }
 }
 
