@@ -60,7 +60,7 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
         <div class="col-md-12">
             <div>
                 <div class="panel panel-primary">
-                    <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Difunto</div>
+                    <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Cliente</div>
                     <div class="panel-body">
                         <ul class="list-group">
                             <li class="list-group-item">

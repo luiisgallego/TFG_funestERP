@@ -49,9 +49,9 @@ if(!empty($servicio)) {
         <div class="row page_content">
             <div class="col-md-12">
 
-                <div class="difunto"> <?php include('form_difunto.php'); ?> </div>
+                <div class="difunto"> <?php include('../formularios/form_difunto.php'); ?> </div>
 <!--                --><?php //if($hayServicio) { ?>
-                    <div class="servicio"> <?php include('form_servicio.php'); // S ?> </div>
+                    <div class="servicio"> <?php include('../formularios/form_servicio.php'); // S ?> </div>
 <!--                --><?php //} ?>
 
                 <div class="row">

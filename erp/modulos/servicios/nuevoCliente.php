@@ -25,7 +25,7 @@
                 </div>
                 <!-- *************** FIN BUSCADOR **************** -->
 
-                <div class="cliente"> <?php include('form_cliente.php'); ?> </div>
+                <div class="cliente"> <?php include('../formularios/form_cliente.php'); ?> </div>
 
             </div> <!-- col-md-12 -->
         </div><!-- page_content -->

@@ -158,7 +158,6 @@ if($op == "login") {
     $datos = $_POST;
     unset($datos['op']);
     unset($datos['busqueda']);
-    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
     if(!empty($datos) && $datos['c_nombre'] !== "") {
 

@@ -45,7 +45,7 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$ref'");
         <div class="row page_content">
             <div class="col-md-12">
 
-                <div class="difunto"> <?php include('form_cliente.php'); ?> </div>
+                <div class="difunto"> <?php include('../formularios/form_cliente.php'); ?> </div>
 
                 <div class="row">
                     <div class="col-md-2 col-md-offset-4">

@@ -12,12 +12,12 @@
         <div class="row page_content">
             <div class="col-md-12">
 
-                <div class="difunto"> <?php include('form_difunto.php'); ?> </div>
-                <div class="servicio"> <?php include('form_servicio.php'); // S ?> </div>
-                <div class="cliente"> <?php include('form_cliente.php'); ?> </div>
-                <div class="familiares"> <?php include('form_familiares.php'); ?> </div>
-<!--                <div class="seguros"> --><?php //include('form_seguros.php'); // Z ?><!-- </div>-->
-<!--                <div class="floristeria"> --><?php //include('form_floristeria.php'); ?><!-- </div>-->
+                <div class="difunto"> <?php include('../formularios/form_difunto.php'); ?> </div>
+                <div class="servicio"> <?php include('../formularios/form_servicio.php'); // S ?> </div>
+                <div class="cliente"> <?php include('../formularios/form_cliente.php'); ?> </div>
+                <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
+<!--                <div class="seguros"> --><?php //include('../formularios/form_seguros.php'); // Z ?><!-- </div>-->
+<!--                <div class="floristeria"> --><?php //include('../formularios/form_floristeria.php'); ?><!-- </div>-->
 
                 <!-- ****************   SUBMIT GENERAL   ************************* -->
                 <div class="row">
