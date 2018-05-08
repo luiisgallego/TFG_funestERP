@@ -225,6 +225,51 @@ if($op == "login") {
 
     } else redirige("index.php");
 
+} else if($op == "nuevaEsquela") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+    if(!empty($datos)) {
+
+        // Adaptamos los datos correctamente
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+
+        // Preparamos la INSERCION del PAR FAMILIARES
+        /* Hay que insertar cada para 1 a 1, generando para cada
+        uno la estructura de inserción */
+        $datos_familiares = $json->familiares;
+        $id_dif = $datos_familiares->id_dif;
+        unset($datos_familiares->id_dif);
+        $modulo = "familiares";
+
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos_familiares, TRUE).PHP_EOL, FILE_APPEND );
+
+        $datos_familiares = ajustarFamiliares($datos_familiares);
+
+        $i = 0;
+        while(count($datos_familiares) > $i) {
+
+            $aux = [
+//                "id_dif" => $id_dif,
+                "id_dif" => "1",
+                "rol" => $datos_familiares[$i],
+                "nombres" => $datos_familiares[$i+1]
+            ];
+
+            file_put_contents (__DIR__."/SOMELOG.log" , print_r($aux, TRUE).PHP_EOL, FILE_APPEND );
+
+            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+
+            $i = $i+2;
+        }
+
+        redirige("modulos/documentos/main.php?op=nuevaEsquela");
+    }
+
 }
 
 ?>

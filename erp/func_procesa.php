@@ -53,6 +53,18 @@ function compruebaVacio($datos, $excepciones = null){
     return true;
 }
 
+function ajustarFamiliares($datos_familiares) {
+
+    $res = [];
+
+    foreach ($datos_familiares as $clave => $valor) {
+        array_push($res, $valor);
+    }
+
+    return $res;
+
+}
+
 /* ----------------------------------------------------------------------
                         FUNCIONES AUXILIARES
 ---------------------------------------------------------------------- */

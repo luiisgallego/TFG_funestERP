@@ -32,5 +32,3 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="../../../bootstrap/metisMenu/metisMenu.min.js"></script>
 <script src="../../js/metisMenuNavegacion.js"></script>
-
-<!-- Añadir todas las comprobaciones de login necesarias -->

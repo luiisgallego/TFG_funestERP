@@ -3,9 +3,11 @@
 /* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
 
 $ref = $_GET['ref'];
+$miga = $_GET['miga'];
 $id_cliente = null;
 
-if(!isset($_GET['miga'])) {     // CLIENTE
+
+if($miga == "" || $miga == "cliente") {     // CLIENTE
     $id_cliente = $ref;
 } else {
     $miga = $_GET['miga'];
