@@ -157,13 +157,13 @@ if($op == "login") {
 
     $datos = $_POST;
     unset($datos['op']);
-    unset($datos['busqueda']);
+    unset($datos['nuevoCliente']); // Valor de la busqueda del difunto
 
     if(!empty($datos) && $datos['c_nombre'] !== "") {
 
         // Adaptamos los datos correctamente
-        $id_dif = $datos['c_id_diff'];
-        unset($datos['c_id_diff']);
+        $id_dif = $datos['c_id_dif'];
+        unset($datos['c_id_dif']);
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Datos($datos));
 
@@ -192,7 +192,7 @@ if($op == "login") {
         } else redirige("index.php");
     } else redirige("index.php");
 
-} else if($op == "buscarDifunto_Cliente") {
+} else if($op == "buscarDifunto") {
 
     $nom = $_POST['nombreDifunto'];
 
@@ -229,6 +229,9 @@ if($op == "login") {
 
     $datos = $_POST;
     unset($datos['op']);
+    unset($datos['nuevaEsquela']); // Valor de la busqueda del difunto
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
     if(!empty($datos)) {
 
@@ -236,38 +239,49 @@ if($op == "login") {
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Datos($datos));
 
-        // file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         // Preparamos la INSERCION del PAR FAMILIARES
-        /* Hay que insertar cada para 1 a 1, generando para cada
-        uno la estructura de inserción */
+        /* Hay que insertar cada para 1 a 1, generando para cada uno la estructura de inserción */
         $datos_familiares = $json->familiares;
         $id_dif = $datos_familiares->id_dif;
         unset($datos_familiares->id_dif);
-        $modulo = "familiares";
-
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos_familiares, TRUE).PHP_EOL, FILE_APPEND );
 
         $datos_familiares = ajustarFamiliares($datos_familiares);
 
+        /* Primero hay que generar la relacion DIFUNTO - FAMILIAR */
+        $datos_relacion = [
+            "id_dif" => $id_dif
+        ];
+        $modulo = "difunto_familiares";
+        if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+
+        // Ahora obtenemos el ID para guardar en la segunda tabla
+        $cond = "id_dif='$id_dif'";
+        $campos = "id_fam";
+        $id_fam = $ApiClient->select($modulo, $cond, $campos);
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_fam, TRUE).PHP_EOL, FILE_APPEND );
+        $id_fam = $id_fam[0]->id_fam;
+
+        /* AÑADIR COMPROBACIÓN:
+            Si id_dif existe en la tabla de DIFUNTO_FAMILIARES, no añadir */
+
         $i = 0;
+        $modulo = "familiares";
         while(count($datos_familiares) > $i) {
 
             $aux = [
-//                "id_dif" => $id_dif,
-                "id_dif" => "1",
+                "id_fam" => $id_fam,
                 "rol" => $datos_familiares[$i],
                 "nombres" => $datos_familiares[$i+1]
             ];
 
-            file_put_contents (__DIR__."/SOMELOG.log" , print_r($aux, TRUE).PHP_EOL, FILE_APPEND );
-
             if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
-
             $i = $i+2;
         }
 
-        redirige("modulos/documentos/main.php?op=nuevaEsquela");
+        /* Las esquelas las mostramos en función del difunto */
+        redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
     }
 
 }

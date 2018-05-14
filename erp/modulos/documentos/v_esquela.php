@@ -1,3 +1,43 @@
+<?php
+
+$ref = $_GET['ref'];
+$miga = $_GET['miga'];
+$estructura = null;
+
+if($miga == "") {       // ESQUELA
+
+    $id_dif = $ref;
+
+    // Necesito una estructura con DIFUNTO - SERVICIO - FAMILIARES
+
+    $modulo = "difunto";
+    $cond = "id='$id_dif'";
+    $difunto = $ApiClient->select($modulo, $cond);
+
+    $modulo = "servicio";
+    $cond = "id_dif='$id_dif'";
+    $servicio = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_familiares";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
+    $modulo = "familiares";
+    $id_fam = $relacion[0]->id_fam;
+    $cond = "id_fam='$id_fam'";
+    $familiares = $ApiClient->select($modulo, $cond);
+
+    $estructura = [
+        "difunto" => $difunto[0],
+        "servicio" => $servicio[0],
+        "familiares" => $familiares
+    ];
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
+}
+
+?>
+
 <style>
     body_esquela {
         background: #f2f2f2;
@@ -75,7 +115,7 @@
     <div class="row border_nav">
         <div class="col-md-2"><h2>Esquela:</h2></div>
         <div class="col-md-10 alinear_nav">
-            <div class="col-md-5"><h4>Jose María del Carmen Garcia Ruiz</h4></div>
+            <div class="col-md-5"><h4><?= $estructura['difunto']->nombre ?></h4></div>
             <div class="col-md-7">
                 <nav>
                     <ul class="nav nav-tabs">
@@ -110,8 +150,9 @@
                             <div class="col-md-10 col-md-offset-1" style="text-align: center;">
                                 <img class="tam_img" src="../../img/cruz_esquela.jpg">
                                 <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
-                                <div class="separado_row" style="font-size: 220%; font-weight: bold">D. MANUEL RODRIGUEZ PRIMO</div>
-                                <div class="separado_row" style="font-size: 130%;">Que falleció en Zaragoza el 20 de junio del 2014 a los 66 años,
+                                <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
+                                <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
+                                    <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
                                     habiendo recibido los Santos Sacramentos.</div>
                                 <div class="separado_row subrayado" style="font-size: 250%; font-weight: bold;"><i>D.E.P.</i></div>
                             </div>
@@ -120,15 +161,20 @@
                         <div class="row contenido_central" style="text-align: justify">
                             <div class="col-md-12">
                                 <div style="font-size: 140%;">
-                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,
-                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,
-                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,
+
+                                    <?php foreach($estructura['familiares'] as $valor) { ?>
+                                        <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
+                                    <?php } ?>
+
+<!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
+<!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
+<!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
                                     <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
                                     Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                                     descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
-                                    lugar <span class="subrayado">el Sábado 21 de Junio a las 6:00 de la Tarde </span>
-                                    en la Parroquia Ntr. Sra. de la Asunción, por cuya asistencia les quedarán eternamente
-                                    agradecidos.
+                                    lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
+                                        <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                    por cuya asistencia les quedarán eternamente agradecidos.
                                 </div>
                             </div>
                         </div> <!-- contenido_central-->

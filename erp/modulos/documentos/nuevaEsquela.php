@@ -1,3 +1,7 @@
+<!--
+Contamos con que cada difunto lleva asociado un servicio antes de crear la esquela.
+-->
+
 <div class="container-fluid">
     <form class="form-horizontal" method="post" action="../../procesa.php">
         <input type="hidden" name="op" value="nuevaEsquela" />
@@ -13,21 +17,26 @@
             <div class="col-md-12">
 
                 <!-- *************** BUSCADOR **************** -->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-8 col-md-offset-3">-->
-<!--                        <form class="navbar-form" role="search" method="post">-->
-<!--                            <div class="form-group col-md-8">-->
-<!--                                <input type="text" class="form-control" name="busqueda" onkeyup="buscarDifunto_Servicio_Familiar();" placeholder="Buscar difunto">-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                        <div id="resBusqueda"></div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="row busqueda">
+                    <div class="col-md-8 col-md-offset-3">
+                        <form class="navbar-form" role="search" method="post">
+                            <div class="form-group col-md-8">
+                                <input type="text" class="form-control" name="nuevaEsquela" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
+                            </div>
+                        </form>
+                        <div id="resBusqueda"></div>
+                    </div>
+                </div> <!-- busqueda -->
                 <!-- *************** FIN BUSCADOR **************** -->
 
-<!--                <div class="difunto"> --><?php //include('../formularios/form_difunto.php'); ?><!-- </div>-->
-<!--                <div class="servicio"> --><?php //include('../formularios/form_servicio.php'); // S ?><!-- </div>-->
                 <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
+<!--                <div class="difunto">   --><?php //  $editar = true;
+//                    $difunto = $ApiClient->select("difunto", "id=1");
+//                    $difunto = $difunto[0];
+//                                                include('../formularios/form_difunto.php');
+//                                        ?>
+<!--                </div>-->
+<!--                <div class="servicio"> --><?php //include('../formularios/form_servicio.php'); // S ?><!-- </div>-->
 
                 <!-- ****************   SUBMIT GENERAL   ************************* -->
 <!--                <div class="row">-->

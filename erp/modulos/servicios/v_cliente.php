@@ -6,11 +6,10 @@ $ref = $_GET['ref'];
 $miga = $_GET['miga'];
 $id_cliente = null;
 
-
 if($miga == "" || $miga == "cliente") {     // CLIENTE
     $id_cliente = $ref;
 } else {
-    $miga = $_GET['miga'];
+    //$miga = $_GET['miga'];
 
     if($miga === "difunto") {    // DIFUNTO
 

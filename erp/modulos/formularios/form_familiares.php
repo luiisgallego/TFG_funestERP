@@ -6,7 +6,7 @@
         </a>
     </div> <!-- panel-heading -->
     <div id="form_familiares" class="panel-body collapse in">
-        <input type="hidden" name="f_id_dif" />
+<!--        <input type="hidden" name="f_id_dif" />-->
         <ul id="parRolNombre" class="list-group diseño_formulario">
             <li class="list-group-item">
                 <div class="col-md-2">

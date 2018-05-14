@@ -13,16 +13,16 @@
             <div class="col-md-12">
 
                 <!-- *************** BUSCADOR **************** -->
-                <div class="row">
+                <div class="row busqueda">
                     <div class="col-md-8 col-md-offset-3">
                         <form class="navbar-form" role="search" method="post">
                             <div class="form-group col-md-8">
-                                <input type="text" class="form-control" name="busqueda" onkeyup="buscarDifunto_Cliente();" placeholder="Buscar difunto">
+                                <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
                             </div>
                         </form>
                         <div id="resBusqueda"></div>
                     </div>
-                </div>
+                </div> <!-- busqueda -->
                 <!-- *************** FIN BUSCADOR **************** -->
 
                 <div class="cliente"> <?php include('../formularios/form_cliente.php'); ?> </div>
