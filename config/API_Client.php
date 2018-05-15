@@ -26,6 +26,8 @@ class APIClient {
     private function initParametros(){
         // Util para cuando cerramos la ventana y la sesion no ha caducado
         // y por tanto hay que reutilizar los datos de la API
+
+
         $this->loginInfo = $_SESSION["login_info"];
 
     }

@@ -83,7 +83,7 @@ if(!isset($_GET['miga'])) {     // DIFUNTO
                                     <td class="iconos_td">
                                         <a href="./main.php?op=v_esquela&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                                         <a href="./main.php?op=e_esquela&ref=<?= $datos['id_dif'] ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                        <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
+                                        <a href="./plantillaEsquela.php?ref=<?= $datos['id_dif'] ?>" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
                                         <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
                                     </td>
                                     <td class="id_td"><?= $datos['id_dif']; ?></td>

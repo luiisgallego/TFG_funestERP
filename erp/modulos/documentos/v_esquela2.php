@@ -11,35 +11,96 @@
 
     <!-- Bootstrap -->
     <link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- CSS -->
-    <link href="../../css/estilosDocumentos.css" rel="stylesheet">
     <!-- FontAwesome Icons (http://fontawesome.io) -->
     <link href="../../../bootstrap/fontAwesome/css/font-awesome.min.css" rel="stylesheet"> <!-- Icons -->
     <!-- incluir posteriormente en el CSS para hacer uso de ellas -->
     <link href="https://fonts.googleapis.com/css?family=Graduate|Pacifico" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="../../../bootstrap/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../../bootstrap/metisMenu/metisMenu.min.js"></script>
-    <script src="../../js/metisMenuNavegacion.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+        body {
+            /*background: #f2f2f2;*/
+            font-family: Arial;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #444;
+            margin-top: 5px;
+        }
 
-    <!-- Añadir todas las comprobaciones de necesarias -->
+        /*#dina4 {*/
+            /*width: 210mm;*/
+            /*height: 297mm;*/
+            /*!*padding: 0px 0px; !* Margenes folio *!*!*/
+            /*border: 1px solid #D2D2D2;*/
+            /*background: #fff;*/
+            /*margin: 10px auto;*/
+        /*}*/
+
+        .barra_lateral {
+            background-color: #0f0f0f;
+            width: 15px;
+            height: 275mm;
+            margin-left: 35px;
+        }
+        .barra_superior {
+            background-color: #0f0f0f;
+            width: 200mm;
+            height: 15px;
+            margin-top: -30px;
+            margin-left: 10px;
+        }
+        .barra_superior_lateral {
+            background-color: #0f0f0f;
+            width: 15px;
+            height: 15mm;
+            margin-left: 35px;
+            margin-top: 10px;
+        }
+
+        .contenido_general {
+            /*background-color: #ac2925;*/
+            margin-left: 40px;
+            padding-top: 20px;
+            width: 175mm;
+            /*min-height: 500px;*/
+            /*width: 650px;*/
+            /*height: 500px;*/
+        }
+
+        .tam_img {
+            max-width: 250px;
+            max-height: 250px;
+            /*margin: 0 auto;*/
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        .separado_row { margin-bottom: 20px; }
+        .subrayado { text-decoration: underline; }
+
+        .contenido_central{
+            margin-left: 5px;
+            margin-right: 10px;
+        }
+        .contenido_central span { font-weight: bold; }
+
+        .contenido_inferior .separado_row {
+            margin-bottom: 20px;
+        }
+    </style>
 
 </head>
 <body>
+
     <div id="dina4">
         <div class="row" style="margin-left: 3px;">
             <div class="barra_superior_lateral"></div>
@@ -61,7 +122,7 @@
 
                     <div class="row contenido_central" style="text-align: justify">
                         <div class="col-md-12">
-                            <div style="font-size: 140%;">
+                            <div style="font-size: 130%;">
                                 <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,
                                 <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,
                                 <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,
@@ -75,7 +136,7 @@
                         </div>
                     </div> <!-- contenido_central-->
 
-                    <div class="row contenido_inferior" style="margin-top: 40px;">
+                    <div class="row contenido_inferior" style="margin-top: 25px;">
                         <div class="col-md-12" style="text-align: center;">
                             <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
                             <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
