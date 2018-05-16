@@ -2,7 +2,6 @@
 
 $ref = $_GET['ref'];
 $miga = $_GET['miga'];
-$misa_funeral = $_GET['misa_funeral'] ? $_GET['misa_funeral'] : false;
 $estructura = null;
 
 if($miga == "") {       // ESQUELA
@@ -39,8 +38,8 @@ if($miga == "") {       // ESQUELA
 ?>
 
 <style>
-    .body_esquela {
-        /*background: #f2f2f2;*/
+    body_esquela {
+        background: #f2f2f2;
         font-family: Arial;
         font-size: 13px;
         line-height: 1.6;
@@ -96,10 +95,6 @@ if($miga == "") {       // ESQUELA
     }
 
     .separado_row { margin-bottom: 20px; }
-    .separado_row_misa {
-        margin-top: 50px;
-        margin-bottom: 20px;
-    }
     .subrayado { text-decoration: underline; }
 
     .contenido_central{
@@ -113,14 +108,6 @@ if($miga == "") {       // ESQUELA
     .contenido_inferior .separado_row {
         margin-bottom: 40px;
     }
-
-    .misa_funeral {
-        text-align: left;
-        font-size: 250%;
-        font-weight: bold;
-        margin-right: -100px;
-        margin-top: 100px;
-    }
 </style>
 
 <div class="container-fluid">
@@ -132,8 +119,7 @@ if($miga == "") {       // ESQUELA
                 <nav>
                     <ul class="nav nav-tabs">
                         <li class="" role="presentation">
-                            <?php $plantilla = ($misa_funeral == true) ? "./plantillaMisa.php" : "./plantillaEsquela.php"?>
-                            <a href="<?= $plantilla ?>?ref=<?= $estructura['difunto']->id ?>"><i class="fa fa-download fa-fw"></i></a>
+                            <a href="./plantillaEsquela.php?ref=<?= $estructura['difunto']->id ?>"><i class="fa fa-download fa-fw"></i></a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="main.php?op=e_esquela&ref=<?= $estructura['difunto']->id ?>">Editar</a>
@@ -163,12 +149,12 @@ if($miga == "") {       // ESQUELA
 
                         <div class="row contenido_superior">
                             <div class="col-md-10 col-md-offset-1" style="text-align: center;">
-                                <?php if($misa_funeral == true) { ?>
-                                    <div class="col-md-2 subrayado misa_funeral"> MISA FUNERAL</div>
+                                <?php if($misa_funeral === true) { ?>
+                                    <div class="col-md-2 subrayado" style="text-align: left; font-size: 250%; font-weight: bold; margin-right: -50px; margin-top: 100px;"> MISA FUNERAL</div>
                                 <?php } ?>
                                 <img class="tam_img" src="../../img/cruz_esquela.jpg">
                                 <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
-                                <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
+                                <div class="separado_row" style="font-size: 250%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
                                 <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
                                     <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
                                     habiendo recibido los Santos Sacramentos.</div>
@@ -184,9 +170,9 @@ if($miga == "") {       // ESQUELA
                                         <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
                                     <?php } ?>
 
-<!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
-<!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
-<!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
+                                    <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
+                                    <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
+                                    <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
                                     <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
                                     Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                                     descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
@@ -199,12 +185,8 @@ if($miga == "") {       // ESQUELA
 
                         <div class="row contenido_inferior" style="margin-top: 40px;">
                             <div class="col-md-12" style="text-align: center;">
-                                <?php if(!$misa_funeral) { ?>
-                                    <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
-                                    <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
-                                <?php } else { ?>
-                                    <div class="separado_row_misa subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
-                                <?php }  ?>
+                                <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
+                                <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
                                 <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
                             </div>
                         </div>

@@ -128,13 +128,17 @@ $estructura = [
         .tam_img {
             max-width: 250px;
             max-height: 250px;
-            /*margin: 0 auto;*/
+            margin: 0 ;
             display: block;
             margin-bottom: 5px;
             margin-top: 25px;
         }
 
         .separado_row { margin-bottom: 20px; }
+        .separado_row_misa {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
         .subrayado { text-decoration: underline; }
 
         .contenido_central{
@@ -145,6 +149,16 @@ $estructura = [
 
         .contenido_inferior .separado_row {
             margin-bottom: 20px;
+        }
+        .misa_funeral {
+            text-align: left;
+            font-size: 250%;
+            font-weight: bold;
+            /*margin-right: -100px;*/
+            /*margin-top: 100px;*/
+            position: absolute;
+            margin-top: 50px;
+            width: 30px;
         }
     </style>
 
@@ -160,6 +174,7 @@ $estructura = [
 
                 <div class="row contenido_superior">
                     <div class="col-md-10 col-md-offset-1" style="text-align: center;">
+                        <div class="subrayado misa_funeral"> MISA FUNERAL</div>
                         <img class="tam_img" src="../../img/cruz_esquela.jpg">
                         <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
                         <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
@@ -176,10 +191,6 @@ $estructura = [
                             <?php foreach($estructura['familiares'] as $valor) { ?>
                                 <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
                             <?php } ?>
-
-                            <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
-                            <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
-                            <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
                             <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
                             Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                             descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
@@ -192,8 +203,7 @@ $estructura = [
 
                 <div class="row contenido_inferior" style="margin-top: 25px;">
                     <div class="col-md-12" style="text-align: center;">
-                        <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
-                        <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
+                        <div class="separado_row_misa subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
                         <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
                     </div>
                 </div>
@@ -215,3 +225,4 @@ $pdf = $dompdf->output();
 $filename = 'Esquela.pdf';
 $dompdf->stream($filename, array("Attachment" => 0));     // Output the generated PDF to Browser
 ?>
+

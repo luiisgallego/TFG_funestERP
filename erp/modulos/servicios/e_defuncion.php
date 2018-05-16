@@ -34,7 +34,7 @@ if(!empty($servicio)) {
                                     <a href="main.php?op=v_cliente&miga=difunto&ref=<?= $difunto->id ?>">Cliente</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="../documentos/main.php?op=v_esquela&ref=<?= $difunto->id ?>">Esquela</a>
+                                    <a href="../documentos/main.php?op=documentos&miga=difunto&ref=<?= $difunto->id ?>">Documentos</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
                                     <a href="../contabilidad/main.php?op=v_factura&ref=<?= $difunto->id ?>">Factura</a>

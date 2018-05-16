@@ -135,7 +135,7 @@ body {
     margin-top: 18px;
 }
 .espaciar_nav {
-    width: 85px;
+    /*width: 85px;*/
 }
 /* === FIN NAVEGACION GLOBAL === */
 /* === FIN NAVEGACION === */
@@ -160,7 +160,7 @@ body {
 
 /* === LISTADOS === */
 .iconos_td {
-    width: 150px;
+    width: 160px; /* 150 para 4 */
 }
 .iconos_a {
     margin-left: 12px;

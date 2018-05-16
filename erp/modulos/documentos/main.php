@@ -8,7 +8,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <html>
 <head>
     <?php include('../head_main.php'); ?>
-
 </head>
 <body>
     <?php include "../navModulos.php"; ?>
@@ -26,7 +25,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
                 $editar = true;
                 $editar_esquela = true;
                 include "./e_esquela.php";
-            } else if($op == "descargar") include "plantillaEsquela.php";
+            }
+//            else if($op == "v_misa") include "./v_misa.php";                // ver
+            else if($op == "descargarEsquela") include "./plantillaEsquela.php";
+            else if($op == "descargarMisa") include "./plantillaMisa.php";
+            else if($op == "documentos") include "./documentos.php"
         ?>
     </div> <!-- fin page-wrapper -->
 
@@ -38,21 +41,15 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
          */
         $(document).ready(function () {
             var editar = "<?php print_r($editar); ?>";
-//            var hayServicio = "<?php //print_r($hayServicio); ?>//";
             var input_difunto = $("#form_difunto input");
             var input_servicio = $("#form_servicio input");
-//            var input_cliente = $("#form_cliente input");
             var input_familiares = $("#form_familiares input");
 
             if(editar !== "1") {    // Caso general
                 input_difunto.attr("value","");
                 input_servicio.attr("value","");
-//                input_cliente.attr("value","");
                 input_familiares.attr("value","");
             }
-
-            // Estamos editando pero no existe servicio en difunto
-//            if(hayServicio !== "1") input_servicio.attr("value","");
         });
     </script>
 

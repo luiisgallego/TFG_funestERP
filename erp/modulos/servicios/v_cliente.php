@@ -47,7 +47,7 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
                             <?php } ?>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../documentos/main.php?op=esquelas&ref=<?= $cliente->id ?>">Esquela</a>
+                            <a href="../documentos/main.php?op=documentos&miga=cliente&ref=<?= $cliente->id ?>">Documentos</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="../contabilidad/main.php?op=facturas&ref=<?= $cliente->id ?>">Factura</a>
