@@ -1,3 +1,5 @@
+<?php if($editar_esquela === true) $servicio = $estructura['servicio']; ?>
+
 <!-- ****************       SERVICIO       ************************* -->
 <div class="panel panel-primary">
     <div class="panel-heading">

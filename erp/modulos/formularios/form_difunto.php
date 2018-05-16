@@ -1,3 +1,5 @@
+<?php if($editar_esquela === true) $difunto = $estructura['difunto']; ?>
+
 <!-- ****************    DIFUNTO      ************************* -->
 <div class="panel panel-primary">
     <div class="panel-heading">

@@ -35,7 +35,6 @@ if($miga == "") {       // ESQUELA
 
 //    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
-
 ?>
 
 <style>
@@ -119,17 +118,20 @@ if($miga == "") {       // ESQUELA
             <div class="col-md-7">
                 <nav>
                     <ul class="nav nav-tabs">
-                        <li class="espaciar_nav" role="presentation" >
-                            <a href="main.php?op=e_esquela">Editar</a>
+                        <li class="" role="presentation">
+                            <a href="./plantillaEsquela.php?ref=<?= $estructura['difunto']->id ?>"><i class="fa fa-download fa-fw"></i></a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_difunto">Difunto</a>
+                            <a href="main.php?op=e_esquela&ref=<?= $estructura['difunto']->id ?>">Editar</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_cliente">Cliente</a>
+                            <a href="../servicios/main.php?op=v_difunto&ref=<?= $estructura['difunto']->id ?>">Difunto</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../contabilidad/main.php?op=v_factura">Factura</a>
+                            <a href="../servicios/main.php?op=v_cliente&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
+                        </li>
+                        <li class="espaciar_nav" role="presentation">
+                            <a href="../contabilidad/main.php?op=v_factura&ref=<?= $estructura['difunto']->id ?>">Factura</a>
                         </li>
                     </ul>
                 </nav>

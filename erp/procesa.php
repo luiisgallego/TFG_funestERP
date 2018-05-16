@@ -239,8 +239,6 @@ if($op == "login") {
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Datos($datos));
 
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
-
         // Preparamos la INSERCION del PAR FAMILIARES
         /* Hay que insertar cada para 1 a 1, generando para cada uno la estructura de inserción */
         $datos_familiares = $json->familiares;
@@ -248,6 +246,7 @@ if($op == "login") {
         unset($datos_familiares->id_dif);
 
         $datos_familiares = ajustarFamiliares($datos_familiares);
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos_familiares, TRUE).PHP_EOL, FILE_APPEND );
 
         /* Primero hay que generar la relacion DIFUNTO - FAMILIAR */
         $datos_relacion = [
@@ -281,6 +280,67 @@ if($op == "login") {
         }
 
         /* Las esquelas las mostramos en función del difunto */
+        redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
+    }
+
+} else if($op == "updateEsquela") {
+    // ONLY UPDATE
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+    if(!empty($datos)) {
+
+        // Adaptamos los datos correctamente
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+
+        // 1º UPDATE FAMILIARES
+        // Los ID necesarios vienen con los formularios desde la edición.
+        $datos_familiares = $json->familiares;
+        $id_dif = $datos_familiares->id_dif;
+        unset($datos_familiares->id_dif);
+        $id_fam = $datos_familiares->id_fam;
+        unset($datos_familiares->id_fam);
+
+        $datos_familiares = ajustarFamiliares($datos_familiares);
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_fam, TRUE).PHP_EOL, FILE_APPEND );
+
+        // Para actualizar, primero borrarmos y luego insertamos de nuevo
+        $modulo = "familiares";
+        $cond = "id_fam='$id_fam'";
+        if(!$ApiClient->delete($modulo, $cond)) redirige("index.php");
+
+        $i = 0;     // Ahora guardamos de nuevo
+        while(count($datos_familiares) > $i) {
+
+            $aux = [
+                "id_fam" => $id_fam,
+                "rol" => $datos_familiares[$i],
+                "nombres" => $datos_familiares[$i+1]
+            ];
+
+            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+            $i = $i+2;
+        }
+
+        // 2º UPDATE DIFUNTO
+        // Preparamos el UPDATE del DIFUNTO
+        $datos_difunto = $json->difunto;
+        $modulo = "difunto";
+        $cond = "id='$datos_difunto->id'";
+
+        if(!$ApiClient->update($datos_difunto, $modulo, $cond)) redirige("index.php");
+
+        // 3º UPDATE SERVICIO
+        // Preparamos el UPDATE del SERVICIO
+        $datos_servicio = $json->servicio;
+        $modulo = "servicio";
+        $cond = "id='$datos_servicio->id'";
+
+        if(!$ApiClient->update($datos_servicio, $modulo, $cond)) redirige("index.php");
+
         redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
     }
 

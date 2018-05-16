@@ -24,6 +24,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
             else if($op == "v_esquela") include "./v_esquela.php";          // ver
             else if($op == "e_esquela") {                                   // editar
                 $editar = true;
+                $editar_esquela = true;
                 include "./e_esquela.php";
             } else if($op == "descargar") include "plantillaEsquela.php";
         ?>

@@ -32,8 +32,6 @@ if(!isset($_GET['miga'])) {     // DIFUNTO
 
         array_push($estructura, $aux);
     }
-} else {
-
 }
 
 //file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );

@@ -1,31 +1,90 @@
+<?php
+$ref = $_GET['ref'];
+$miga = $_GET['miga'];
+
+if($miga == "") {       // ESQUELA
+
+    $id_dif = $ref;
+
+    // Necesito una estructura con DIFUNTO - SERVICIO - FAMILIARES
+
+    $modulo = "difunto";
+    $cond = "id='$id_dif'";
+    $difunto = $ApiClient->select($modulo, $cond);
+
+    $modulo = "servicio";
+    $cond = "id_dif='$id_dif'";
+    $servicio = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_familiares";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
+    $modulo = "familiares";
+    $id_fam = $relacion[0]->id_fam;
+    $cond = "id_fam='$id_fam'";
+    $familiares = $ApiClient->select($modulo, $cond);
+
+    $estructura = [
+        "difunto" => $difunto[0],
+        "servicio" => $servicio[0],
+        "familiares" => $familiares,
+        "id_fam" => $id_fam
+    ];
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
+}
+?>
+
 <div class="container-fluid">
-    <div class="row border_nav">
-        <div class="col-md-2"><h2>Defunción:</h2></div>
-        <div class="col-md-10 alinear_nav">
-            <div class="col-md-5"><h4>Jose María del Carmen Garcia Ruiz</h4></div>
-            <div class="col-md-5">
-                <nav>
-                    <ul class="nav nav-tabs">
-                        <li class="espaciar_nav" role="presentation" >
-                            <a href="main.php?op=v_esquela">Ver</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_difunto">Difunto</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_cliente">Cliente</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../contabilidad/main.php?op=v_factura">Factura</a>
-                        </li>
-                    </ul>
-                </nav>
+    <form class="form-horizontal" method="post" action="../../procesa.php">
+        <input type="hidden" name="op" value="updateEsquela" />
+<!--        --><?php //if(!$hayServicio) { ?>
+<!--            <input type="hidden" name="aniadirServicio" value="true" />-->
+<!--        --><?php //} ?>
+
+        <div class="row page_header">
+            <div class="col-md-2"><h1>Esquela:</h1></div>
+            <div class="col-md-10 alinear_nav">
+                <div class="row">
+                    <div class="col-md-5"><h4><?= $estructura['difunto']->nombre ?></h4></div>
+                    <div class="col-md-2"><input type="submit" class="btn btn-primary btn-block" value="Guardar"></div>
+                    <div class="col-md-5">
+                        <nav>
+                            <ul class="nav nav-tabs">
+                                <li class="espaciar_nav" role="presentation">
+                                    <a href="main.php?op=v_esquela&ref=<?= $estructura['difunto']->id ?>">Ver</a>
+                                </li>
+                                <li class="espaciar_nav" role="presentation">
+                                    <a href="../servicios/main.php?op=v_difunto&ref=<?= $estructura['difunto']->id ?>">Difunto</a>
+                                </li>
+                                <li class="espaciar_nav" role="presentation">
+                                    <a href="../servicios/main.php?op=v_cliente&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
+                                </li>
+                                <li class="espaciar_nav" role="presentation">
+                                    <a href="../contabilidad/main.php?op=v_factura&ref=<?= $estructura['difunto']->id ?>">Factura</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div> <!-- row navegacion -->
+        </div> <!-- row page_header -->
 
-    <div class="row">
-        <h3>EDITANDO CONTENIDO PRINCIPAL</h3>
-    </div> <!-- row contenido_principal -->
+        <div class="row page_content">
+            <div class="col-md-12">
 
-</div>
+                <div class="familiares"> <?php  include('../formularios/form_familiares.php'); ?> </div>
+                <div class="difunto"> <?php include('../formularios/form_difunto.php'); ?> </div>
+                <div class="servicio"> <?php include('../formularios/form_servicio.php'); // S ?> </div>
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block nuevo_servicio_button" value="Guardar">
+                    </div>
+                </div>
+
+            </div> <!-- col-md-12 -->
+        </div> <!-- page_content -->
+    </form>
+</div> <!-- container-fluid -->
