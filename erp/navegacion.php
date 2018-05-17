@@ -61,7 +61,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Inteligencia de negocio</a></li>
+<!--                    <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Inteligencia de negocio</a></li>-->
 
 <!--                    <li>-->
 <!--                        <a href="#">-->

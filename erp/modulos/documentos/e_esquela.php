@@ -59,7 +59,7 @@ if($miga == "") {       // ESQUELA
                                     <a href="../servicios/main.php?op=v_difunto&ref=<?= $estructura['difunto']->id ?>">Difunto</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
-                                    <a href="../servicios/main.php?op=v_cliente&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
+                                    <a href="../servicios/main.php?op=v_cliente&miga=docs&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
                                 </li>
                                 <li class="espaciar_nav" role="presentation">
                                     <a href="../contabilidad/main.php?op=v_factura&ref=<?= $estructura['difunto']->id ?>">Factura</a>

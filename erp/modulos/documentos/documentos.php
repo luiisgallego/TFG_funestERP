@@ -47,7 +47,6 @@ if($miga === "difunto") {       // DIFUNTO
 
     // Para cada difunto construimos la estructura
     foreach ($difunto_cliente as $datos) {
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
         $id_dif = $datos->id_dif;
         $modulo = "difunto";

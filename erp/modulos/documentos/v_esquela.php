@@ -34,8 +34,21 @@ if($miga == "") {       // ESQUELA
         "familiares" => $familiares
     ];
 
+    // FORMATEMOS LA FECHA
+    $estructura['servicio']->fecha_defuncion = format_fecha($estructura['servicio']->fecha_defuncion, "defuncion");
+    $estructura['servicio']->fecha_entierro = format_fecha($estructura['servicio']->fecha_entierro, "entierro");
+    $estructura['servicio']->fecha_misa = format_fecha($estructura['servicio']->fecha_misa, "entierro");
+
+    // FORMATEMOS LA HORA
+    $estructura['servicio']->hora_entierro = format_hora($estructura['servicio']->hora_entierro);
+    $estructura['servicio']->hora_misa = format_hora($estructura['servicio']->hora_misa);
+
+    // FORMATEMOS LA EDAD
+    $estructura['difunto']->fecha_nacimiento = format_edad($estructura['difunto']->fecha_nacimiento);
+
 //    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
+
 ?>
 
 <style>
@@ -142,7 +155,7 @@ if($miga == "") {       // ESQUELA
                             <a href="../servicios/main.php?op=v_difunto&ref=<?= $estructura['difunto']->id ?>">Difunto</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_cliente&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
+                            <a href="../servicios/main.php?op=v_cliente&miga=docs&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="../contabilidad/main.php?op=v_factura&ref=<?= $estructura['difunto']->id ?>">Factura</a>
@@ -183,16 +196,21 @@ if($miga == "") {       // ESQUELA
                                     <?php foreach($estructura['familiares'] as $valor) { ?>
                                         <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
                                     <?php } ?>
-
-<!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
-<!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
-<!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
                                     <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
-                                    Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
-                                    descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
-                                    lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
-                                        <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
-                                    por cuya asistencia les quedarán eternamente agradecidos.
+
+                                    <?php if(!$misa_funeral) { ?>
+                                        Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
+                                        descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
+                                        lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
+                                            <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                        por cuya asistencia les quedarán eternamente agradecidos.
+                                    <?php } else { ?>
+                                        Comunican a sus amistades tan sensible pérdida y les ruegan una oración
+                                        y la asistencia a la misa funeral, que por el eterno descanso de su alma se celebrará el
+                                        <span class="subrayado">el <?= $estructura['servicio']->fecha_misa ?> a las
+                                            <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                        por cuya asistencia les quedarán eternamente agradecidos.
+                                    <?php }  ?>
                                 </div>
                             </div>
                         </div> <!-- contenido_central-->

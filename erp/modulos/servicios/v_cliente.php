@@ -7,18 +7,16 @@ $miga = $_GET['miga'];
 $id_cliente = null;
 
 if($miga == "" || $miga == "cliente") {     // CLIENTE
+
     $id_cliente = $ref;
-} else {
-    //$miga = $_GET['miga'];
 
-    if($miga === "difunto") {    // DIFUNTO
+} else if($miga === "difunto" || $miga === "docs") {    // DIFUNTO
 
-        // Consultamos el CLIENTE asociado al DIFUNTO
-        $modulo = "difunto_cliente";
-        $cond = "id_dif='$ref'";
-        $difuntoCliente = $ApiClient->select($modulo, $cond);
-        $id_cliente = $difuntoCliente[0]->id_cli;
-    }
+    // Consultamos el CLIENTE asociado al DIFUNTO
+    $modulo = "difunto_cliente";
+    $cond = "id_dif='$ref'";
+    $difuntoCliente = $ApiClient->select($modulo, $cond);
+    $id_cliente = $difuntoCliente[0]->id_cli;
 }
 
 $cliente = $ApiClient->select("cliente", "id='$id_cliente'");

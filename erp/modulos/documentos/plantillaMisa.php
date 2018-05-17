@@ -6,19 +6,10 @@ use Dompdf\Dompdf;
 
 @session_start();
 require '../../../config/API_Global.php';
+include_once('../../funciones.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $ref = $_GET['ref'];
-//$miga = $_GET['miga'];
-//$estructura = null;
-//
-//if($miga == "") {       // ESQUELA
-//
-//
-//
-////   file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
-//}
-
 $id_dif = $ref;
 
 // Necesito una estructura con DIFUNTO - SERVICIO - FAMILIARES
@@ -45,6 +36,17 @@ $estructura = [
     "servicio" => $servicio[0],
     "familiares" => $familiares
 ];
+
+// FORMATEMOS LA FECHA
+$estructura['servicio']->fecha_defuncion = format_fecha($estructura['servicio']->fecha_defuncion, "defuncion");
+$estructura['servicio']->fecha_misa = format_fecha($estructura['servicio']->fecha_misa, "entierro");
+
+// FORMATEMOS LA HORA
+$estructura['servicio']->hora_entierro = format_hora($estructura['servicio']->hora_entierro);
+$estructura['servicio']->hora_misa = format_hora($estructura['servicio']->hora_misa);
+
+// FORMATEMOS LA EDAD
+$estructura['difunto']->fecha_nacimiento = format_edad($estructura['difunto']->fecha_nacimiento);
 
 ?>
 
@@ -84,15 +86,6 @@ $estructura = [
             color: #444;
             margin-top: 5px;
         }
-
-        /*#dina4 {*/
-        /*width: 210mm;*/
-        /*height: 297mm;*/
-        /*!*padding: 0px 0px; !* Margenes folio *!*!*/
-        /*border: 1px solid #D2D2D2;*/
-        /*background: #fff;*/
-        /*margin: 10px auto;*/
-        /*}*/
 
         .barra_lateral {
             background-color: #0f0f0f;
@@ -194,7 +187,7 @@ $estructura = [
                             <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
                             Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                             descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
-                            lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
+                            lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_misa ?> a las
                                 <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
                             por cuya asistencia les quedarán eternamente agradecidos.
                         </div>

@@ -2,7 +2,7 @@
 
 /* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
 $estructura = [];
-if(!isset($_GET['miga'])) {     // DIFUNTO
+if(!isset($_GET['miga'])) {     // NAVEGACION
 
     $modulo = "difunto_familiares";
     $identificadores = $ApiClient->select($modulo);
