@@ -25,8 +25,8 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a href="../../modulos/documentos/main.php?op=esquelas">Esquelas</a></li>
-                            <li><a href="#">Misa Funeral</a></li>
-                            <li><a href="#">Recordatorias</a></li>
+<!--                            <li><a href="#">Misa Funeral</a></li>-->
+                            <li><a href="../../modulos/documentos/main.php?op=recordatorias">Recordatorias</a></li>
                         </ul>
                     </li>
 
@@ -37,8 +37,8 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a href="../../modulos/contabilidad/main.php?op=facturas">Facturas</a></li>
-                            <li><a href="#">Proveedores</a></li>
-                            <li><a href="#">Gastos</a></li>
+<!--                            <li><a href="#">Proveedores</a></li>-->
+<!--                            <li><a href="#">Gastos</a></li>-->
                         </ul>
                     </li>
 

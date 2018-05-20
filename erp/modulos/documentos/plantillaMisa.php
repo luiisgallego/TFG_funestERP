@@ -218,4 +218,3 @@ $pdf = $dompdf->output();
 $filename = 'Esquela.pdf';
 $dompdf->stream($filename, array("Attachment" => 0));     // Output the generated PDF to Browser
 ?>
-

@@ -2,9 +2,10 @@
 $ref = $_GET['ref'];
 $miga = $_GET['miga'];
 
-if($miga == "") {       // ESQUELA
+if($miga === "esquela" || $miga === "recordatoria") {       // ESQUELA
 
     $id_dif = $ref;
+    $pagina = ($op === "esquelas") ? "Esquelas" : "Recordatorias";
 
     // Necesito una estructura con DIFUNTO - SERVICIO - FAMILIARES
 
@@ -38,13 +39,11 @@ if($miga == "") {       // ESQUELA
 
 <div class="container-fluid">
     <form class="form-horizontal" method="post" action="../../procesa.php">
-        <input type="hidden" name="op" value="updateEsquela" />
-<!--        --><?php //if(!$hayServicio) { ?>
-<!--            <input type="hidden" name="aniadirServicio" value="true" />-->
-<!--        --><?php //} ?>
+        <input type="hidden" name="op" value="updateDocumentos" />
+        <input type="hidden" name="miga" value="<?= $miga ?>" />
 
         <div class="row page_header">
-            <div class="col-md-2"><h1>Esquela:</h1></div>
+            <div class="col-md-2"><h1><?= $pagina ?>:</h1></div>
             <div class="col-md-10 alinear_nav">
                 <div class="row">
                     <div class="col-md-5"><h4><?= $estructura['difunto']->nombre ?></h4></div>

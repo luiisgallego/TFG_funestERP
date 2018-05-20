@@ -6,10 +6,47 @@
 $ref = $_GET['ref'];
 $miga = $_GET['miga'];
 
+$pagina = null;
 $estructura = [];
-if($miga === "difunto") {       // DIFUNTO
+
+if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA / RECORDATORIAS
+
+    // Para ajustar la pagina en la que estamos y para salir correctamente de ella
+    $pagina = ($op === "esquelas") ? "Esquelas" : "Recordatorias";
+    $tipo_documento = ($op === "esquelas") ? "ESQUELA - MISA" : "RECORDATORIA";
+
+    $modulo = "difunto_familiares";
+    $cond = ($op === "esquelas") ? "esquela=1" : "r_misa=1" ;
+    $identificadores = $ApiClient->select($modulo, $cond);
+
+    // Construimos la estructura a mostrar
+    foreach ($identificadores as $ids) {
+
+        $modulo = "difunto";
+        $cond = "id='$ids->id_dif'";
+        $difunto = $ApiClient->select($modulo, $cond);
+
+        $modulo = "servicio";
+        $id_dif = $difunto[0]->id;
+        $cond = "id_dif='$id_dif'";
+        $servicio = $ApiClient->select($modulo, $cond);
+
+        $aux = [
+            "id_dif" => $id_dif,
+            "nombre" => $difunto[0]->nombre,
+            "fecha_defuncion" => $servicio[0]->fecha_defuncion,
+            "poblacion_entierro" => $servicio[0]->poblacion_entierro,
+            "tipo_servicio" => $servicio[0]->tipo_servicio,
+            "tipo_documento" => $tipo_documento
+        ];
+
+        array_push($estructura, $aux);
+    }
+
+} else if($miga === "difunto") {       // DIFUNTO
 
     $id_dif = $ref;
+    $pagina = "Documentos";
 
     // Construimos la estructura a mostrar
     $modulo = "difunto";
@@ -20,22 +57,36 @@ if($miga === "difunto") {       // DIFUNTO
     $cond = "id_dif='$id_dif'";
     $servicio = $ApiClient->select($modulo, $cond);
 
+    $modulo = "difunto_familiares";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
     $aux = [
         "id_dif" => $id_dif,
         "nombre" => $difunto[0]->nombre,
         "fecha_defuncion" => $servicio[0]->fecha_defuncion,
         "poblacion_entierro" => $servicio[0]->poblacion_entierro,
         "tipo_servicio" => $servicio[0]->tipo_servicio,
-        "tipo_documento" => "ESQUELA"
+        "tipo_documento" => ""
     ];
 
-    array_push($estructura, $aux);
+    if($relacion[0]->esquela == "1") {
 
-    /************* FALTA AÑADIR LAS RECORDATORIAS *******************/
+        $aux['tipo_documento'] = "ESQUELA - MISA";
+        array_push($estructura, $aux);
+
+    }
+    if($relacion[0]->r_misa == "1") {
+
+        $aux['tipo_documento'] = "RECORDATORIA";
+        array_push($estructura, $aux);
+
+    }
 
 } else if($miga === "cliente") {    // CLIENTE
 
     $id_cli = $ref;
+    $pagina = "Documentos";
 
     // Se puede dar el caso de que el cliente tenga varios
     // DIFUNTOS y por tanto varios DOCUMENTOS
@@ -57,19 +108,32 @@ if($miga === "difunto") {       // DIFUNTO
         $cond = "id_dif='$id_dif'";
         $servicio = $ApiClient->select($modulo, $cond);
 
+        $modulo = "difunto_familiares";
+        $cond = "id_dif='$id_dif'";
+        $relacion = $ApiClient->select($modulo, $cond);
+
         $aux = [
             "id_dif" => $id_dif,
             "nombre" => $difunto[0]->nombre,
             "fecha_defuncion" => $servicio[0]->fecha_defuncion,
             "poblacion_entierro" => $servicio[0]->poblacion_entierro,
             "tipo_servicio" => $servicio[0]->tipo_servicio,
-            "tipo_documento" => "ESQUELA"
+            "tipo_documento" => ""
         ];
 
-        array_push($estructura, $aux);
-    }
+        if($relacion[0]->esquela == "1") {
 
-    /************* FALTA AÑADIR LAS RECORDATORIAS *******************/
+            $aux['tipo_documento'] = "ESQUELA - MISA";
+            array_push($estructura, $aux);
+
+        }
+        if($relacion[0]->r_misa == "1") {
+
+            $aux['tipo_documento'] = "RECORDATORIA";
+            array_push($estructura, $aux);
+
+        }
+    }
 }
 
 //file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
@@ -78,11 +142,15 @@ if($miga === "difunto") {       // DIFUNTO
 
 <div class="container-fluid">
     <div class="row page_header">
-        <div class="col-md-3"><h1>Documentos</h1></div>
+        <div class="col-md-3"><h1><?= $pagina ?></h1></div>
         <div class="col-md-2 col-md-offset-1">
-<!--            <a href="main.php?op=nuevaEsquela">-->
-<!--                <button type="button" class="btn btn-primary btn-lg btn-block">Nueva Esquela</button>-->
-<!--            </a>-->
+            <?php
+                $dir = ($pagina === "Esquelas") ? "nuevaEsquela" : "nuevaRecordatoria";
+                $txt = ($pagina === "Esquelas") ? "Nueva Esquela" : "Nueva Recordatoria";
+            ?>
+            <a href="main.php?op=<?= $dir ?>">
+                <button type="button" class="btn btn-primary btn-lg btn-block"><?= $txt ?></button>
+            </a>
         </div>
     </div>
 
@@ -107,25 +175,38 @@ if($miga === "difunto") {       // DIFUNTO
                         </thead>
                         <tbody>
                             <?php foreach($estructura as $datos) {
-                                if($datos['tipo_documento'] === "ESQUELA") { ?>
-                                    <tr>
-                                        <td class="iconos_td">
-                                            <a href="./main.php?op=v_esquela&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                                            <a href="./main.php?op=v_esquela&misa_funeral=true&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                                            <a href="./main.php?op=e_esquela&ref=<?= $datos['id_dif'] ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                            <a href="./plantillaEsquela.php?ref=<?= $datos['id_dif'] ?>" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                            <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
-                                        </td>
-                                        <td class="id_td"><?= $datos['id_dif']; ?></td>
-                                        <td>ESQUELA</td>
-                                        <td><?= $datos['nombre']; ?></td>
-                                        <td><?= $datos['fecha_defuncion']; ?></td>
-                                        <td><?= $datos['poblacion_entierro']; ?></td>
-                                        <td><?= $datos['tipo_servicio']; ?></td>
-                                    </tr>
-                                <?php } else if($datos->tipo_documento == "RECORDATORIA") {  ?>
+                                if ($datos['tipo_documento'] === "ESQUELA - MISA") {
 
-                                <?php } ?>
+                                    $tipo = "ESQUELA - MISA";
+                                    $ver = "v_esquela";
+                                    $plantilla = "plantillaEsquela";
+                                    $miga = "esquela";
+
+                                } else if ($datos['tipo_documento'] === "RECORDATORIA") {
+
+                                    $tipo = "RECORDATORIA";
+                                    $ver = "v_recordatoria";
+                                    $plantilla = "plantillaRecordatoria";
+                                    $miga = "recordatoria";
+
+                                } ?>
+                                <tr>
+                                    <td class="iconos_td">
+                                        <a href="./main.php?op=<?= $ver ?>&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                                        <?php if($tipo === "ESQUELA - MISA") { ?>
+                                            <a href="./main.php?op=v_esquela&misa_funeral=true&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
+                                        <?php } ?>
+                                        <a href="./main.php?op=e_documentos&ref=<?= $datos['id_dif'] ?>&miga=<?= $miga ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
+                                        <a href="./<?= $plantilla ?>.php?ref=<?= $datos['id_dif'] ?>" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
+                                    </td>
+                                    <td class="id_td"><?= $datos['id_dif']; ?></td>
+                                    <td><?= $tipo; ?></td>
+                                    <td><?= $datos['nombre']; ?></td>
+                                    <td><?= $datos['fecha_defuncion']; ?></td>
+                                    <td><?= $datos['poblacion_entierro']; ?></td>
+                                    <td><?= $datos['tipo_servicio']; ?></td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>

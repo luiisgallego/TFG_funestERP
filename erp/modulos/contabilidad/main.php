@@ -1,6 +1,8 @@
 <?php
 @session_start();
 require '../../../config/API_Global.php';
+include_once('../../funciones.php');
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 
 <!DOCTYPE html>
@@ -12,14 +14,41 @@ require '../../../config/API_Global.php';
 <body>
     <?php include "../navModulos.php"; ?>
     <div id="page-wrapper">
-        <?php $op = $_GET['op'];
+        <?php
+        $op = $_GET['op'];
 
-        if($op == "nuevaFactura") include "./nuevaFactura.php";         // FACTURAS
-        else if($op == "facturas") include "./facturas.php";            // listado
-        else if($op == "v_factura") include "./v_factura.php";          // ver
-        else if($op == "e_factura") include "./e_factura.php";          // editar
-
+            if($op == "nuevaFactura") {                             // FACTURAS
+                $editar = false;
+                include "./nuevaFactura.php";
+            }
+            else if($op == "facturas") include "./facturas.php";            // listado
+            else if($op == "v_factura") include "./v_factura.php";          // ver
+            else if($op == "e_factura") {                                   // editar
+                $editar = true;
+                include "./e_factura.php";
+            }
         ?>
     </div> <!-- fin page-wrapper -->
+
+    <script src="../func_aux.js"></script>
+    <script>
+        /**
+         * JQUERY para ajustar los VALUE en función
+         * de si estamos viendo o editando
+         */
+//        $(document).ready(function () {
+//            var editar = "<?php //print_r($editar); ?>//";
+//            var input_difunto = $("#form_difunto input");
+//            var input_servicio = $("#form_servicio input");
+//            var input_familiares = $("#form_familiares input");
+//
+//            if(editar !== "1") {    // Caso general
+//                input_difunto.attr("value","");
+//                input_servicio.attr("value","");
+//                input_familiares.attr("value","");
+//            }
+//        });
+    </script>
+
 </body>
 </html>

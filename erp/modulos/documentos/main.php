@@ -16,25 +16,24 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
         <?php
             $op = $_GET['op'];
 
-            if($op == "nuevaEsquela") {                                 // ESQUELAS
+            if($op == "nuevaEsquela" || $op == "nuevaRecordatoria") {                                                           // ESQUELAS
                 $editar = false;
                 include "./nuevaEsquela.php";
             }
-            else if($op == "esquelas") include "./esquelas.php";            // listado
-            else if($op == "v_esquela") include "./v_esquela.php";          // ver
-            else if($op == "e_esquela") {                                   // editar
+            else if($op == "esquelas" || $op == "recordatorias" || $op == "documentos") include "./documentos.php";                     // listado
+            else if($op == "v_esquela") include "./v_esquela.php";                                                                      // ver
+            else if($op == "e_documentos") {                                                                                            // editar
                 $editar = true;
                 $editar_esquela = true;
-                include "./e_esquela.php";
-            }
-//            else if($op == "v_misa") include "./v_misa.php";                // ver
+                include "./e_documentos.php";
+            }                                                                                   // RECORDATORIO
+            else if($op == "v_recordatoria") include "./v_recordatoria.php";                        // ver
             else if($op == "descargarEsquela") include "./plantillaEsquela.php";
             else if($op == "descargarMisa") include "./plantillaMisa.php";
-            else if($op == "documentos") include "./documentos.php"
         ?>
     </div> <!-- fin page-wrapper -->
 
-    <script src="../func_servicios.js"></script>
+    <script src="../func_aux.js"></script>
     <script>
         /**
          * JQUERY para ajustar los VALUE en función
@@ -53,6 +52,5 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
             }
         });
     </script>
-
 </body>
 </html>

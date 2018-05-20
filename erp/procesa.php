@@ -231,8 +231,6 @@ if($op == "login") {
     unset($datos['op']);
     unset($datos['nuevaEsquela']); // Valor de la busqueda del difunto
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
-
     if(!empty($datos)) {
 
         // Adaptamos los datos correctamente
@@ -246,11 +244,12 @@ if($op == "login") {
         unset($datos_familiares->id_dif);
 
         $datos_familiares = ajustarFamiliares($datos_familiares);
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos_familiares, TRUE).PHP_EOL, FILE_APPEND );
 
         /* Primero hay que generar la relacion DIFUNTO - FAMILIAR */
         $datos_relacion = [
-            "id_dif" => $id_dif
+            "id_dif" => $id_dif,
+            "esquela" => "1",
+            "r_misa" => "1"
         ];
         $modulo = "difunto_familiares";
         if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
@@ -259,7 +258,6 @@ if($op == "login") {
         $cond = "id_dif='$id_dif'";
         $campos = "id_fam";
         $id_fam = $ApiClient->select($modulo, $cond, $campos);
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_fam, TRUE).PHP_EOL, FILE_APPEND );
         $id_fam = $id_fam[0]->id_fam;
 
         /* AÑADIR COMPROBACIÓN:
@@ -283,18 +281,19 @@ if($op == "login") {
         redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
     }
 
-} else if($op == "updateEsquela") {
+} else if($op == "updateDocumentos") {
     // ONLY UPDATE
 
     $datos = $_POST;
+    $miga = $datos['miga'];
     unset($datos['op']);
+    unset($datos['miga']);
 
     if(!empty($datos)) {
 
         // Adaptamos los datos correctamente
         $datos = json_encode($datos);
         $json = json_decode(construyeJSON_Datos($datos));
-        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         // 1º UPDATE FAMILIARES
         // Los ID necesarios vienen con los formularios desde la edición.
@@ -305,7 +304,6 @@ if($op == "login") {
         unset($datos_familiares->id_fam);
 
         $datos_familiares = ajustarFamiliares($datos_familiares);
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_fam, TRUE).PHP_EOL, FILE_APPEND );
 
         // Para actualizar, primero borrarmos y luego insertamos de nuevo
         $modulo = "familiares";
@@ -341,8 +339,26 @@ if($op == "login") {
 
         if(!$ApiClient->update($datos_servicio, $modulo, $cond)) redirige("index.php");
 
-        redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
+        $dir = ($miga === "esquela") ? "v_esquela" : "v_recordatoria";
+        redirige("modulos/documentos/main.php?op=$dir&ref=$id_dif");
     }
+
+} else if($op == "nuevoDocs") {
+
+    file_put_contents (__DIR__."/SOMELOG.log" , print_r("DENTRO", TRUE).PHP_EOL, FILE_APPEND );
+    $datos = $_POST;
+    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+//    return json_encode($datos);
+//    return "hola
+
+    $res = [
+        "datos" => "probando"
+    ];
+
+    echo "hola";
+
+} else if($op == "nuevaFactura") {
 
 }
 

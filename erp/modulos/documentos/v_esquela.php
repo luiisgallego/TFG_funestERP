@@ -149,7 +149,7 @@ if($miga == "") {       // ESQUELA
                             <a href="<?= $plantilla ?>?ref=<?= $estructura['difunto']->id ?>"><i class="fa fa-download fa-fw"></i></a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="main.php?op=e_esquela&ref=<?= $estructura['difunto']->id ?>">Editar</a>
+                            <a href="main.php?op=e_documentos&ref=<?= $estructura['difunto']->id ?>&miga=esquela">Editar</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
                             <a href="../servicios/main.php?op=v_difunto&ref=<?= $estructura['difunto']->id ?>">Difunto</a>

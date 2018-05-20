@@ -29,21 +29,8 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
                 </div> <!-- busqueda -->
                 <!-- *************** FIN BUSCADOR **************** -->
 
+                <!-- Indicamos que nueva esquela para la BD ¿¿¿???? -->
                 <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
-<!--                <div class="difunto">   --><?php //  $editar = true;
-//                    $difunto = $ApiClient->select("difunto", "id=1");
-//                    $difunto = $difunto[0];
-//                                                include('../formularios/form_difunto.php');
-//                                        ?>
-<!--                </div>-->
-<!--                <div class="servicio"> --><?php //include('../formularios/form_servicio.php'); // S ?><!-- </div>-->
-
-                <!-- ****************   SUBMIT GENERAL   ************************* -->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-2 col-md-offset-4">-->
-<!--                        <input type="submit" class="btn btn-primary btn-lg btn-block nuevo_servicio_button" value="Añadir datos">-->
-<!--                    </div>-->
-<!--                </div>-->
 
             </div> <!-- col-md-12 -->
         </div> <!-- page_content -->

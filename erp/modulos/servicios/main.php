@@ -40,7 +40,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
     </div> <!-- fin page-wrapper -->
 
-    <script src="../func_servicios.js"></script>
+    <script src="../func_aux.js"></script>
     <script>
         /**
          * JQUERY para ajustar los VALUE en función

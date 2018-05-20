@@ -64,8 +64,12 @@ function buscarDifunto(info) {
            // Construimos la estructura para mostrarla
             for(i=0; i<json.length; i++){
 
+                // Para cada difunto, buscar si tiene ya su Esquela o Recordatoria correspondiente
+                // Si la tiene no mostrar
+                //
+
                 var estructura = "<div class='row'>" +
-                    "<div class='col-md-5 col-md-offset-1'>" + json[i]['nombre']+ "</div>" +
+                    "<div class='col-md-5 col-md-offset-1' id='nom_dif'>" + json[i]['nombre']+ "</div>" +
                     "<div class='col-md-2'><input type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' /></div>" +
                     "</div>";
                 divBusqueda.append(estructura);
@@ -77,4 +81,60 @@ function buscarDifunto(info) {
 }
 
 <!-- ******************************************************* -->
+
+
+function buscarDifunto2(info) {
+    var nombre = $(".busqueda input").val();
+    console.log(nombre);
+    console.log(info.name);
+
+    if(nombre !== "") {
+        $.post("../../procesa.php", {op: "buscarDifunto",nombreDifunto: nombre}, function (mensaje) {
+
+            var json = JSON.parse(mensaje);
+            var divBusqueda = $("#resBusqueda");
+            divBusqueda.html(""); // Limpiamos si hay datos mostrados
+
+            console.log(json);
+
+            /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
+            var nombre;
+            if(info.name === "nuevoCliente") nombre = "c_id_dif";
+            else if(info.name === "nuevaEsquela") nombre = "f_id_dif";  // FAMILIARES
+
+            // Construimos la estructura para mostrarla
+            for(i=0; i<json.length; i++){
+
+                // Para cada difunto, buscar si tiene ya su Esquela o Recordatoria correspondiente
+                // Si la tiene no mostrar
+                //
+
+                var estructura = "<div class='row'>" +
+                                    "<div class='col-md-5 col-md-offset-1'>" + json[i]['nombre']+ "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<input id='id_dif' type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' />" +
+                                        "<input id='nom_dif' type='hidden' name='"+nombre+"' value='"+json[i]['nombre']+"' />" +
+                                    "</div>" +
+                                "</div>";
+                divBusqueda.append(estructura);
+            }
+        });
+    } else {
+        $("#resBusqueda").html("");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

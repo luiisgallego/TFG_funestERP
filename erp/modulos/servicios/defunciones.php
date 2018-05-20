@@ -71,20 +71,20 @@ foreach ($defunciones as $def) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="iconos_td">
-                                    <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
-                                    <a href="./main.php?op=e_defuncion&ref=1" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                    <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                    <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
-                                </td>
-                                <td class="id_td">001</td>
-                                <td>Nuria Jalon</td>
-                                <td>23-Enero-2018</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td class="iconos_td">-->
+<!--                                    <a href="./main.php?op=v_defuncion" title="Ver"><i class="fa fa-eye fa-fw"></i></a>-->
+<!--                                    <a href="./main.php?op=e_defuncion&ref=1" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>-->
+<!--                                    <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>-->
+<!--                                    <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>-->
+<!--                                </td>-->
+<!--                                <td class="id_td">001</td>-->
+<!--                                <td>Nuria Jalon</td>-->
+<!--                                <td>23-Enero-2018</td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                            </tr>-->
                             <?php foreach ($defunciones as $def){ ?>
                                 <tr>
                                     <td class="iconos_td">
