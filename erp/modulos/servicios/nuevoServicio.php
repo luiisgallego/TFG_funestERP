@@ -18,6 +18,7 @@
                 <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
 <!--                <div class="seguros"> --><?php //include('../formularios/form_seguros.php'); // Z ?><!-- </div>-->
 <!--                <div class="floristeria"> --><?php //include('../formularios/form_floristeria.php'); ?><!-- </div>-->
+<!--                <div class="facturas"> --><?php //include('../formularios/form_facturas.php'); // T ?><!-- </div>-->
 
                 <!-- ****************   SUBMIT GENERAL   ************************* -->
                 <div class="row">

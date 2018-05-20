@@ -5,7 +5,7 @@ $miga = $_GET['miga'];
 $misa_funeral = $_GET['misa_funeral'] ? $_GET['misa_funeral'] : false;
 $estructura = null;
 
-if($miga == "") {       // ESQUELA
+if($miga == "") {               // ESQUELA
 
     $id_dif = $ref;
 

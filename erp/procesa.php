@@ -38,8 +38,6 @@ if($op == "login") {
         $datos_difunto = $json->difunto;
         $modulo = "difunto";
 
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
-
         // El caso más importante es la INSERCION de los datos del DIFUNTO
         if($ApiClient->insert($datos_difunto, $modulo)) {
 
@@ -238,7 +236,7 @@ if($op == "login") {
         $json = json_decode(construyeJSON_Datos($datos));
 
         // Preparamos la INSERCION del PAR FAMILIARES
-        /* Hay que insertar cada para 1 a 1, generando para cada uno la estructura de inserción */
+        /* Hay que insertar cada par 1 a 1, generando para cada uno la estructura de inserción */
         $datos_familiares = $json->familiares;
         $id_dif = $datos_familiares->id_dif;
         unset($datos_familiares->id_dif);
@@ -260,7 +258,7 @@ if($op == "login") {
         $id_fam = $ApiClient->select($modulo, $cond, $campos);
         $id_fam = $id_fam[0]->id_fam;
 
-        /* AÑADIR COMPROBACIÓN:
+        /* AÑADIR RESTRICCIÓN:
             Si id_dif existe en la tabla de DIFUNTO_FAMILIARES, no añadir */
 
         $i = 0;
@@ -359,6 +357,70 @@ if($op == "login") {
     echo "hola";
 
 } else if($op == "nuevaFactura") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+    unset($datos['nuevaFactura']); // Valor de la busqueda del difunto
+
+    if(!empty($datos)) {
+
+        // Adaptamos los datos correctamente
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // Preparamos la INSERCION del PAR FACTURAS
+        /* Hay que insertar cada par 1 a 1, generando para cada uno la estructura de inserción */
+        $datos_factura = $json->facturas;
+        $id_dif = $datos_factura->id_dif;
+        unset($datos_factura->id_dif);
+
+        $datos_factura = ajustarFam_Fact($datos_factura);
+
+        /* Primero hay que generar la relacion DIFUNTO - FACTURAS */
+        $fecha = date('Y-m-d');
+        $datos_relacion = [
+            "id_dif" => $id_dif,
+            "fecha" => $fecha,
+            "total" => "0"
+        ];
+        $modulo = "difunto_facturas";
+        if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+
+        // Ahora obtenemos el ID para guardar en la segunda tabla
+        $cond = "id_dif='$id_dif'";
+        $campos = "id_fact";
+        $id_fact = $ApiClient->select($modulo, $cond, $campos);
+        $id_fact = $id_fact[0]->id_fact;
+
+        /* AÑADIR RESTRICCIÓN:
+            Si id_dif existe en la tabla de DIFUNTO_FAMILIARES, no añadir */
+
+        $i = 0;
+        $importe_total = 0;
+        $modulo = "facturas";
+        while(count($datos_factura) > $i) {
+
+            $aux = [
+                "id_fact" => $id_fact,
+                "concepto" => $datos_factura[$i],
+                "importe" => $datos_factura[$i+1]
+            ];
+
+            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+
+            $importe_total += $datos_factura[$i+1];
+            $i = $i+2;
+        }
+
+        // Actualizamos el TOTAL de la FACTURA
+        $datos_relacion['total'] = $importe_total;
+        $modulo = "difunto_facturas";
+        $cond = "id_dif='$id_dif'";
+        if(!$ApiClient->update($datos_relacion, $modulo, $cond))  redirige("index.php");
+
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r(date('d-m-Y'), TRUE).PHP_EOL, FILE_APPEND );
+        redirige("modulos/contabilidad/main.php?op=nuevaFactura");
+    }
 
 }
 

@@ -32,6 +32,38 @@ function addParRolNombres() {
 <!-- ******************************************************* -->
 
 /**
+ * Añade nueva linea dinámicamente en FORM_FACTURAS
+ */
+var cont_parConceptoImporte = 1;
+function addParConceptoImporte() {
+
+    cont_parConceptoImporte++;
+    var bloqueCompleto = document.createElement('li');
+    bloqueCompleto.setAttribute('class', 'list-group-item');
+
+    var bloqueConcepto =
+        '<div class="col-md-8">' +
+            '<label>Concepto</label>'+
+            '<div class="input-group">'+
+                '<span class="input-group-addon"></span>'+
+                '<input type="text" class="form-control" name="t_concepto_'+cont_parConceptoImporte+'" placeholder=""/>'+
+            '</div>'+
+        '</div>';
+    var bloqueItem =
+        '<div class="col-md-2">' +
+            '<label>Importe</label>'+
+            '<div class="input-group">'+
+                '<span class="input-group-addon"></span>'+
+                '<input type="text" class="form-control" name="t_importe_'+cont_parConceptoImporte+'" placeholder=""/>'+
+            '</div>'+
+        '</div>';
+
+    bloqueCompleto.innerHTML = bloqueConcepto + bloqueItem;
+    document.getElementById('parConceptoImporte').appendChild(bloqueCompleto);
+}
+<!-- ******************************************************* -->
+
+/**
  * JQUERY para ajustar los FORM en funcion del sexo
  */
 var valor = $(".d_sexo");
@@ -60,13 +92,14 @@ function buscarDifunto(info) {
             var nombre;
             if(info.name === "nuevoCliente") nombre = "c_id_dif";
             else if(info.name === "nuevaEsquela") nombre = "f_id_dif";  // FAMILIARES
+            else if(info.name === "nuevaFactura") nombre = "t_id_dif";  // FACTURAS
 
            // Construimos la estructura para mostrarla
             for(i=0; i<json.length; i++){
 
                 // Para cada difunto, buscar si tiene ya su Esquela o Recordatoria correspondiente
                 // Si la tiene no mostrar
-                //
+                // ¡¡¡pensar!!!
 
                 var estructura = "<div class='row'>" +
                     "<div class='col-md-5 col-md-offset-1' id='nom_dif'>" + json[i]['nombre']+ "</div>" +

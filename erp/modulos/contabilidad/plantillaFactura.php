@@ -1,111 +1,72 @@
 <?php
+// DOMPDF
+ob_start();
+require_once '../../dompdf/autoload.inc.php';      // include autoloader
+use Dompdf\Dompdf;
 
-/* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
-$ref = $_GET['ref'];
-$miga = $_GET['miga'];
-
-$estructura = null;
-
-if($miga == "") {               // FACTURA
-
-    $id_dif = $ref;
-
-    $modulo = "difunto";
-    $cond = "id='$id_dif'";
-    $difunto = $ApiClient->select($modulo, $cond);
-
-    $modulo = "servicio";
-    $cond = "id_dif='$id_dif'";
-    $servicio = $ApiClient->select($modulo, $cond);
-
-    $modulo = "difunto_cliente";
-    $cond = "id_dif='$id_dif'";
-    $rel_dif_cli = $ApiClient->select($modulo, $cond);
-
-    $modulo = "cliente";
-    $id_cli = $rel_dif_cli[0]->id_cli;
-    $cond = "id='$id_cli'";
-    $cliente = $ApiClient->select($modulo, $cond);
-
-    $modulo = "difunto_facturas";
-    $cond = "id_dif='$id_dif'";
-    $relacion = $ApiClient->select($modulo, $cond);
-
-    $modulo = "facturas";
-    $id_fact = $relacion[0]->id_fact;
-    $cond = "id_fact='$id_fact'";
-    $facturas = $ApiClient->select($modulo, $cond);
-
-    $estructura = [
-        "difunto" => $difunto[0],
-        "servicio" => $servicio[0],
-        "cliente" => $cliente[0],
-        "relacion" => $relacion[0],
-        "facturas" => $facturas
-    ];
-}
+@session_start();
+require '../../../config/API_Global.php';
+include_once('../../funciones.php');
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 ?>
 
-<style>
-    .body_factura {
-        /*background: #f2f2f2;*/
-        font-family: Arial;
-        font-size: 13px;
-        line-height: 1.6;
-        color: #444;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Luis Gallego Quero">
+    <title>FunestERP</title>
+    <link rel="icon" href="../img/favicon.ico">
 
-    #dina4 {
-        width: 210mm;
-        height: 297mm;
-        padding: 20px 60px; /* Margenes folio */
-        border: 1px solid #D2D2D2;
-        background: #fff;
-        margin: 10px auto;
-    }
-    .tam_img {
-        width: 120px;
-        height: 120px;
-    }
-    .separado_row {
-        margin-top: 20px;
-    }
-    .subrayado {
-        text-decoration: underline;
-    }
-    .desglose_factura {
-        min-height: 430px;
-    }
-</style>
+    <!-- Bootstrap -->
+    <link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <!-- FontAwesome Icons (http://fontawesome.io) -->
+    <link href="../../../bootstrap/fontAwesome/css/font-awesome.min.css" rel="stylesheet"> <!-- Icons -->
+    <!-- incluir posteriormente en el CSS para hacer uso de ellas -->
+    <link href="https://fonts.googleapis.com/css?family=Graduate|Pacifico" rel="stylesheet">
 
-<div class="container-fluid">
+    <style>
+        .body_factura {
+            /*background: #f2f2f2;*/
+            font-family: Arial;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #444;
+        }
 
-    <div class="row border_nav">
-        <div class="col-md-2"><h2>Factura:</h2></div>
-        <div class="col-md-10 alinear_nav">
-            <div class="col-md-5"><h4>Miguel Ángel del Carmen Garcia Ruiz</h4></div>
-            <div class="col-md-7">
-                <nav>
-                    <ul class="nav nav-tabs">
-                        <li class="espaciar_nav" role="presentation" >
-                            <a href="main.php?op=e_factura">Editar</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_difunto">Difunto</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_cliente">Cliente</a>
-                        </li>
-                        <li class="espaciar_nav" role="presentation">
-                            <a href="../documentos/main.php?op=v_esquela">Esquela</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div> <!-- row navegacion -->
+        /*#dina4 {*/
+            /*width: 210mm;*/
+            /*height: 297mm;*/
+            /*padding: 20px 60px; !* Margenes folio *!*/
+            /*border: 1px solid #D2D2D2;*/
+            /*background: #fff;*/
+            /*margin: 10px auto;*/
+        /*}*/
 
+        .tam_img {
+            width: 120px;
+            height: 120px;
+        }
+        .separado_row {
+            margin-top: 20px;
+        }
+        .subrayado {
+            text-decoration: underline;
+        }
+        .desglose_factura {
+            min-height: 430px;
+        }
+    </style>
+</head>
+<body>
     <div class="row body_factura" style="margin-top: 20px;">
         <div id="dina4">
 
@@ -229,5 +190,15 @@ if($miga == "") {               // FACTURA
 
         </div> <!-- dina4 -->
     </div> <!-- body_factura -->
+</body>
+</html>
 
-</div>
+<?php
+$dompdf = new Dompdf();                     // instantiate and use the dompdf class
+$dompdf->loadHtml(ob_get_clean());
+$dompdf->render();                           // Render the HTML as PDF
+$dompdf->setPaper('A4');                // (Optional) Setup the paper size and orientation
+$pdf = $dompdf->output();
+$filename = 'Esquela.pdf';
+$dompdf->stream($filename, array("Attachment" => 0));     // Output the generated PDF to Browser
+?>

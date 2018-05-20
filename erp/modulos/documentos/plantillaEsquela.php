@@ -140,62 +140,59 @@ $estructura['difunto']->fecha_nacimiento = format_edad($estructura['difunto']->f
             margin-bottom: 20px;
         }
     </style>
-
 </head>
 <body>
+    <div id="dina4">
+        <div class="row" style="margin-left: 3px;">
+            <div class="barra_superior_lateral"></div>
+            <div class="barra_superior"></div>
+            <div class="barra_lateral">
+                <div class="contenido_general">
 
-<div id="dina4">
-    <div class="row" style="margin-left: 3px;">
-        <div class="barra_superior_lateral"></div>
-        <div class="barra_superior"></div>
-        <div class="barra_lateral">
-            <div class="contenido_general">
+                    <div class="row contenido_superior">
+                        <div class="col-md-10 col-md-offset-1" style="text-align: center;">
+                            <img class="tam_img" src="../../img/cruz_esquela.jpg">
+                            <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
+                            <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
+                            <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
+                                <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
+                                habiendo recibido los Santos Sacramentos.</div>
+                            <div class="separado_row subrayado" style="font-size: 250%; font-weight: bold;"><i>D.E.P.</i></div>
+                        </div>
+                    </div> <!-- contenido_superior -->
 
-                <div class="row contenido_superior">
-                    <div class="col-md-10 col-md-offset-1" style="text-align: center;">
-                        <img class="tam_img" src="../../img/cruz_esquela.jpg">
-                        <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
-                        <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
-                        <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
-                            <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
-                            habiendo recibido los Santos Sacramentos.</div>
-                        <div class="separado_row subrayado" style="font-size: 250%; font-weight: bold;"><i>D.E.P.</i></div>
-                    </div>
-                </div> <!-- contenido_superior -->
+                    <div class="row contenido_central" style="text-align: justify">
+                        <div class="col-md-12">
+                            <div style="font-size: 130%;">
+                                <?php foreach($estructura['familiares'] as $valor) { ?>
+                                    <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
+                                <?php } ?>
 
-                <div class="row contenido_central" style="text-align: justify">
-                    <div class="col-md-12">
-                        <div style="font-size: 130%;">
-                            <?php foreach($estructura['familiares'] as $valor) { ?>
-                                <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
-                            <?php } ?>
+                                <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
+                                <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
+                                <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
+                                <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
+                                Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
+                                descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
+                                lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
+                                    <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                por cuya asistencia les quedarán eternamente agradecidos.
+                            </div>
+                        </div>
+                    </div> <!-- contenido_central-->
 
-                            <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
-                            <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
-                            <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
-                            <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
-                            Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
-                            descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
-                            lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
-                                <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
-                            por cuya asistencia les quedarán eternamente agradecidos.
+                    <div class="row contenido_inferior" style="margin-top: 25px;">
+                        <div class="col-md-12" style="text-align: center;">
+                            <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
+                            <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
+                            <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
                         </div>
                     </div>
-                </div> <!-- contenido_central-->
 
-                <div class="row contenido_inferior" style="margin-top: 25px;">
-                    <div class="col-md-12" style="text-align: center;">
-                        <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
-                        <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
-                        <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
-                    </div>
-                </div>
-
-            </div> <!-- contenido_general -->
-        </div> <!-- barra_lateral -->
-    </div>
-
-</div> <!-- dina4 -->
+                </div> <!-- contenido_general -->
+            </div> <!-- barra_lateral -->
+        </div> <!-- row -->
+    </div> <!-- dina4 -->
 </body>
 </html>
 

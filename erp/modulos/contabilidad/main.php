@@ -41,11 +41,13 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //            var input_difunto = $("#form_difunto input");
 //            var input_servicio = $("#form_servicio input");
 //            var input_familiares = $("#form_familiares input");
+//            var input_facturas = $("#form_facturas input");
 //
 //            if(editar !== "1") {    // Caso general
 //                input_difunto.attr("value","");
 //                input_servicio.attr("value","");
 //                input_familiares.attr("value","");
+//                input_facturas.attr("value","");
 //            }
 //        });
     </script>

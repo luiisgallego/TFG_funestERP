@@ -1,6 +1,4 @@
-<?php
-
-/* MOSTRAREMOS ESQUELAS ( MISAS ) Y RECORDATORIAS
+<?php       /* MOSTRAREMOS ESQUELAS ( MISAS ) Y RECORDATORIAS
 
 /* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
 $ref = $_GET['ref'];
@@ -16,10 +14,10 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
     $tipo_documento = ($op === "esquelas") ? "ESQUELA - MISA" : "RECORDATORIA";
 
     $modulo = "difunto_familiares";
-    $cond = ($op === "esquelas") ? "esquela=1" : "r_misa=1" ;
+    $cond = ($op === "esquelas") ? "esquela=1" : "r_misa=1";
     $identificadores = $ApiClient->select($modulo, $cond);
 
-    // Construimos la estructura a mostrar
+    // Construimos la estructura a mostrar ( DIFUNTO - SERVICIO )
     foreach ($identificadores as $ids) {
 
         $modulo = "difunto";

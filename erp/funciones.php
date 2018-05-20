@@ -7,7 +7,7 @@
  * Dividimos Array en secciones
  *
  * @param string $datos (JSON) Datos de formularios
- * @return string JSON {difunto, servicio, cliente, familiares,...}
+ * @return string JSON {difunto, servicio, cliente, familiares, facturas...}
  */
 function construyeJSON_Datos($datos) {
 
@@ -17,6 +17,7 @@ function construyeJSON_Datos($datos) {
     $aux_servicio = [];
     $aux_cliente = [];
     $aux_familiares = [];
+    $aux_facturas = [];
 
     foreach($datos as $clave => $valor) {
 
@@ -29,6 +30,7 @@ function construyeJSON_Datos($datos) {
         else if($inicial == "s_") $aux_servicio[$clave] = $valor;
         else if($inicial == "c_") $aux_cliente[$clave] = $valor;
         else if($inicial == "f_") $aux_familiares[$clave] = $valor;
+        else if($inicial == "t_") $aux_facturas[$clave] = $valor;
     }
 
     // Montamos JSON
@@ -36,7 +38,8 @@ function construyeJSON_Datos($datos) {
         "difunto" => $aux_difunto,
         "servicio" => $aux_servicio,
         "cliente" => $aux_cliente,
-        "familiares" => $aux_familiares
+        "familiares" => $aux_familiares,
+        "facturas" => $aux_facturas
     ];
 
     return json_encode($json);
@@ -62,11 +65,11 @@ function compruebaVacio($datos, $excepciones = null){
     return true;
 }
 
-function ajustarFamiliares($datos_familiares) {
+function ajustarFam_Fact($datos) {
 
     $res = [];
 
-    foreach ($datos_familiares as $clave => $valor) {
+    foreach ($datos as $clave => $valor) {
         array_push($res, $valor);
     }
 
