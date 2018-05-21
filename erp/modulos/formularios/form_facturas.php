@@ -8,25 +8,25 @@
     <div id="form_familiares" class="panel-body collapse in">
         <?php if($editar === true) { ?>
             <input type="hidden" name="t_id_dif" value="<?= $estructura['difunto']->id ?>" />
-            <input type="hidden" name="t_id_fact" value="<?= $estructura['id_fam'] ?>" />
+            <input type="hidden" name="t_id_fact" value="<?= $estructura['relacion']->id_fact ?>" />
         <?php } ?>
         <ul id="parConceptoImporte" class="list-group diseño_formulario">
             <?php if($editar === true) {
                 $cont=0;
-                foreach ($estructura['familiares'] as $valor) { ?>
+                foreach ($estructura['facturas'] as $valor) { ?>
                     <li class="list-group-item">
-                        <div class="col-md-2">
-                            <label>Rol</label>
+                        <div class="col-md-8">
+                            <label>Concepto</label>
                             <div class="input-group">
                                 <span class="input-group-addon"></span>
-                                <input type="text" class="form-control" name="f_rol<?= $cont ?>1" value="<?= $valor->rol ?>" placeholder=""/>
+                                <input type="text" class="form-control" name="t_concepto<?= $cont ?>1" value="<?= $valor->concepto ?>" placeholder=""/>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <label>Nombres</label>
+                        <div class="col-md-2">
+                            <label>Importe</label>
                             <div class="input-group">
                                 <span class="input-group-addon"></span>
-                                <input type="text" class="form-control" name="f_nombres<?= $cont ?>1" value="<?= $valor->nombres ?>" placeholder=""/>
+                                <input type="text" class="form-control" name="t_importe<?= $cont ?>1" value="<?= $valor->importe ?>" placeholder=""/>
                             </div>
                         </div>
                         <div class="col-md-2">

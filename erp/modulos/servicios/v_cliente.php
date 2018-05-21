@@ -6,11 +6,11 @@ $ref = $_GET['ref'];
 $miga = $_GET['miga'];
 $id_cliente = null;
 
-if($miga == "" || $miga == "cliente") {     // CLIENTE
+if($miga == "" || $miga == "cliente" || $miga == "factura") {                 // CLIENTE || FACTURA
 
     $id_cliente = $ref;
 
-} else if($miga === "difunto" || $miga === "docs") {    // DIFUNTO
+} else if($miga === "difunto" || $miga === "docs") {    // DIFUNTO || DOCUMENTOS
 
     // Consultamos el CLIENTE asociado al DIFUNTO
     $modulo = "difunto_cliente";
@@ -22,7 +22,8 @@ if($miga == "" || $miga == "cliente") {     // CLIENTE
 $cliente = $ApiClient->select("cliente", "id='$id_cliente'");
 $cliente = $cliente[0];
 
-/* DIFUNTOS del CLIENTE (salida) */
+// Para la navegacion
+/* DIFUNTOS del CLIENTE */
 $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'");
 ?>
 
@@ -48,7 +49,11 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
                             <a href="../documentos/main.php?op=documentos&miga=cliente&ref=<?= $cliente->id ?>">Documentos</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../contabilidad/main.php?op=facturas&ref=<?= $cliente->id ?>">Factura</a>
+                            <?php if(count($difuntosCliente) > 1) { ?>
+                                <a href="../contabilidad/main.php?op=facturas&miga=cliente&ref=<?= $cliente->id ?>">Factura</a>
+                            <?php } else { ?>
+                                <a href="../contabilidad/main.php?op=v_factura&miga=cliente&ref=<?= $cliente->id ?>">Factura</a>
+                            <?php } ?>
                         </li>
                     </ul>
                 </nav>

@@ -1,3 +1,5 @@
+<?php if($editar_factura === true) $cliente = $estructura['cliente']; ?>
+
 <!-- ****************       CLIENTE       ************************* -->
 <div class="panel panel-primary">
     <div class="panel-heading">

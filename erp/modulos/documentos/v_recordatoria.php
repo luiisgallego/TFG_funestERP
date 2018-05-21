@@ -111,7 +111,7 @@ if($miga == "") {       // ESQUELA
                             <a href="../servicios/main.php?op=v_cliente&miga=docs&ref=<?= $estructura['difunto']->id ?>">Cliente</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../contabilidad/main.php?op=v_factura&ref=<?= $estructura['difunto']->id ?>">Factura</a>
+                            <a href="../contabilidad/main.php?op=v_factura&miga=docs&ref=<?= $estructura['difunto']->id ?>">Factura</a>
                         </li>
                     </ul>
                 </nav>

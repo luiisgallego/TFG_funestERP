@@ -1,4 +1,4 @@
-<?php if($editar_esquela === true) $difunto = $estructura['difunto']; ?>
+<?php if($editar_esquela === true || $editar_factura === true) $difunto = $estructura['difunto']; ?>
 
 <!-- ****************    DIFUNTO      ************************* -->
 <div class="panel panel-primary">

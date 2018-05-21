@@ -25,6 +25,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
             else if($op == "v_factura") include "./v_factura.php";          // ver
             else if($op == "e_factura") {                                   // editar
                 $editar = true;
+                $editar_factura = true;
                 include "./e_factura.php";
             }
         ?>
@@ -36,21 +37,20 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
          * JQUERY para ajustar los VALUE en función
          * de si estamos viendo o editando
          */
-//        $(document).ready(function () {
-//            var editar = "<?php //print_r($editar); ?>//";
-//            var input_difunto = $("#form_difunto input");
-//            var input_servicio = $("#form_servicio input");
-//            var input_familiares = $("#form_familiares input");
-//            var input_facturas = $("#form_facturas input");
-//
-//            if(editar !== "1") {    // Caso general
-//                input_difunto.attr("value","");
-//                input_servicio.attr("value","");
-//                input_familiares.attr("value","");
-//                input_facturas.attr("value","");
-//            }
-//        });
-    </script>
+        $(document).ready(function () {
+            var editar = "<?php print_r($editar); ?>";
+            var input_difunto = $("#form_difunto input");
+            var input_servicio = $("#form_servicio input");
+            var input_cliente = $("#form_cliente input");
+            var input_facturas = $("#form_facturas input");
 
+            if(editar !== "1") {    // Caso general
+                input_difunto.attr("value","");
+                input_servicio.attr("value","");
+                input_cliente.attr("value","");
+                input_facturas.attr("value","");
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php if($editar_esquela === true) $servicio = $estructura['servicio']; ?>
+<?php if($editar_esquela === true || $editar_factura === true) $servicio = $estructura['servicio']; ?>
 
 <!-- ****************       SERVICIO       ************************* -->
 <div class="panel panel-primary">

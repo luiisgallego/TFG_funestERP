@@ -301,7 +301,7 @@ if($op == "login") {
         $id_fam = $datos_familiares->id_fam;
         unset($datos_familiares->id_fam);
 
-        $datos_familiares = ajustarFamiliares($datos_familiares);
+        $datos_familiares = ajustarFam_Fact($datos_familiares);
 
         // Para actualizar, primero borrarmos y luego insertamos de nuevo
         $modulo = "familiares";
@@ -418,8 +418,78 @@ if($op == "login") {
         $cond = "id_dif='$id_dif'";
         if(!$ApiClient->update($datos_relacion, $modulo, $cond))  redirige("index.php");
 
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r(date('d-m-Y'), TRUE).PHP_EOL, FILE_APPEND );
         redirige("modulos/contabilidad/main.php?op=nuevaFactura");
+    }
+
+} else if($op == "updateFacturas") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+    if(!empty($datos)) {
+
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // 1º UPDATE FACTURAS
+        // Los ID necesarios vienen con los formularios desde la edición.
+        $datos_factura = $json->facturas;
+        $id_dif = $datos_factura->id_dif;
+        unset($datos_factura->id_dif);
+        $id_fact = $datos_factura->id_fact;
+        unset($datos_factura->id_fact);
+
+        $datos_factura = ajustarFam_Fact($datos_factura);
+
+        // Para actualizar, primero borrarmos y luego insertamos de nuevo
+        $modulo = "facturas";
+        $cond = "id_fact='$id_fact'";
+        if(!$ApiClient->delete($modulo, $cond)) redirige("index.php");
+
+        $i = 0;     // Ahora guardamos de nuevo
+        $importe_total = 0;
+        while(count($datos_factura) > $i) {
+
+            $aux = [
+                "id_fact" => $id_fact,
+                "concepto" => $datos_factura[$i],
+                "importe" => $datos_factura[$i+1]
+            ];
+
+            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+
+            $importe_total += $datos_factura[$i+1];
+            $i = $i+2;
+        }
+
+        // Actualizamos el TOTAL de la FACTURA
+        $modulo = "difunto_facturas";
+        $cond = "id_fact='$id_fact'";
+        $datos_relacion['total'] = $importe_total;
+        if(!$ApiClient->update($datos_relacion, $modulo, $cond))  redirige("index.php");
+
+        // 2º UPDATE DIFUNTO
+        $datos_difunto = $json->difunto;
+        $modulo = "difunto";
+        $cond = "id='$datos_difunto->id'";
+        if(!$ApiClient->update($datos_difunto, $modulo, $cond)) redirige("index.php");
+
+        // 3º UPDATE SERVICIO
+        $datos_servicio = $json->servicio;
+        $modulo = "servicio";
+        $cond = "id='$datos_servicio->id'";
+        if(!$ApiClient->update($datos_servicio, $modulo, $cond)) redirige("index.php");
+
+        // 4º UPDATE CLIENTE
+        $datos_cliente = $json->cliente;
+        $modulo = "cliente";
+        $cond = "id='$datos_cliente->id'";
+        if(!$ApiClient->update($datos_cliente, $modulo, $cond)) redirige("index.php");
+
+
+//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
+
+        redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
 
 }

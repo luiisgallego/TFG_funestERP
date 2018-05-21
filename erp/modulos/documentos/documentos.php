@@ -41,7 +41,7 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
         array_push($estructura, $aux);
     }
 
-} else if($miga === "difunto") {       // DIFUNTO
+} else if($miga === "difunto" || $miga === "factura") {       // DIFUNTO || FACTURA
 
     $id_dif = $ref;
     $pagina = "Documentos";

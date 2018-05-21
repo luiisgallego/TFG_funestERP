@@ -6,7 +6,7 @@ $miga = $_GET['miga'];
 
 $estructura = null;
 
-if($miga == "") {               // FACTURA
+if($miga === "" || $miga === "difunto" || $miga === "docs") {               // FACTURA || DIFUNTO || DOCUMENTOS
 
     $id_dif = $ref;
 
@@ -43,6 +43,51 @@ if($miga == "") {               // FACTURA
         "relacion" => $relacion[0],
         "facturas" => $facturas
     ];
+
+}else if($miga === "cliente") {                 // CLIENTE
+
+    $id_cli = $ref;
+
+    $modulo = "cliente";
+    $cond = "id='$id_cli'";
+    $cliente = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_cliente";
+    $cond = "id_cli='$id_cli'";
+    $rel_dif_cli = $ApiClient->select($modulo, $cond);
+    $id_dif = $rel_dif_cli[0]->id_dif;
+
+    $modulo = "difunto";
+    $cond = "id='$id_dif'";
+    $difunto = $ApiClient->select($modulo, $cond);
+
+    $modulo = "servicio";
+    $cond = "id_dif='$id_dif'";
+    $servicio = $ApiClient->select($modulo, $cond);
+
+    $modulo = "cliente";
+    $id_cli = $rel_dif_cli[0]->id_cli;
+    $cond = "id='$id_cli'";
+    $cliente = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_facturas";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
+    $modulo = "facturas";
+    $id_fact = $relacion[0]->id_fact;
+    $cond = "id_fact='$id_fact'";
+    $facturas = $ApiClient->select($modulo, $cond);
+
+    $estructura = [
+        "difunto" => $difunto[0],
+        "servicio" => $servicio[0],
+        "cliente" => $cliente[0],
+        "relacion" => $relacion[0],
+        "facturas" => $facturas
+    ];
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
 
 ?>
@@ -84,21 +129,21 @@ if($miga == "") {               // FACTURA
     <div class="row border_nav">
         <div class="col-md-2"><h2>Factura:</h2></div>
         <div class="col-md-10 alinear_nav">
-            <div class="col-md-5"><h4>Miguel Ángel del Carmen Garcia Ruiz</h4></div>
+            <div class="col-md-5"><h4><?= $estructura['difunto']->nombre ?></h4></div>
             <div class="col-md-7">
                 <nav>
                     <ul class="nav nav-tabs">
                         <li class="espaciar_nav" role="presentation" >
-                            <a href="main.php?op=e_factura">Editar</a>
+                            <a href="main.php?op=e_factura&ref=<?= $estructura['difunto']->id ?>">Editar</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_difunto">Difunto</a>
+                            <a href="../servicios/main.php?op=v_defuncion&ref=<?= $estructura['difunto']->id ?>">Difunto</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../servicios/main.php?op=v_cliente">Cliente</a>
+                            <a href="../servicios/main.php?op=v_cliente&miga=factura&ref=<?= $estructura['cliente']->id ?>">Cliente</a>
                         </li>
                         <li class="espaciar_nav" role="presentation">
-                            <a href="../documentos/main.php?op=v_esquela">Esquela</a>
+                            <a href="../documentos/main.php?op=documentos&miga=factura&ref=<?= $estructura['difunto']->id ?>">Documentos</a>
                         </li>
                     </ul>
                 </nav>
@@ -106,10 +151,10 @@ if($miga == "") {               // FACTURA
         </div>
     </div> <!-- row navegacion -->
 
-    <div class="row body_factura" style="margin-top: 20px;">
+    <div class="row body_factura" >
         <div id="dina4">
 
-            <div class="row datos_funeraria">
+            <div class="row datos_funeraria" style="margin-top: 20px;">
                 <div class="col-md-6">
                     <span style="font-size: 12pt;"><b>TANATORIO - FUNERARIA GALLEGO</b></span><br>
                     <span>LUIS ANT. GALLEGO CESPEDOSA</span><br>
@@ -137,11 +182,11 @@ if($miga == "") {               // FACTURA
                         </div>
                         <div>
                             <span></span><br>
-                            <span>BENITA QUERO GARCÍA</span><br>
-                            <span>C/ PADILLA</span><br>
-                            <span>PORCUNA ( JAÉN )</span><br>
-                            <span>25972744-V</span><br>
-                            <span>666 777 888</span><br>
+                            <span><?= strtoupper($estructura['cliente']->nombre); ?></span><br>
+                            <span><?= strtoupper($estructura['cliente']->direccion); ?></span><br>
+                            <span><?= strtoupper($estructura['cliente']->poblacion); ?></span><br>
+                            <span><?= $estructura['cliente']->dni; ?></span><br>
+                            <span><?= $estructura['cliente']->telefono; ?></span><br>
                         </div>
                     </div>
                 </div>
@@ -150,16 +195,16 @@ if($miga == "") {               // FACTURA
                     <span>Número Factura:</span>
                 </div>
                 <div>
-                    <span>12 - Marzo - 2.018</span><br>
+                    <span><?= $estructura['relacion']->fecha; ?></span><br>
                     <span>A/001467</span>
                 </div>
             </div> <!-- row datos_cliente -->
 
             <div class="row datos_sepelio separado_row">
                 <div class="col-md-12">
-                    <span class="subrayado" style="padding-right: 40px;">GASTOS DEL SEPELIO:</span><span>Dº. MARÍA DEL CARMEN GARCÍA DE LA ROSA</span><br>
-                    <span class="subrayado" style="padding-right: 50px;">FECHA:</span><span>10 - MARZO - 2.O18</span><br>
-                    <span class="subrayado" style="padding-right: 20px;">LOCALIDAD:</span><span>PORCUNA ( JAÉN )</span><br>
+                    <span class="subrayado" style="padding-right: 40px;">GASTOS DEL SEPELIO:</span><span><?= strtoupper($estructura['difunto']->nombre); ?></span><br>
+                    <span class="subrayado" style="padding-right: 50px;">FECHA:</span><span><?= strtoupper($estructura['servicio']->fecha_defuncion); ?></span><br>
+                    <span class="subrayado" style="padding-right: 20px;">LOCALIDAD:</span><span><?= strtoupper($estructura['servicio']->poblacion_entierro); ?></span><br>
                 </div>
             </div> <!-- row datos_sepelio -->
 
@@ -167,36 +212,22 @@ if($miga == "") {               // FACTURA
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th><span style="margin-left: 150px;">SERVICIOS DE FUNERARIA</span></th>
-                            <th>EUROS</th>
-                        </tr>
+                            <tr>
+                                <th><span style="margin-left: 150px;">SERVICIOS DE FUNERARIA</span></th>
+                                <th>EUROS</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
+                            <tr>
+                                <td>ARCA O FERETRO</td>
+                                <td>461,31 E</td>
+                            </tr>
+                            <?php foreach($estructura['facturas'] as $valor) { ?>
+                                <tr>
+                                    <td><?= strtoupper($valor->concepto); ?></td>
+                                    <td><?= $valor->importe; ?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -207,17 +238,22 @@ if($miga == "") {               // FACTURA
                     <table class="table">
                         <thead><th></th><th></th></thead>
                         <tbody>
-                        <tr>
-                            <td><span style="margin-left: 150px;">TOTAL BASE IMPONIBLE</span></td>
-                            <td>1.191,49 E</td>
-                        </tr>
-                        <tr>
-                            <td><span style="margin-left: 150px;">21% I.V.A</span></td>
-                            <td>250,21 E</td>
-                        </tr><tr>
-                            <td><span style="margin-left: 150px;">TOTAL SERVICIO FUNERARIA</span></td>
-                            <td>1.441,70 E</td>
-                        </tr>
+                            <?php
+                                $base = $estructura['relacion']->total;
+                                $iva = $base * 0.21;
+                                $total = $base + $iva;
+                            ?>
+                            <tr>
+                                <td><span style="margin-left: 150px;">TOTAL BASE IMPONIBLE</span></td>
+                                <td><?= $base; ?></td>
+                            </tr>
+                            <tr>
+                                <td><span style="margin-left: 150px;">21% I.V.A</span></td>
+                                <td><?= $iva; ?></td>
+                            </tr><tr>
+                                <td><span style="margin-left: 150px;">TOTAL SERVICIO FUNERARIA</span></td>
+                                <td><?= $total; ?></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
