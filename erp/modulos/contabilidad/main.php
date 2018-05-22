@@ -9,7 +9,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <html>
 <head>
     <?php include('../head_main.php'); ?>
-
 </head>
 <body>
     <?php include "../navModulos.php"; ?>
@@ -52,5 +51,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
             }
         });
     </script>
+
+    <!-- ALERTIFY -->
+<!--    <script rel="stylesheet" href="../../js/alertify/alertify.js"></script>-->
+<!--    <link rel="stylesheet" href="../../js/alertify/css/alertify.css">-->
+<!--    <link rel="stylesheet" href="../../js/alertify/css/themes/default.css">-->
+
 </body>
 </html>

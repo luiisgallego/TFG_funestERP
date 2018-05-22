@@ -6,7 +6,7 @@ $miga = $_GET['miga'];
 
 $estructura = null;
 
-if($miga === "" || $miga === "difunto" || $miga === "docs") {               // FACTURA || DIFUNTO || DOCUMENTOS
+if($miga == "" || $miga === "difunto" || $miga === "docs") {               // FACTURA || DIFUNTO || DOCUMENTOS
 
     $id_dif = $ref;
 
@@ -133,6 +133,9 @@ if($miga === "" || $miga === "difunto" || $miga === "docs") {               // F
             <div class="col-md-7">
                 <nav>
                     <ul class="nav nav-tabs">
+                        <li class="" role="presentation" >
+                            <a href="./plantillaFactura.php?ref=<?= $estructura['difunto']->id ?>"><i class="fa fa-download fa-fw"></i></a>
+                        </li>
                         <li class="espaciar_nav" role="presentation" >
                             <a href="main.php?op=e_factura&ref=<?= $estructura['difunto']->id ?>">Editar</a>
                         </li>
@@ -218,10 +221,6 @@ if($miga === "" || $miga === "difunto" || $miga === "docs") {               // F
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>ARCA O FERETRO</td>
-                                <td>461,31 E</td>
-                            </tr>
                             <?php foreach($estructura['facturas'] as $valor) { ?>
                                 <tr>
                                     <td><?= strtoupper($valor->concepto); ?></td>
@@ -265,5 +264,4 @@ if($miga === "" || $miga === "difunto" || $miga === "docs") {               // F
 
         </div> <!-- dina4 -->
     </div> <!-- body_factura -->
-
 </div>

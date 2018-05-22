@@ -9,6 +9,96 @@ require '../../../config/API_Global.php';
 include_once('../../funciones.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+/* TENEMOS QUE CONTROLAR DE DONDE VENIMOS. */
+$ref = $_GET['ref'];
+$miga = $_GET['miga'];
+
+$estructura = null;
+
+if($miga == "" || $miga === "difunto" || $miga === "docs") {               // FACTURA || DIFUNTO || DOCUMENTOS
+
+    $id_dif = $ref;
+
+    $modulo = "difunto";
+    $cond = "id='$id_dif'";
+    $difunto = $ApiClient->select($modulo, $cond);
+
+    $modulo = "servicio";
+    $cond = "id_dif='$id_dif'";
+    $servicio = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_cliente";
+    $cond = "id_dif='$id_dif'";
+    $rel_dif_cli = $ApiClient->select($modulo, $cond);
+
+    $modulo = "cliente";
+    $id_cli = $rel_dif_cli[0]->id_cli;
+    $cond = "id='$id_cli'";
+    $cliente = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_facturas";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
+    $modulo = "facturas";
+    $id_fact = $relacion[0]->id_fact;
+    $cond = "id_fact='$id_fact'";
+    $facturas = $ApiClient->select($modulo, $cond);
+
+    $estructura = [
+        "difunto" => $difunto[0],
+        "servicio" => $servicio[0],
+        "cliente" => $cliente[0],
+        "relacion" => $relacion[0],
+        "facturas" => $facturas
+    ];
+
+}else if($miga === "cliente") {                 // CLIENTE
+
+    $id_cli = $ref;
+
+    $modulo = "cliente";
+    $cond = "id='$id_cli'";
+    $cliente = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_cliente";
+    $cond = "id_cli='$id_cli'";
+    $rel_dif_cli = $ApiClient->select($modulo, $cond);
+    $id_dif = $rel_dif_cli[0]->id_dif;
+
+    $modulo = "difunto";
+    $cond = "id='$id_dif'";
+    $difunto = $ApiClient->select($modulo, $cond);
+
+    $modulo = "servicio";
+    $cond = "id_dif='$id_dif'";
+    $servicio = $ApiClient->select($modulo, $cond);
+
+    $modulo = "cliente";
+    $id_cli = $rel_dif_cli[0]->id_cli;
+    $cond = "id='$id_cli'";
+    $cliente = $ApiClient->select($modulo, $cond);
+
+    $modulo = "difunto_facturas";
+    $cond = "id_dif='$id_dif'";
+    $relacion = $ApiClient->select($modulo, $cond);
+
+    $modulo = "facturas";
+    $id_fact = $relacion[0]->id_fact;
+    $cond = "id_fact='$id_fact'";
+    $facturas = $ApiClient->select($modulo, $cond);
+
+    $estructura = [
+        "difunto" => $difunto[0],
+        "servicio" => $servicio[0],
+        "cliente" => $cliente[0],
+        "relacion" => $relacion[0],
+        "facturas" => $facturas
+    ];
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +110,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
     <meta name="description" content="">
     <meta name="author" content="Luis Gallego Quero">
     <title>FunestERP</title>
-    <link rel="icon" href="../img/favicon.ico">
+    <link rel="icon" href="../../../img/favicon.ico">
 
     <!-- Bootstrap -->
     <link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,16 +130,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
             font-size: 13px;
             line-height: 1.6;
             color: #444;
+            margin-left: 10px;
+            margin-right: 30px;
         }
 
-        /*#dina4 {*/
-            /*width: 210mm;*/
-            /*height: 297mm;*/
-            /*padding: 20px 60px; !* Margenes folio *!*/
-            /*border: 1px solid #D2D2D2;*/
-            /*background: #fff;*/
-            /*margin: 10px auto;*/
-        /*}*/
+        .float_izq { float:left; }
 
         .tam_img {
             width: 120px;
@@ -64,128 +149,115 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
         .desglose_factura {
             min-height: 430px;
         }
+        .firma_factura {
+            position: absolute;
+            bottom: 75px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="row body_factura" style="margin-top: 20px;">
+    <div class="row body_factura">
         <div id="dina4">
-
             <div class="row datos_funeraria">
-                <div class="col-md-6">
-                    <span style="font-size: 12pt;"><b>TANATORIO - FUNERARIA GALLEGO</b></span><br>
+                <div class="float_izq">
+                    <span style="font-size: 13pt; font-weight: bold"><b>TANATORIO - FUNERARIA GALLEGO</b></span><br>
                     <span>LUIS ANT. GALLEGO CESPEDOSA</span><br>
                     <span>C/ CARPINTEROS Nº2</span><br>
                     <span>N.I.F. 25,989,636 - G</span><br>
                     <span>Tlfnos: 953 - 546 - 031 / Móvil: 619 - 350 - 884</span><br>
                     <span>23790 Porcuna ( Jaén )</span>
                 </div>
-                <div class="col-md-6">
+                <div class="datos_fun_dcha">
                     <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
                     <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
                 </div>
             </div> <!-- row datos_funeraria -->
 
             <div class="row datos_cliente separado_row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span style="background-color: #bfbfbf">CLIENTE</span><br>
-                            <span>Nombre:</span><br>
-                            <span>Dirección:</span><br>
-                            <span>Población:</span><br>
-                            <span>C.I.F.</span><br>
-                            <span>TLF:</span><br>
-                        </div>
-                        <div>
-                            <span></span><br>
-                            <span>BENITA QUERO GARCÍA</span><br>
-                            <span>C/ PADILLA</span><br>
-                            <span>PORCUNA ( JAÉN )</span><br>
-                            <span>25972744-V</span><br>
-                            <span>666 777 888</span><br>
-                        </div>
+                <div class="float_izq">
+                    <div class="float_izq">
+                        <span style="background-color: #bfbfbf">CLIENTE</span><br>
+                        <span>Nombre:</span><br>
+                        <span>Dirección:</span><br>
+                        <span>Población:</span><br>
+                        <span>C.I.F.</span><br>
+                        <span>TLF:</span><br>
+                    </div>
+                    <div style="margin-left: 100px;">
+                        <span></span><br>
+                        <span><?= strtoupper($estructura['cliente']->nombre); ?></span><br>
+                        <span><?= strtoupper($estructura['cliente']->direccion); ?></span><br>
+                        <span><?= strtoupper($estructura['cliente']->poblacion); ?></span><br>
+                        <span><?= $estructura['cliente']->dni; ?></span><br>
+                        <span><?= $estructura['cliente']->telefono; ?></span><br>
                     </div>
                 </div>
-                <div class="col-md-3 col-md-offset-1 subrayado">
-                    <span>Fecha Factura:</span><br>
-                    <span>Número Factura:</span>
-                </div>
-                <div>
-                    <span>12 - Marzo - 2.018</span><br>
-                    <span>A/001467</span>
+                <div style="float:right; margin-right: 50px;">
+                    <div class="float_izq subrayado">
+                        <span>Fecha Factura:</span><br>
+                        <span>Número Factura:</span>
+                    </div>
+                    <div style="margin-left: 100px;">
+                        <span><?= $estructura['relacion']->fecha; ?></span><br>
+                        <span>A/001467</span>
+                    </div>
                 </div>
             </div> <!-- row datos_cliente -->
 
             <div class="row datos_sepelio separado_row">
-                <div class="col-md-12">
-                    <span class="subrayado" style="padding-right: 40px;">GASTOS DEL SEPELIO:</span><span>Dº. MARÍA DEL CARMEN GARCÍA DE LA ROSA</span><br>
-                    <span class="subrayado" style="padding-right: 50px;">FECHA:</span><span>10 - MARZO - 2.O18</span><br>
-                    <span class="subrayado" style="padding-right: 20px;">LOCALIDAD:</span><span>PORCUNA ( JAÉN )</span><br>
+                <div class="float_izq">
+                    <span class="subrayado">GASTOS DEL SEPELIO:</span><br>
+                    <span class="subrayado">FECHA:</span><br>
+                    <span class="subrayado">LOCALIDAD:</span><br>
+                </div>
+                <div style="margin-left: 150px;">
+                    <span><?= strtoupper($estructura['difunto']->nombre); ?></span><br>
+                    <span><?= strtoupper($estructura['servicio']->fecha_defuncion); ?></span><br>
+                    <span><?= strtoupper($estructura['servicio']->poblacion_entierro); ?></span><br>
                 </div>
             </div> <!-- row datos_sepelio -->
 
             <div class="row desglose_factura separado_row">
-                <div class="col-md-12">
+                <div class="">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th><span style="margin-left: 150px;">SERVICIOS DE FUNERARIA</span></th>
-                            <th>EUROS</th>
-                        </tr>
+                            <tr>
+                                <th><span style="position:absolute; margin-left: 250px;">SERVICIOS DE FUNERARIA</span></th>
+                                <th>EUROS</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
-                        <tr>
-                            <td>ARCA O FERETRO</td>
-                            <td>461,31 E</td>
-                        </tr>
+                            <?php foreach($estructura['facturas'] as $valor) { ?>
+                                <tr>
+                                    <td><?= strtoupper($valor->concepto); ?></td>
+                                    <td><?= $valor->importe; ?></td>
+                                </tr>
+                            <?php } ?>
+                            <?php
+                            $base = $estructura['relacion']->total;
+                            $iva = $base * 0.21;
+                            $total = $base + $iva;
+                            ?>
+                            <tr>
+                                <td><span style="position:absolute; margin-left: 250px;">TOTAL BASE IMPONIBLE</span></td>
+                                <td><?= $base; ?></td>
+                            </tr>
+                            <tr>
+                                <td><span style="position:absolute; margin-left: 250px;">21% I.V.A</span></td>
+                                <td><?= $iva; ?></td>
+                            </tr>
+                            <tr>
+                                <td><span style="position:absolute; margin-left: 250px;">TOTAL SERVICIO FUNERARIA</span></td>
+                                <td><?= $total; ?></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div> <!-- row datos_factura -->
 
-            <div class="row total_factura separado_row">
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead><th></th><th></th></thead>
-                        <tbody>
-                        <tr>
-                            <td><span style="margin-left: 150px;">TOTAL BASE IMPONIBLE</span></td>
-                            <td>1.191,49 E</td>
-                        </tr>
-                        <tr>
-                            <td><span style="margin-left: 150px;">21% I.V.A</span></td>
-                            <td>250,21 E</td>
-                        </tr><tr>
-                            <td><span style="margin-left: 150px;">TOTAL SERVICIO FUNERARIA</span></td>
-                            <td>1.441,70 E</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
             <div class="row firma_factura separado_row">
-                <div class="col-md-6 col-md-offset-3 subrayado">FDO. LUIS ANT. GALLEGO CESPEDOSA</div>
+                <div class="subrayado">FDO. LUIS ANT. GALLEGO CESPEDOSA</div>
             </div>
 
         </div> <!-- dina4 -->

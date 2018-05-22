@@ -85,11 +85,45 @@ if($op == "login") {
                 if(!$ApiClient->insert($difunto_cliente, $modulo)) redirige("index.php");
             }
 
-            // Preparamos la INSERCION de los FAMILIARES
-//            $modulo = "familiares";
-//            $datos_familiares = $json->familiares;
-//            $datos_familiares->id_dif = $id_difunto;
-//            if(!$ApiClient->insert($datos_familiares, $modulo)) redirige("index.php");
+            // Preparamos la INSERCION de los FAMILIARES y relacion DIFUNTO - FAMILIAR
+            $datos_familiares = $json->familiares;
+
+            if(!compruebaVacio($datos_familiares)) {
+
+                $datos_familiares = ajustarFam_Fact($datos_familiares);
+
+                /* Primero hay que generar la relacion DIFUNTO - FAMILIAR */
+                $datos_relacion = [
+                    "id_dif" => $id_difunto,
+                    "esquela" => "1",
+                    "r_misa" => "1"
+                ];
+                $modulo = "difunto_familiares";
+                if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+
+                // Ahora obtenemos el ID para guardar en la segunda tabla
+                $cond = "id_dif='$id_difunto'";
+                $campos = "id_fam";
+                $id_fam = $ApiClient->select($modulo, $cond, $campos);
+                $id_fam = $id_fam[0]->id_fam;
+
+                /* AÑADIR RESTRICCIÓN:
+                    Si id_dif existe en la tabla de DIFUNTO_FAMILIARES, no añadir */
+
+                $i = 0;
+                $modulo = "familiares";
+                while(count($datos_familiares) > $i) {
+
+                    $aux = [
+                        "id_fam" => $id_fam,
+                        "rol" => $datos_familiares[$i],
+                        "nombres" => $datos_familiares[$i+1]
+                    ];
+
+                    if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+                    $i = $i+2;
+                }
+            }
 
             // Si el proceso ha ido bien
             redirige("modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto");
@@ -241,7 +275,7 @@ if($op == "login") {
         $id_dif = $datos_familiares->id_dif;
         unset($datos_familiares->id_dif);
 
-        $datos_familiares = ajustarFamiliares($datos_familiares);
+        $datos_familiares = ajustarFam_Fact($datos_familiares);
 
         /* Primero hay que generar la relacion DIFUNTO - FAMILIAR */
         $datos_relacion = [
@@ -418,7 +452,7 @@ if($op == "login") {
         $cond = "id_dif='$id_dif'";
         if(!$ApiClient->update($datos_relacion, $modulo, $cond))  redirige("index.php");
 
-        redirige("modulos/contabilidad/main.php?op=nuevaFactura");
+        redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
 
 } else if($op == "updateFacturas") {
