@@ -127,6 +127,7 @@ if($op == "login") {
 
             // Si el proceso ha ido bien
             redirige("modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto");
+//            return;
 
         } else redirige("index.php");
 
@@ -235,6 +236,45 @@ if($op == "login") {
     $res = $ApiClient->select($modulo, $cond, $campos);
 
     echo json_encode($res);
+
+} else if($op == "buscarDifunto_Limitado") {
+
+    $nom = $_POST['nombreDifunto'];
+
+    // Obtenemos los datos del posible/s DIFUNTO
+    $modulo = "difunto";
+    $cond = "nombre LIKE '%$nom%'";
+    $campos = "*";
+    $res = $ApiClient->select($modulo, $cond, $campos);
+
+    $res_final = [];
+    foreach ($res as $resultado) {
+
+        $modulo = "difunto_cliente";
+        $id_dif = $resultado->id;
+        $cond = "id_dif = $id_dif";
+        $campos = "*";
+        $aux = $ApiClient->select($modulo, $cond, $campos);
+
+        if(empty($aux))  array_push($res_final, $resultado);
+    }
+
+    echo json_encode($res_final);
+
+} else if($op == "cliente_difunto") {
+
+    $datos = $_POST;
+
+    file_put_contents(__DIR__ . "/SOMELOG.log", print_r($datos, TRUE) . PHP_EOL, FILE_APPEND);
+
+    $modulo = "difunto_cliente";
+    $aux = [
+        "id_dif" => $datos['id_dif'],
+        "id_cli" => $datos['id_cli'],
+    ];
+
+    if($ApiClient->insert($aux, $modulo)) echo 1;
+    else echo 0;
 
 } else if($op == "updateCliente") {
 

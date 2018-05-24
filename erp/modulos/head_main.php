@@ -32,3 +32,8 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="../../../bootstrap/metisMenu/metisMenu.min.js"></script>
 <script src="../../js/metisMenuNavegacion.js"></script>
+
+<!-- ALERTIFY -->
+<link rel="stylesheet" href="../../js/alertify/css/alertify.min.css">
+<link rel="stylesheet" href="../../js/alertify/css/themes/default.min.css">
+<script src="../../js/alertify/alertify.min.js"></script>

@@ -147,6 +147,13 @@ function redirige($direccion){
     header("Location: http://localhost/funerariagallego/erp/" . $direccion);
 }
 
+function redirige2($direccion) {
+    $url = "http://localhost/funerariagallego/erp/" . $direccion;
+    echo '<script type="text/javascript">';
+    echo 'window.location.href="' . $url . '";';
+    echo '</script>';
+}
+
 function alerta($mensaje) {
     echo "<script>alert('$mensaje');</script>";
 }

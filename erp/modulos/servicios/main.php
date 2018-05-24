@@ -1,6 +1,8 @@
 <?php
 @session_start();
 require '../../../config/API_Global.php';
+include_once('../../funciones.php');
+//include_once('./func_servicios.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 

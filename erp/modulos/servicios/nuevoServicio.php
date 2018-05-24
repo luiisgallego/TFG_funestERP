@@ -1,5 +1,6 @@
 <div class="container-fluid">
-    <form class="form-horizontal" method="post" action="../../procesa.php">
+    <form id="formularioS" class="form-horizontal" method="post" action="../../procesa.php">
+<!--    <form id="formularioS" class="form-horizontal" >-->
         <input type="hidden" name="op" value="nuevoServicio" />
 
         <div class="row page_header">
@@ -31,3 +32,24 @@
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
+
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        alertify.success("yees");-->
+<!--    });-->
+<!--    $("#formularioS").submit(function () {-->
+<!---->
+<!--        $.ajax({-->
+<!--           type: "POST",-->
+<!--            url: "../../procesa.php",-->
+<!--            data: $("#formularioS").serialize(),-->
+<!--            success: function (data) {-->
+<!--                alertify.success("yees");-->
+<!--            },-->
+<!--            error: function (data) {-->
+<!--                alertify.error("error");-->
+<!--            }-->
+<!--        });-->
+<!---->
+<!--    });-->
+<!--</script>-->

@@ -52,11 +52,16 @@ if($miga == "") {             // NAVEGACION
     $modulo = "difunto_cliente";
     $cond = "id_cli='$id_cli'";
     $rel_dif_cli = $ApiClient->select($modulo, $cond);
-    $id_dif = $rel_dif_cli[0]->id_dif;
 
-    $modulo = "difunto_facturas";
-    $cond = "id_dif='$id_dif'";
-    $identificadores = $ApiClient->select($modulo, $cond);
+    $identificadores = [];
+    foreach ($rel_dif_cli as $datos) {
+        $id_dif = $datos->id_dif;
+        $modulo = "difunto_facturas";
+        $cond = "id_dif='$id_dif'";
+        $idss = $ApiClient->select($modulo, $cond);
+
+        array_push($identificadores, $idss[0]);
+    }
 
     // Construimos la estructura a mostrar ( DIFUNTO - SERVICIO - CLIENTE - DIFUNTO_FACTURAS )
     foreach ($identificadores as $ids) {
@@ -91,6 +96,7 @@ if($miga == "") {             // NAVEGACION
 
         array_push($estructura, $aux);
     }
+
 }
 ?>
 

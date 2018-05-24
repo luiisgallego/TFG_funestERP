@@ -2,7 +2,7 @@
 @session_start();
 require '../../../config/API_Global.php';
 include_once('../../funciones.php');
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_PARSE);
 ?>
 
 <!DOCTYPE html>

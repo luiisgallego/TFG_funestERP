@@ -17,6 +17,9 @@ if($miga == "" || $miga == "cliente" || $miga == "factura") {                 //
     $cond = "id_dif='$ref'";
     $difuntoCliente = $ApiClient->select($modulo, $cond);
     $id_cliente = $difuntoCliente[0]->id_cli;
+    file_put_contents(__DIR__ . "/SOMELOG.log", print_r($id_cliente, TRUE) . PHP_EOL, FILE_APPEND);
+
+    if(empty($id_cliente)) redirige2("modulos/servicios/main.php?op=clientes");
 }
 
 $cliente = $ApiClient->select("cliente", "id='$id_cliente'");
@@ -93,4 +96,84 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
             </div>
         </div> <!-- col-md-12 -->
     </div> <!-- row page_content -->
+    <div class="row">
+        <div class="col-md-3 col-md-offset-4">
+            <div id="botonModal" class="btn btn-primary btn-lg btn-block nuevo_servicio_button">Añadir difunto a cliente </div>
+        </div>
+    </div>
 </div> <!--  container-fluid -->
+
+<!-- AÑADIR DIFUNTO A CLIENTE -->
+<div class="modal fade" id="modalCliente" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>DIFUNTOS</div>
+            </div>
+
+            <div class="modal-body">
+                <!-- *************** BUSCADOR **************** -->
+                <div class="row busqueda" >
+                    <div class="col-md-8 col-md-offset-4">
+                        <form class="navbar-form" role="search" method="post">
+                            <div class="form-group col-md-8">
+                                <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifuntoLimitado(this);" placeholder="Buscar difunto">
+                            </div>
+                        </form>
+                        <div id="resBusqueda" style="margin-top: 50px;"></div>
+                    </div>
+                </div> <!-- busqueda -->
+                <!-- *************** FIN BUSCADOR **************** -->
+
+                <div class="boton_modal">
+                    <button id="botonModal2" type="button" class="btn btn-info btn-lg">Añadir relación</button>
+                </div>
+            </div><!-- Fin Modal Body -->
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {     // DOCUMENT READY
+
+        // ABRIMOS MODAL
+        $("#botonModal").click(function () {
+            $("#modalCliente").modal();
+        });
+
+        $("#botonModal2").click(function () {
+
+            var id_cliente = "<?php print_r($id_cliente); ?>";
+            var id_difunto = $("#id_difunto").val();
+
+            $.ajax({
+                type: "POST",
+                url: "../../procesa.php",
+                data: {
+                        op: "cliente_difunto",
+                        id_cli: id_cliente,
+                        id_dif: id_difunto,
+                    },
+                success: function (data) {
+                    $("#modalCliente").modal('hide');
+                    console.log("data" + data);
+
+                    if(data == 1) alertify.success("Relacion creada con éxito");
+                    else alertify.error("Error al crear la relación2.");
+
+                },
+                error: function () {
+                    alertify.error("Error al crear la relación.");
+                }
+            });
+        });
+
+    });
+
+</script>

@@ -14,10 +14,6 @@ if(!empty($servicio)) {
     $hayServicio = true;
 }
 
-//print("<pre>");
-//print_r($difunto);
-//print("</pre>");
-
 ?>
 
 <div class="container-fluid">
@@ -131,3 +127,5 @@ if(!empty($servicio)) {
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
 </div> <!-- container-fluid -->
+
+

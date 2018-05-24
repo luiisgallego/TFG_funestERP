@@ -30,7 +30,7 @@
                         <ul class="nav nav-second-level">
                             <li><a href="modulos/documentos/main.php?op=esquelas">Esquelas</a></li>
 <!--                            <li><a href="#">Misa Funeral</a></li>-->
-                            <li><a href="modulos/documentos/main.php?op=esquelas">Recordatorias</a></li>
+                            <li><a href="modulos/documentos/main.php?op=recordatorias">Recordatorias</a></li>
                         </ul>
                     </li>
 

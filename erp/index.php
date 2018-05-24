@@ -40,6 +40,9 @@ require("../config/sesion.php");
         <!-- Metis Menu Plugin JavaScript -->
         <script src="../bootstrap/metisMenu/metisMenu.min.js"></script>
         <script src="js/metisMenuNavegacion.js"></script>
+
+        <!-- LINE CHART -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         
     </head>
     <body>

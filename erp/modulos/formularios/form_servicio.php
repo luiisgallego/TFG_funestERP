@@ -113,11 +113,12 @@
                         <span class="input-group-addon"></span>
                         <select class="form-control" name="s_compañia" title="compañia">
                             <?php if($editar === false) { ?>
+                                <option>No</option>
                                 <option>Preventiva</option>
                                 <option>Santa Lucía</option>
                                 <option>Mapre</option>
                             <?php } else {
-                                $estados = array('Preventiva', 'Santa Lucía', 'Mapre');
+                                $estados = array('No','Preventiva', 'Santa Lucía', 'Mapre');
                                 foreach ($estados as $estado){
                                     if($estado == $servicio->tipo_servicio) echo '<option selected="selected">' .$estado. '</option>';
                                     else echo '<option>' .$estado. '</option>';

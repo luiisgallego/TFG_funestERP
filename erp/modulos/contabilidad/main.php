@@ -52,10 +52,5 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
         });
     </script>
 
-    <!-- ALERTIFY -->
-<!--    <script rel="stylesheet" href="../../js/alertify/alertify.js"></script>-->
-<!--    <link rel="stylesheet" href="../../js/alertify/css/alertify.css">-->
-<!--    <link rel="stylesheet" href="../../js/alertify/css/themes/default.css">-->
-
 </body>
 </html>

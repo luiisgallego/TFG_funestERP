@@ -163,6 +163,9 @@ body {
 .iconos_td {
     width: 160px; /* 150 para 4 */
 }
+.iconos_td_defunciones {
+    width: 120px; /* 150 para 4 */
+}
 .iconos_a {
     margin-left: 12px;
 }
@@ -195,5 +198,11 @@ body {
     font-weight: bold;
     margin-right: 10px;
 }
+/* === FIN V_DEFUNCION === */
 
+/* === FIN V_CLIENTE === */
+.boton_modal {
+    text-align: center;
+    margin-top: 30px;
+}
 /* === FIN V_DEFUNCION === */
