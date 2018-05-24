@@ -66,7 +66,7 @@ foreach ($defunciones as $def) {
 <!--                            </form>-->
 <!--                            <div  style="margin-top: 50px;"></div>-->
 <!--                        </div>-->
-<!--                    </div> <!-- busqueda -->-->
+<!--                    </div> <!-- busqueda -->
                     <!-- *************** FIN BUSCADOR **************** -->
                     <table class="table table-striped table-bordered table-hover">
                         <thead>

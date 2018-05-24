@@ -17,7 +17,6 @@ if($miga == "" || $miga == "cliente" || $miga == "factura") {                 //
     $cond = "id_dif='$ref'";
     $difuntoCliente = $ApiClient->select($modulo, $cond);
     $id_cliente = $difuntoCliente[0]->id_cli;
-    file_put_contents(__DIR__ . "/SOMELOG.log", print_r($id_cliente, TRUE) . PHP_EOL, FILE_APPEND);
 
     if(empty($id_cliente)) redirige2("modulos/servicios/main.php?op=clientes");
 }
@@ -173,7 +172,5 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
                 }
             });
         });
-
-    });
-
+    });     // FIN DOCUMENT READY
 </script>

@@ -182,18 +182,3 @@ function buscarDifuntoLimitado(info) {
 //         $("#resBusqueda").html("");
 //     }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -265,8 +265,6 @@ if($op == "login") {
 
     $datos = $_POST;
 
-    file_put_contents(__DIR__ . "/SOMELOG.log", print_r($datos, TRUE) . PHP_EOL, FILE_APPEND);
-
     $modulo = "difunto_cliente";
     $aux = [
         "id_dif" => $datos['id_dif'],
@@ -417,9 +415,9 @@ if($op == "login") {
 
 } else if($op == "nuevoDocs") {
 
-    file_put_contents (__DIR__."/SOMELOG.log" , print_r("DENTRO", TRUE).PHP_EOL, FILE_APPEND );
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r("DENTRO", TRUE).PHP_EOL, FILE_APPEND );
     $datos = $_POST;
-    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
 //    return json_encode($datos);
 //    return "hola
@@ -565,7 +563,6 @@ if($op == "login") {
 
         redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
-
 }
 
 ?>
