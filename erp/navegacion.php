@@ -46,7 +46,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Agenda</a></li>
+                    <li><a href="modulos/agenda.php"><i class="fa fa-calendar fa-fw"></i>Agenda</a></li>
 
                     <li>
                         <a href="#">

@@ -563,6 +563,29 @@ if($op == "login") {
 
         redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
+
+} else if($op == "ag_addEvent") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+    $modulo = "agenda";
+    if(!$ApiClient->insert($datos, $modulo)) redirige("index.php");
+
+    echo 1;
+
+} else if($op == "ag_getEvents") {
+
+    $modulo = "agenda";
+    $campos = "title, start, allDay";
+    $info = $ApiClient->select($modulo,null, $campos);
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($info, TRUE).PHP_EOL, FILE_APPEND );
+
+    echo json_encode($info);
+
 }
 
 ?>
