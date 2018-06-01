@@ -50,7 +50,7 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a href="#">Nuevo</a></li>
+                            <li><a href="../../modulos/correo/nuevoMensaje.php">Nuevo</a></li>
                             <li><a href="#">Bandeja entrada</a></li>
                             <li><a href="#">Bandeja salida</a></li>
                             <li><a href="#">Borradores</a></li>
