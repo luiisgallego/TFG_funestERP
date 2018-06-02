@@ -3,30 +3,17 @@
 $modulo = "difunto_facturas";
 $facturas = $ApiClient->select($modulo);
 
-$estructura = [
-        "Enero" => 0,
-        "Febrero" => 2,
-        "Marzo" => 0,
-        "Abril" => 5,
-        "Mayo" => 0,
-        "Junio" => 0,
-        "Julio" => 7,
-        "Agosto" => 0,
-        "Septiembre" => 0,
-        "Noviembre" => 0,
-        "Diciembre" => 0,
-];
+$estructura = [];
+foreach ($facturas as $factura) {
 
-//foreach ($facturas as $factura) {
-//
-//    $fecha = new DateTime($factura->fecha);
-//    $dia = date_format($fecha, "j");
-//    $aux = [$dia, $factura->total];
-//
-//    array_push($estructura, json_decode(json_encode($aux)));
-//}
+    $fecha = new DateTime($factura->fecha);
+    $dia = date_format($fecha, "j");
+    $aux = [$dia, $factura->total];
 
-file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
+    array_push($estructura, json_decode(json_encode($aux)));
+}
+
+//file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 
 ?>
 

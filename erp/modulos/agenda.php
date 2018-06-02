@@ -112,30 +112,10 @@ require '../../config/API_Global.php';
                             </ul>
                         </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-dashboard fa-fw"></i>Contabilidad
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="../modulos/contabilidad/main.php?op=facturas">Facturas</a></li>
-                            </ul>
-                        </li>
-
+                        <li><a href="../modulos/contabilidad/main.php?op=facturas"><i class="fa fa-dashboard fa-fw"></i>Facturas</a></li>
                         <li><a href="../modulos/agenda.php"><i class="fa fa-calendar fa-fw"></i>Agenda</a></li>
+                        <li><a href="./correo/correo.php"><i class="fa fa-envelope-square fa-fw"></i>Correo</a></li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-envelope-square fa-fw"></i>Correo
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="#">Nuevo</a></li>
-                                <li><a href="#">Bandeja entrada</a></li>
-                                <li><a href="#">Bandeja salida</a></li>
-                                <li><a href="#">Borradores</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>

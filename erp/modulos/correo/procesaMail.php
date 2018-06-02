@@ -30,7 +30,7 @@ $mail->SMTPAuth = true;
 $mail->Username = "lgaq94@gmail.com";
 $mail->Password = "77375026";
 $mail->setFrom($direccion, 'Luis Gallego');       //Set who the message is to be sent from
-$mail->addAddress($direccion, 'John Doe');        // Direccion y quien lo envia
+$mail->addAddress($direccion, 'Luis Gallego');        // Direccion y quien lo envia
 $mail->Subject = $asunto;                           // Asunto
 //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
 //$msg = "<h1>hola</h1>";
@@ -60,6 +60,7 @@ if (!$mail->send()) {
     #    echo "Message saved!";
     #}
 }
+
 //Section 2: IMAP
 //IMAP commands requires the PHP IMAP Extension, found at: https://php.net/manual/en/imap.setup.php
 //Function to call which uses the PHP imap_*() functions to save messages: https://php.net/manual/en/book.imap.php
