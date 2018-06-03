@@ -1,32 +1,51 @@
 <?php
 
+/**
+ * GRAFICO RENDIMIENTO MENSUAL
+ */
 $modulo = "difunto_facturas";
 $facturas = $ApiClient->select($modulo);
 
-$estructura = [
-        "Enero" => 0,
-        "Febrero" => 2,
-        "Marzo" => 0,
-        "Abril" => 5,
-        "Mayo" => 0,
-        "Junio" => 0,
-        "Julio" => 7,
-        "Agosto" => 0,
-        "Septiembre" => 0,
-        "Noviembre" => 0,
-        "Diciembre" => 0,
-];
+$estructura = [];
+$meses = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+$cont_fact_emitir = 0;
+$cont_fact_cobrar = 0;
 
-//foreach ($facturas as $factura) {
-//
-//    $fecha = new DateTime($factura->fecha);
+foreach ($facturas as $factura) {
+
+    $fecha = new DateTime($factura->fecha);
 //    $dia = date_format($fecha, "j");
-//    $aux = [$dia, $factura->total];
-//
-//    array_push($estructura, json_decode(json_encode($aux)));
-//}
+    $mes = $meses[date_format($fecha, "n")];
 
-file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
+    if($estructura[$mes] == null){
+        $estructura[$mes] = 1;
+    } else $estructura[$mes]++;
+//    array_push($estructura, json_decode(json_encode($estructura)));
+
+    // Para las notificaciones
+    if($factura->emitida == 0) {
+        $cont_fact_emitir++;
+        $cont_fact_cobrar++;
+    } else if($factura->cobrada == 0) {
+        $cont_fact_cobrar++;
+    }
+}
+
+/**
+ * NOTIFICACIONES
+ */
+$notificaciones = [];
+
+// Reutilizamos facturas del grafico
+$txt = "<span class='not_numero'>" . $cont_fact_emitir . "</span>" . "facturas sin emitir";
+$aux = ["fact_sin_emitir", $cont_fact_emitir , $txt];
+array_push($notificaciones, $aux);
+
+$txt = "<span class='not_numero'>" . $cont_fact_cobrar . "</span>" . "facturas sin cobrar";
+$aux = ["fact_sin_cobrar", $cont_fact_cobrar, $txt];
+array_push($notificaciones, $aux);
+
+//file_put_contents (__DIR__."/SOMELOG.log" , print_r($notificaciones, TRUE).PHP_EOL, FILE_APPEND );
 
 ?>
 
@@ -50,9 +69,9 @@ file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, 
                     <i class="fa fa-bar-chart-o fa-fw"></i>Rendimiento mensual
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                Mes <span class="caret"></span>
-                            </button>
+<!--                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">-->
+<!--                                Mes <span class="caret"></span>-->
+<!--                            </button>-->
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -65,7 +84,7 @@ file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, 
                 </div>
 
                 <div class="panel-body">
-                    <div id="chart_div"></div>
+                    <div id="chart_div"></div>  <!-- GRAFICA -->
                 </div> <!-- Fin panel-body -->
             </div> <!-- Fin panel -->
         </div>
@@ -73,29 +92,24 @@ file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, 
         <div class="col-lg-4">
             <div class="panel panel-danger">
                 <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i>Notificaciones
+                    <i class="fa fa-bell fa-fw" style="margin-right: 10px;"></i>Notificaciones
                 </div>
 
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment fa-fw"></i>Nueva alerta
-                            <span class="pull-right text-muted small">
-                                <em>Hace 12 minutos</em>
-                            </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment fa-fw"></i>Nueva alerta
-                            <span class="pull-right text-muted small">
-                                <em>Hace 12 minutos</em>
-                            </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment fa-fw"></i>Nueva alerta
-                            <span class="pull-right text-muted small">
-                                <em>Hace 12 minutos</em>
-                            </span>
-                        </a>
+
+                        <?php foreach ($notificaciones as $notificacion) {
+//                            file_put_contents (__DIR__."/SOMELOG.log" , print_r($notificacion, TRUE).PHP_EOL, FILE_APPEND );
+                            if($notificacion[1] != 0) { ?>
+                            <div class="list-group-item">
+                                <i class="fa fa-comment fa-fw not"></i><?= $notificacion[2] ?>
+<!--                                <span class="pull-right text-muted small">-->
+<!--                                    <em>Hace 12 minutos</em>-->
+<!--                                </span>-->
+                            </div>
+                            <?php } ?>
+                        <?php } ?>
+
                     </div> <!-- list-group -->
                     <a href="#" class="btn btn-default btn-block">Ver todas</a>
                 </div> <!-- panel-body -->
@@ -106,61 +120,42 @@ file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, 
 </div> <!-- container-fluid -->
 
 <script>
-    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.load('current', {packages: ['corechart', 'bar']});
     google.charts.setOnLoadCallback(drawBasic);
 
     function drawBasic() {
 
+        var aux = JSON.parse('<?php print_r(json_encode($estructura)); ?>');
+
         var data = new google.visualization.DataTable();
-        data.addColumn('number', 'X');
+        data.addColumn('string', 'Meses');
         data.addColumn('number', '');
 
-        var aux = JSON.parse('<?php echo json_encode($estructura); ?>');
-
-//        data.addRows([
-//               [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-//            [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-//            [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-//            [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-//            [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-//            [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-//            [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-//            [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-//            [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-//            [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-//            [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-//            [66, 70], [67, 72], [68, 75], [69, 80]
-//        ]);
-
-        for(var i=0; i<aux.length; i++) {
-
-            var valor = [ JSON.parse(aux[i][0]), JSON.parse(aux[i][1]) ];
-            data.addRow(valor);
-//            console.log(valor);
-        }
+        (aux.Enero !== undefined) ? data.addRow(['Enero', aux.Enero]) : data.addRow(['Enero', 0]);
+        (aux.Febrero !== undefined) ? data.addRow(['Febrero', aux.Febrero]) : data.addRow(['Febrero', 0]);
+        (aux.Marzo !== undefined) ? data.addRow(['Marzo', aux.Marzo]) : data.addRow(['Marzo', 0]);
+        (aux.Abril !== undefined) ? data.addRow(['Abril', aux.Abril]) : data.addRow(['Abril', 0]);
+        (aux.Mayo !== undefined) ? data.addRow(['Mayo', aux.Mayo]) : data.addRow(['Mayo', 0]);
+        (aux.Junio !== undefined) ? data.addRow(['Junio', aux.Junio]) : data.addRow(['Junio', 0]);
+//        (aux.Julio !== undefined) ? data.addRow(['Julio', aux.Julio]) : data.addRow(['Julio', 0]);
+//        (aux.Agosto !== undefined) ? data.addRow(['Agosto', aux.Agosto]) : data.addRow(['Agosto', 0]);
+//        (aux.Septiembre !== undefined) ? data.addRow(['Septiembre', aux.Septiembre]) : data.addRow(['Septiembre', 0]);
+//        (aux.Octubre !== undefined) ? data.addRow(['Octubre', aux.Octubre]) : data.addRow(['Octubre', 0]);
+//        (aux.Noviembre !== undefined) ? data.addRow(['Noviembre', aux.Noviembre]) : data.addRow(['Noviembre', 0]);
+//        (aux.Diciembre !== undefined) ? data.addRow(['Diciembre', aux.Diciembre]) : data.addRow(['Diciembre', 0]);
 
         var options = {
             hAxis: {
                 title: 'Mes'
             },
             vAxis: {
-                title: 'Beneficios'
+                title: 'Servicios'
             },
-            height: 400,
+            height: 450,
+            colors: ['#76a7fa']
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 </script>
-
-
-
-
-
-
-
-
-
-

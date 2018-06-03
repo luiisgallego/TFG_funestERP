@@ -157,6 +157,14 @@ body {
     margin-top: 10px;
     margin-bottom: 50px;
 }
+.not {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.not_numero {
+    color: red;
+    margin-right: 10px;
+}
 /* === FIN HOME === */
 
 /* === LISTADOS === */
