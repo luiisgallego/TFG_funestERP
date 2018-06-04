@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("../config/API_Global.php");
-require("../config/sesion.php");
+//require("../config/sesion.php");
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 <!DOCTYPE html>

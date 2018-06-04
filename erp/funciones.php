@@ -25,6 +25,8 @@ function construyeJSON_Datos($datos) {
         $inicial = substr($clave,0,2);
         $clave = substr($clave,2);
 
+        if(strpos($clave, "fecha") !== false && $valor == "") $valor = "1111-11-11";
+
         // Guardamos los distintos bloques en var auxiliares
         if($inicial == "d_") $aux_difunto[$clave] = $valor;
         else if($inicial == "s_") $aux_servicio[$clave] = $valor;

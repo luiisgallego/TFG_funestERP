@@ -46,8 +46,13 @@ if($miga == "") {               // ESQUELA
     // FORMATEMOS LA EDAD
     $estructura['difunto']->fecha_nacimiento = format_edad($estructura['difunto']->fecha_nacimiento);
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
+
+// Para los botones de estado
+$esquela_emitida = $relacion[0]->esquela_emitida;
+$misa_emitida = $relacion[0]->misa_emitida;
+
+//file_put_contents (__DIR__."/SOMELOG.log" , print_r($relacion[0], TRUE).PHP_EOL, FILE_APPEND );
 
 ?>
 
@@ -166,71 +171,148 @@ if($miga == "") {               // ESQUELA
         </div>
     </div> <!-- row navegacion -->
 
-    <div class="row body_esquela">
-        <div id="dina4">
-            <div class="row" style="margin-left: 3px;">
-                <div class="barra_superior_lateral"></div>
-                <div class="barra_superior"></div>
-                <div class="barra_lateral">
-                    <div class="contenido_general">
+    <div class="row">
+        <div class="col-md-2 estado">
+            <h4>Estado:</h4>
+            <?php if($misa_funeral != true) { ?>
+                <button id="btn_emitida_esquela" type="button" class="btn btn-danger" onclick="setEstado(this);">Emitir</button>
+            <?php } else { ?>
+                <button id="btn_emitida_misa" type="button" class="btn btn-danger" onclick="setEstado(this);">Emitir</button>
+            <?php } ?>
+        </div>
+        <div class="col-md-8">
+            <div class="row body_esquela">
+                <div id="dina4">
+                    <div class="row" style="margin-left: 3px;">
+                        <div class="barra_superior_lateral"></div>
+                        <div class="barra_superior"></div>
+                        <div class="barra_lateral">
+                            <div class="contenido_general">
 
-                        <div class="row contenido_superior">
-                            <div class="col-md-10 col-md-offset-1" style="text-align: center;">
-                                <?php if($misa_funeral == true) { ?>
-                                    <div class="col-md-2 subrayado misa_funeral"> MISA FUNERAL</div>
-                                <?php } ?>
-                                <img class="tam_img" src="../../img/cruz_esquela.jpg">
-                                <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
-                                <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
-                                <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
-                                    <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
-                                    habiendo recibido los Santos Sacramentos.</div>
-                                <div class="separado_row subrayado" style="font-size: 250%; font-weight: bold;"><i>D.E.P.</i></div>
-                            </div>
-                        </div> <!-- contenido_superior -->
+                                <div class="row contenido_superior">
+                                    <div class="col-md-10 col-md-offset-1" style="text-align: center;">
+                                        <?php if($misa_funeral == true) { ?>
+                                            <div class="col-md-2 subrayado misa_funeral"> MISA FUNERAL</div>
+                                        <?php } ?>
+                                        <img class="tam_img" src="../../img/cruz_esquela.jpg">
+                                        <div class="separado_row" style="font-size: 170%;">Rogad a Dios por el alma de</div>
+                                        <div class="separado_row" style="font-size: 220%; font-weight: bold">D. <?= strtoupper($estructura['difunto']->nombre) ?></div>
+                                        <div class="separado_row" style="font-size: 130%;">Que falleció en <?= $estructura['difunto']->poblacion ?> el
+                                            <?= $estructura['servicio']->fecha_defuncion ?> a los <?= $estructura['difunto']->fecha_nacimiento ?> años,
+                                            habiendo recibido los Santos Sacramentos.</div>
+                                        <div class="separado_row subrayado" style="font-size: 250%; font-weight: bold;"><i>D.E.P.</i></div>
+                                    </div>
+                                </div> <!-- contenido_superior -->
 
-                        <div class="row contenido_central" style="text-align: justify">
-                            <div class="col-md-12">
-                                <div style="font-size: 140%;">
+                                <div class="row contenido_central" style="text-align: justify">
+                                    <div class="col-md-12">
+                                        <div style="font-size: 140%;">
 
-                                    <?php foreach($estructura['familiares'] as $valor) { ?>
-                                        <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
-                                    <?php } ?>
-                                    <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
+                                            <?php foreach($estructura['familiares'] as $valor) { ?>
+                                                <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
+                                            <?php } ?>
+                                            <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
 
-                                    <?php if(!$misa_funeral) { ?>
-                                        Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
-                                        descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
-                                        lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
-                                            <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
-                                        por cuya asistencia les quedarán eternamente agradecidos.
-                                    <?php } else { ?>
-                                        Comunican a sus amistades tan sensible pérdida y les ruegan una oración
-                                        y la asistencia a la misa funeral, que por el eterno descanso de su alma se celebrará el
-                                        <span class="subrayado">el <?= $estructura['servicio']->fecha_misa ?> a las
-                                            <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
-                                        por cuya asistencia les quedarán eternamente agradecidos.
-                                    <?php }  ?>
+                                            <?php if(!$misa_funeral) { ?>
+                                                Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
+                                                descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
+                                                lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las
+                                                    <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                                por cuya asistencia les quedarán eternamente agradecidos.
+                                            <?php } else { ?>
+                                                Comunican a sus amistades tan sensible pérdida y les ruegan una oración
+                                                y la asistencia a la misa funeral, que por el eterno descanso de su alma se celebrará el
+                                                <span class="subrayado">el <?= $estructura['servicio']->fecha_misa ?> a las
+                                                    <?= $estructura['servicio']->hora_entierro ?> </span> en la Parroquia Ntr. Sra. de la Asunción,
+                                                por cuya asistencia les quedarán eternamente agradecidos.
+                                            <?php }  ?>
+                                        </div>
+                                    </div>
+                                </div> <!-- contenido_central-->
+
+                                <div class="row contenido_inferior" style="margin-top: 40px;">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <?php if(!$misa_funeral) { ?>
+                                            <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
+                                            <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
+                                        <?php } else { ?>
+                                            <div class="separado_row_misa subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
+                                        <?php }  ?>
+                                        <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> <!-- contenido_central-->
 
-                        <div class="row contenido_inferior" style="margin-top: 40px;">
-                            <div class="col-md-12" style="text-align: center;">
-                                <?php if(!$misa_funeral) { ?>
-                                    <div class="separado_row subrayado " style="font-size: 120%; font-weight: bold;">EL FERETRO LLEGARÁ DIRECTAMENTE A LA PARROQUIA</div>
-                                    <div class="separado_row subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
-                                <?php } else { ?>
-                                    <div class="separado_row_misa subrayado" style="font-size: 190%; font-weight: bold;">TANATORIO -- FUNERARIA GALLEGO</div>
-                                <?php }  ?>
-                                <div class="subrayado" style="font-size: 120%; font-weight: bold;">C/ SALMERÓN Nº 48 PORCUNA - JAÉN - TFNOS 619 350 884 -- 953 546 031</div>
-                            </div>
-                        </div>
-
-                    </div> <!-- contenido_general -->
-                </div> <!-- barra_lateral -->
-            </div>
-
-        </div> <!-- dina4 -->
-    </div> <!-- row body_esquela -->
+                            </div> <!-- contenido_general -->
+                        </div> <!-- barra_lateral -->
+                    </div>
+                </div> <!-- dina4 -->
+            </div> <!-- row body_esquela -->
+        </div> <!-- col-md-8 -->
+    </div> <!-- row -->
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        var esquela_emitida = '<?php print_r($esquela_emitida); ?>';
+        var misa_emitida = '<?php print_r($misa_emitida); ?>';
+        var btn_emitida_esquela = $("#btn_emitida_esquela");
+        var btn_emitida_misa = $("#btn_emitida_misa");
+
+        if(esquela_emitida == 1 ) {
+            btn_emitida_esquela.removeClass('btn-danger');
+            btn_emitida_esquela.addClass('btn-success');
+            btn_emitida_esquela.text("Emitida");
+        }
+        if(misa_emitida == 1 ) {
+            btn_emitida_misa.removeClass('btn-danger');
+            btn_emitida_misa.addClass('btn-success');
+            btn_emitida_misa.text("Emitida");
+        }
+    });
+
+    function setEstado(info) {
+
+        var btn_emitida_esquela = $("#btn_emitida_esquela");
+        var btn_emitida_misa = $("#btn_emitida_misa");
+        var id_fam = '<?php print_r($id_fam); ?>';
+        var id = info.id;
+        var estado = null;
+        console.log(id);
+
+        if(id == "btn_emitida_esquela") estado = "esquela_emitida";
+        else if(id == "btn_emitida_misa") estado = "misa_emitida";
+
+        $.ajax({
+            type: "POST",
+            url: "../../procesa.php",
+            data: {
+                op: "setEstadoEsqMisa",
+                id_fam: id_fam,
+                estado: estado,
+            },
+            success: function (data) {
+
+                if(data == 1) {
+
+                    if(estado == "esquela_emitida") {
+                        btn_emitida_esquela.removeClass('btn-danger');
+                        btn_emitida_esquela.addClass('btn-success');
+                        btn_emitida_esquela.text("Emitida");
+                    }
+                    if(estado == "misa_emitida") {
+                        btn_emitida_misa.removeClass('btn-danger');
+                        btn_emitida_misa.addClass('btn-success');
+                        btn_emitida_misa.text("Emitida");
+                    }
+
+                    alertify.success("Actualización realizada correctamente.");
+                } else alertify.error("Error en la actualización.");
+
+            },
+            error: function () {
+                alertify.error("Error en la actualización.");
+            }
+        });
+    }
+</script>

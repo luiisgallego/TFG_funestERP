@@ -127,14 +127,6 @@ class APIClient {
 
         $sql = trim($sql);  // Eliminarmos espacios en blanco (ini y fin)
 
-        /****************************************/
-        //file_put_contents (__DIR__."/SOMELOG_SQL.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
-//        print("<pre>");
-//        print_r("CONSULTA SQL: ");
-//        print_r($sql);
-//        print("</pre>");
-        /****************************************/
-
         $resultado = mysqli_query($this->BD_CONEXION, $sql);     // Ejecutamos
 
         if($resultado) return $resultado;
@@ -153,8 +145,6 @@ class APIClient {
 
         // Preparamos la consulta
         $sql = $this->insert_getSQL($valores, $modulo);
-
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($sql, TRUE).PHP_EOL, FILE_APPEND );
 
         // Ejecutamos
         if($this->ejecutarSQL($sql)) return true;
@@ -259,26 +249,6 @@ class APIClient {
 
         return false;
     }
-
-    /*********************************************************************************************/
-    public function prueba(){
-        //$resultado = $this->select("servicios", null, null, "nombre", 5);
-        //$resultado = $this->select("servicios", "dni = '77375026 - J'", "nombre, apellidos");
-//        INSERT INTO `usuarios`(`nombre`, `pass`, `rol`) VALUES ("luisss","pass_luis","jefe")
-        $valores = [
-            "nombre" => "pruebaUpdateXXX222",
-            "pass" => "pruebaUpdate",
-            "rol" => "admin"
-        ];
-
-        $cond = "rol=''";
-        $resultado = $this->delete("usuarios", $cond);
-
-        print("<pre>");
-        print_r($resultado);
-        print("</pre>");
-    }
-    /*********************************************************************************************/
 
     /* ----------------------------------------------------------------------
                        FIN FUNCIONES BASE SQL

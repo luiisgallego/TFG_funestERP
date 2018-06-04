@@ -1,8 +1,9 @@
 <?php
 
 /**
- * GRAFICO RENDIMIENTO MENSUAL
+ *      GRAFICO RENDIMIENTO MENSUAL
  */
+
 $modulo = "difunto_facturas";
 $facturas = $ApiClient->select($modulo);
 
@@ -20,7 +21,6 @@ foreach ($facturas as $factura) {
     if($estructura[$mes] == null){
         $estructura[$mes] = 1;
     } else $estructura[$mes]++;
-//    array_push($estructura, json_decode(json_encode($estructura)));
 
     // Para las notificaciones
     if($factura->emitida == 0) {
@@ -32,15 +32,50 @@ foreach ($facturas as $factura) {
 }
 
 /**
- * NOTIFICACIONES
+ *      NOTIFICACIONES
  */
-$notificaciones = [];
 
-// Reutilizamos facturas del grafico
+$notificaciones = [];
+$fecha_act = date('Y-m-d');
+$hora_act = date('H:i:s');
+
+// MISAS FUNERALES proximas
+$modulo = "servicio";
+$cond = "fecha_misa >= '$fecha_act'";
+$misas = $ApiClient->select($modulo, $cond, "");
+
+$txt = "<span class='not_numero'>" . count($misas) . "</span>" . "misas funerales próximas.";
+$aux = ["misas", count($misas) , $txt];
+array_push($notificaciones, $aux);
+
+// DOCUMENTOS sin emitir
+$modulo = "difunto_familiares";
+$documentos = $ApiClient->select($modulo);
+
+$cont_esquelas = 0;
+$cont_misas = 0;
+$cont_recordatorias = 0;
+foreach ($documentos as $documento) {
+
+    if($documento->esquela_emitida == 0) $cont_esquelas++;
+    if($documento->misa_emitida == 0) $cont_misas++;
+    if($documento->recordatoria_emitida == 0) $cont_recordatorias++;
+}
+
+$txt = "<span class='not_numero'>" . $cont_esquelas . "</span>" . "esquelas sin emitir";
+$aux = ["esquelas", $cont_esquelas , $txt];
+array_push($notificaciones, $aux);
+$txt = "<span class='not_numero'>" . $cont_misas . "</span>" . "misas sin emitir";
+$aux = ["misas_funerales", $cont_misas , $txt];
+array_push($notificaciones, $aux);
+$txt = "<span class='not_numero'>" . $cont_recordatorias . "</span>" . "recordatorias sin emitir";
+$aux = ["recordatorias", $cont_recordatorias , $txt];
+array_push($notificaciones, $aux);
+
+// Reutilizamos FACTURAS del grafico
 $txt = "<span class='not_numero'>" . $cont_fact_emitir . "</span>" . "facturas sin emitir";
 $aux = ["fact_sin_emitir", $cont_fact_emitir , $txt];
 array_push($notificaciones, $aux);
-
 $txt = "<span class='not_numero'>" . $cont_fact_cobrar . "</span>" . "facturas sin cobrar";
 $aux = ["fact_sin_cobrar", $cont_fact_cobrar, $txt];
 array_push($notificaciones, $aux);
@@ -62,7 +97,7 @@ array_push($notificaciones, $aux);
     </div>
 
     <div class="row"> <!-- CONTENIDO CENTRAL -->
-        <div class="col-lg-8">
+        <div class="col-md-8">
             <div class="panel panel-default">
 
                 <div class="panel-heading">
@@ -89,7 +124,7 @@ array_push($notificaciones, $aux);
             </div> <!-- Fin panel -->
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <i class="fa fa-bell fa-fw" style="margin-right: 10px;"></i>Notificaciones
@@ -99,7 +134,6 @@ array_push($notificaciones, $aux);
                     <div class="list-group">
 
                         <?php foreach ($notificaciones as $notificacion) {
-//                            file_put_contents (__DIR__."/SOMELOG.log" , print_r($notificacion, TRUE).PHP_EOL, FILE_APPEND );
                             if($notificacion[1] != 0) { ?>
                             <div class="list-group-item">
                                 <i class="fa fa-comment fa-fw not"></i><?= $notificacion[2] ?>
@@ -111,7 +145,7 @@ array_push($notificaciones, $aux);
                         <?php } ?>
 
                     </div> <!-- list-group -->
-                    <a href="#" class="btn btn-default btn-block">Ver todas</a>
+<!--                    <a href="#" class="btn btn-default btn-block">Ver todas</a>-->
                 </div> <!-- panel-body -->
             </div> <!-- panel -->
         </div> <!-- col-lg-4 -->
@@ -129,7 +163,7 @@ array_push($notificaciones, $aux);
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Meses');
-        data.addColumn('number', '');
+        data.addColumn('number', 'Servicios');
 
         (aux.Enero !== undefined) ? data.addRow(['Enero', aux.Enero]) : data.addRow(['Enero', 0]);
         (aux.Febrero !== undefined) ? data.addRow(['Febrero', aux.Febrero]) : data.addRow(['Febrero', 0]);

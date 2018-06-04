@@ -87,8 +87,13 @@ if($miga == "" || $miga === "difunto" || $miga === "docs") {               // FA
         "facturas" => $facturas
     ];
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
+
+// Para los botones de estado
+$emitida = $estructura['relacion']->emitida;
+$cobrada = $estructura['relacion']->cobrada;
+
+//file_put_contents (__DIR__."/SOMELOG.log" , print_r($emitida, TRUE).PHP_EOL, FILE_APPEND );
 
 ?>
 
@@ -154,114 +159,191 @@ if($miga == "" || $miga === "difunto" || $miga === "docs") {               // FA
         </div>
     </div> <!-- row navegacion -->
 
-    <div class="row body_factura" >
-        <div id="dina4">
+    <div class="row">
+        <div class="col-md-2 estado">
+            <h4>Estado:</h4>
+            <button id="btn_emitida_factura" type="button" class="btn btn-danger" onclick="setEstado(this);">Emitir</button><br>
+            <button id="btn_cobrada_factura" type="button" class="btn btn-danger" onclick="setEstado(this);">Cobrar</button>
+        </div>
+        <div class="col-md-8">
+            <div class="row body_factura" >
+                <div id="dina4">
 
-            <div class="row datos_funeraria" style="margin-top: 20px;">
-                <div class="col-md-6">
-                    <span style="font-size: 12pt;"><b>TANATORIO - FUNERARIA GALLEGO</b></span><br>
-                    <span>LUIS ANT. GALLEGO CESPEDOSA</span><br>
-                    <span>C/ CARPINTEROS Nº2</span><br>
-                    <span>N.I.F. 25,989,636 - G</span><br>
-                    <span>Tlfnos: 953 - 546 - 031 / Móvil: 619 - 350 - 884</span><br>
-                    <span>23790 Porcuna ( Jaén )</span>
-                </div>
-                <div class="col-md-6">
-                    <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
-                    <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
-                </div>
-            </div> <!-- row datos_funeraria -->
+                    <div class="row datos_funeraria" style="margin-top: 20px;">
+                        <div class="col-md-6">
+                            <span style="font-size: 12pt;"><b>TANATORIO - FUNERARIA GALLEGO</b></span><br>
+                            <span>LUIS ANT. GALLEGO CESPEDOSA</span><br>
+                            <span>C/ CARPINTEROS Nº2</span><br>
+                            <span>N.I.F. 25,989,636 - G</span><br>
+                            <span>Tlfnos: 953 - 546 - 031 / Móvil: 619 - 350 - 884</span><br>
+                            <span>23790 Porcuna ( Jaén )</span>
+                        </div>
+                        <div class="col-md-6">
+                            <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
+                            <img class="tam_img pull-right" src="../../img/cruz_esquela.jpg">
+                        </div>
+                    </div> <!-- row datos_funeraria -->
 
-            <div class="row datos_cliente separado_row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span style="background-color: #bfbfbf">CLIENTE</span><br>
-                            <span>Nombre:</span><br>
-                            <span>Dirección:</span><br>
-                            <span>Población:</span><br>
-                            <span>C.I.F.</span><br>
-                            <span>TLF:</span><br>
+                    <div class="row datos_cliente separado_row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span style="background-color: #bfbfbf">CLIENTE</span><br>
+                                    <span>Nombre:</span><br>
+                                    <span>Dirección:</span><br>
+                                    <span>Población:</span><br>
+                                    <span>C.I.F.</span><br>
+                                    <span>TLF:</span><br>
+                                </div>
+                                <div>
+                                    <span></span><br>
+                                    <span><?= strtoupper($estructura['cliente']->nombre); ?></span><br>
+                                    <span><?= strtoupper($estructura['cliente']->direccion); ?></span><br>
+                                    <span><?= strtoupper($estructura['cliente']->poblacion); ?></span><br>
+                                    <span><?= $estructura['cliente']->dni; ?></span><br>
+                                    <span><?= $estructura['cliente']->telefono; ?></span><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1 subrayado">
+                            <span>Fecha Factura:</span><br>
+                            <span>Número Factura:</span>
                         </div>
                         <div>
-                            <span></span><br>
-                            <span><?= strtoupper($estructura['cliente']->nombre); ?></span><br>
-                            <span><?= strtoupper($estructura['cliente']->direccion); ?></span><br>
-                            <span><?= strtoupper($estructura['cliente']->poblacion); ?></span><br>
-                            <span><?= $estructura['cliente']->dni; ?></span><br>
-                            <span><?= $estructura['cliente']->telefono; ?></span><br>
+                            <span><?= $estructura['relacion']->fecha; ?></span><br>
+                            <span>A/001467</span>
+                        </div>
+                    </div> <!-- row datos_cliente -->
+
+                    <div class="row datos_sepelio separado_row">
+                        <div class="col-md-12">
+                            <span class="subrayado" style="padding-right: 40px;">GASTOS DEL SEPELIO:</span><span><?= strtoupper($estructura['difunto']->nombre); ?></span><br>
+                            <span class="subrayado" style="padding-right: 50px;">FECHA:</span><span><?= strtoupper($estructura['servicio']->fecha_defuncion); ?></span><br>
+                            <span class="subrayado" style="padding-right: 20px;">LOCALIDAD:</span><span><?= strtoupper($estructura['servicio']->poblacion_entierro); ?></span><br>
+                        </div>
+                    </div> <!-- row datos_sepelio -->
+
+                    <div class="row desglose_factura separado_row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><span style="margin-left: 150px;">SERVICIOS DE FUNERARIA</span></th>
+                                    <th>EUROS</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($estructura['facturas'] as $valor) { ?>
+                                    <tr>
+                                        <td><?= strtoupper($valor->concepto); ?></td>
+                                        <td><?= $valor->importe; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- row datos_factura -->
+
+                    <div class="row total_factura separado_row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead><th></th><th></th></thead>
+                                <tbody>
+                                    <?php
+                                    $base = $estructura['relacion']->total;
+                                    $iva = $base * 0.21;
+                                    $total = $base + $iva;
+                                    ?>
+                                    <tr>
+                                        <td><span style="margin-left: 150px;">TOTAL BASE IMPONIBLE</span></td>
+                                        <td><?= $base; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="margin-left: 150px;">21% I.V.A</span></td>
+                                        <td><?= $iva; ?></td>
+                                    </tr><tr>
+                                        <td><span style="margin-left: 150px;">TOTAL SERVICIO FUNERARIA</span></td>
+                                        <td><?= $total; ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-md-offset-1 subrayado">
-                    <span>Fecha Factura:</span><br>
-                    <span>Número Factura:</span>
-                </div>
-                <div>
-                    <span><?= $estructura['relacion']->fecha; ?></span><br>
-                    <span>A/001467</span>
-                </div>
-            </div> <!-- row datos_cliente -->
 
-            <div class="row datos_sepelio separado_row">
-                <div class="col-md-12">
-                    <span class="subrayado" style="padding-right: 40px;">GASTOS DEL SEPELIO:</span><span><?= strtoupper($estructura['difunto']->nombre); ?></span><br>
-                    <span class="subrayado" style="padding-right: 50px;">FECHA:</span><span><?= strtoupper($estructura['servicio']->fecha_defuncion); ?></span><br>
-                    <span class="subrayado" style="padding-right: 20px;">LOCALIDAD:</span><span><?= strtoupper($estructura['servicio']->poblacion_entierro); ?></span><br>
-                </div>
-            </div> <!-- row datos_sepelio -->
+                    <div class="row firma_factura separado_row">
+                        <div class="col-md-6 col-md-offset-3 subrayado">FDO. LUIS ANT. GALLEGO CESPEDOSA</div>
+                    </div>
 
-            <div class="row desglose_factura separado_row">
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><span style="margin-left: 150px;">SERVICIOS DE FUNERARIA</span></th>
-                                <th>EUROS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($estructura['facturas'] as $valor) { ?>
-                                <tr>
-                                    <td><?= strtoupper($valor->concepto); ?></td>
-                                    <td><?= $valor->importe; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div> <!-- row datos_factura -->
-
-            <div class="row total_factura separado_row">
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead><th></th><th></th></thead>
-                        <tbody>
-                            <?php
-                                $base = $estructura['relacion']->total;
-                                $iva = $base * 0.21;
-                                $total = $base + $iva;
-                            ?>
-                            <tr>
-                                <td><span style="margin-left: 150px;">TOTAL BASE IMPONIBLE</span></td>
-                                <td><?= $base; ?></td>
-                            </tr>
-                            <tr>
-                                <td><span style="margin-left: 150px;">21% I.V.A</span></td>
-                                <td><?= $iva; ?></td>
-                            </tr><tr>
-                                <td><span style="margin-left: 150px;">TOTAL SERVICIO FUNERARIA</span></td>
-                                <td><?= $total; ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row firma_factura separado_row">
-                <div class="col-md-6 col-md-offset-3 subrayado">FDO. LUIS ANT. GALLEGO CESPEDOSA</div>
-            </div>
-
-        </div> <!-- dina4 -->
-    </div> <!-- body_factura -->
+                </div> <!-- dina4 -->
+            </div> <!-- body_factura -->
+        </div> <!-- col-md-8  -->
+    </div>  <!-- row  -->
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        var emitida = '<?php print_r($emitida); ?>';
+        var cobrada = '<?php print_r($cobrada); ?>';
+
+        var btn_emitida = $("#btn_emitida_factura");
+        var btn_cobrada = $("#btn_cobrada_factura");
+
+        if(emitida == 1 ) {
+            btn_emitida.removeClass('btn-danger');
+            btn_emitida.addClass('btn-success');
+            btn_emitida.text("Emitida");
+        }
+        if(cobrada == 1 ) {
+            btn_cobrada.removeClass('btn-danger');
+            btn_cobrada.addClass('btn-success');
+            btn_cobrada.text("Cobrada");
+        }
+
+    });
+
+    function setEstado(info) {
+        console.log("pulsado");
+
+        var btn_emitida = $("#btn_emitida_factura");
+        var btn_cobrada = $("#btn_cobrada_factura");
+        var id_fact = '<?php print_r($id_fact); ?>';
+        var id = info.id;
+        var estado = null;
+
+        if(id == "btn_emitida_factura") estado = "emitida";
+        else if(id == "btn_cobrada_factura") estado = "cobrada";
+
+        $.ajax({
+            type: "POST",
+            url: "../../procesa.php",
+            data: {
+                op: "setEstadoFactura",
+                id_fact: id_fact,
+                estado: estado,
+            },
+            success: function (data) {
+
+                if(data == 1) {
+
+                    if(estado == "emitida") {
+                        btn_emitida.removeClass('btn-danger');
+                        btn_emitida.addClass('btn-success');
+                        btn_emitida.text("Emitida");
+                    }
+                    if(estado == "cobrada") {
+                        btn_cobrada.removeClass('btn-danger');
+                        btn_cobrada.addClass('btn-success');
+                        btn_cobrada.text("Cobrada");
+                    }
+
+                    alertify.success("Actualización realizada correctamente.");
+                } else alertify.error("Error en la actualización.");
+
+            },
+            error: function () {
+                alertify.error("Error en la actualización.");
+            }
+        });
+    }
+</script>

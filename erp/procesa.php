@@ -428,6 +428,53 @@ if($op == "login") {
 
     echo "hola";
 
+} else if($op == "setEstadoEsqMisa") {
+
+    $id_fam = $_POST['id_fam'];
+    $estado = $_POST['estado'];
+
+    if($estado == "esquela_emitida") {
+
+        $datos = [
+            "id_fam" => $id_fam,
+            "esquela_emitida" => 1,
+        ];
+    }
+    if($estado == "misa_emitida") {
+
+        $datos = [
+            "id_fam" => $id_fam,
+            "misa_emitida" => 1
+        ];
+    }
+    $modulo = "difunto_familiares";
+    $cond = "id_fam='$id_fam'";
+    if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+    echo 1;
+
+} else if($op == "setEstadoRecordatoria") {
+
+    $id_fam = $_POST['id_fam'];
+    $estado = $_POST['estado'];
+
+    if($estado == "emitida") {
+
+        $datos = [
+            "id_fam" => $id_fam,
+            "recordatoria_emitida" => 1,
+        ];
+    }
+    $modulo = "difunto_familiares";
+    $cond = "id_fam='$id_fam'";
+    if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+    echo 1;
+
 } else if($op == "nuevaFactura") {
 
     $datos = $_POST;
@@ -563,6 +610,33 @@ if($op == "login") {
 
         redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
+
+} else if($op == "setEstadoFactura") {
+
+    $id_fact = $_POST['id_fact'];
+    $estado = $_POST['estado'];
+
+    if($estado == "emitida") {
+
+        $datos = [
+            "id_fact" => $id_fact,
+            "emitida" => 1,
+        ];
+    }
+    if($estado == "cobrada") {
+
+        $datos = [
+            "id_fact" => $id_fact,
+            "cobrada" => 1
+        ];
+    }
+    $modulo = "difunto_facturas";
+    $cond = "id_fact='$id_fact'";
+    if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
+
+//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+
+    echo 1;
 
 } else if($op == "ag_addEvent") {
 
