@@ -1,11 +1,12 @@
 <div class="container-fluid">
-    <form class="form-horizontal" method="post" action="../../procesa.php">
-        <input type="hidden" name="op" value="nuevoCliente" />
+<!--    <form class="form-horizontal" method="post" action="../../procesa.php">-->
+    <form id="formCliente" class="form-horizontal" method="post">
+        <input type="hidden" name="op" value="nuevoCliente2" />
 
         <div class="row page_header">
             <div class="col-md-3"><h1>Nuevo Cliente</h1></div>
             <div class="col-md-2 col-md-offset-1" style="margin-top: 5px;">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
+                <input id="btnNuevoCliente" type="button" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
             </div>
         </div>
 
@@ -31,3 +32,43 @@
         </div><!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
+
+<script>
+    function validarForm() {
+
+        var nombre = $("#c_nombre");
+
+        if(nombre.val() == "") {
+            alertify.error("Faltan datos");
+            nombre.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+
+    $(document).ready(function () {
+
+        $("#btnNuevoCliente").click(function () {
+
+            if(validarForm()) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../procesa.php",
+                    data: $("#formCliente").serialize(),
+                    success: function (data) {
+                        redirigeJS(data);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        alertify.error("error");
+                    }
+                });
+            }
+        });
+
+
+    });
+
+</script>

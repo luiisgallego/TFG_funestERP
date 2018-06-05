@@ -35,6 +35,7 @@ if($miga == "") {             // NAVEGACION
 
         $aux = [
             "id_dif" => $id_dif,
+            "id_fact" => $ids->id_fact,
             "nombre_difunto" => $difunto[0]->nombre,
             "nombre_cliente" => $cliente[0]->nombre,
             "fecha_defuncion" => $servicio[0]->fecha_defuncion,
@@ -87,6 +88,7 @@ if($miga == "") {             // NAVEGACION
 
         $aux = [
             "id_dif" => $id_dif,
+            "id_fact" => $ids->id_fact,
             "nombre_difunto" => $difunto[0]->nombre,
             "nombre_cliente" => $cliente[0]->nombre,
             "fecha_defuncion" => $servicio[0]->fecha_defuncion,
@@ -136,8 +138,9 @@ if($miga == "") {             // NAVEGACION
                                         <a href="./main.php?op=v_factura&ref=<?= $datos['id_dif'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                                         <a href="./main.php?op=e_factura&ref=<?= $datos['id_dif'] ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
                                         <a href="./plantillaFactura.php?ref=<?= $datos['id_dif'] ?>" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Borrar" name="<?= $datos['id_fact']; ?>" onclick="borrarFactura(this);"><i class="fa fa-trash fa-fw iconos_a"></i></a>
                                     </td>
-                                    <td class="id_td"><?= $datos['id_dif']; ?></td>
+                                    <td class="id_td"><?= $datos['id_fact']; ?></td>
                                     <td><?= $datos['nombre_difunto']; ?></td>
                                     <td><?= $datos['nombre_cliente']; ?></td>
                                     <td><?= $datos['fecha_defuncion']; ?></td>
@@ -152,3 +155,33 @@ if($miga == "") {             // NAVEGACION
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
 </div> <!-- container-fluid -->
+
+<script>
+
+    function borrarFactura(info) {
+
+        var id = info.name;
+        var confirmar = confirm("¿Realmente desea eliminar la factura con ID = " + id + "?" );
+
+        if(confirmar) {
+            $.ajax({
+                type: "POST",
+                url: "../../procesa.php",
+                data: {
+                    op: "deleteFactura",
+                    id: id
+                },
+                success: function (data) {
+
+                    if(data == 1) {
+                        location.reload();
+                    } else alertify.error("Error en el borrado.");
+
+                },
+                error: function () {
+                    alertify.error("Error en el borrado.");
+                }
+            });
+        }
+    }
+</script>

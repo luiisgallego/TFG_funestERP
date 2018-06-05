@@ -17,7 +17,7 @@
                     <label>Nombre</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="c_nombre" value="<?= $cliente->nombre ?>" placeholder=""/>
+                        <input id="c_nombre" type="text" class="form-control" name="c_nombre" value="<?= $cliente->nombre ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">

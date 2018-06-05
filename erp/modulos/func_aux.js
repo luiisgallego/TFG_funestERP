@@ -139,6 +139,11 @@ function buscarDifuntoLimitado(info) {
     }
 }
 
+function redirigeJS(direccion){
+    var base = "http://localhost/funerariagallego/erp/";
+    window.location = base + direccion;
+}
+
 <!-- ******************************************************* -->
 
 

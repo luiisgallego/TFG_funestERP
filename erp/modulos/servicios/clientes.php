@@ -33,8 +33,8 @@
                                     <td class="iconos_td">
                                         <a href="./main.php?op=v_cliente&ref=<?= $cliente->id ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                                         <a href="./main.php?op=e_cliente&ref=<?= $cliente->id ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
-                                        <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                        <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
+<!--                                        <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>-->
+                                        <a href="#" title="Borrar" name="<?=  $cliente->id; ?>" onclick="borrarCliente(this);"><i class="fa fa-trash fa-fw iconos_a"></i></a>
                                     </td>
                                     <td class="id_td"><?=  $cliente->id; ?></td>
                                     <td><?=  $cliente->nombre; ?></td>
@@ -49,3 +49,34 @@
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
 </div> <!--  container-fluid -->
+
+<script>
+
+    function borrarCliente(info) {
+
+        var id = info.name;
+        var confirmar = confirm("¿Realmente desea eliminar el cliente con ID = " + id + "?" );
+
+        if(confirmar) {
+            $.ajax({
+                type: "POST",
+                url: "../../procesa.php",
+                data: {
+                    op: "deleteCliente",
+                    id: id
+                },
+                success: function (data) {
+
+                    if(data == 1) {
+                        location.reload();
+                    } else alertify.error("Error en el borrado.");
+
+                },
+                error: function () {
+                    alertify.error("Error en el borrado.");
+                }
+            });
+        }
+    }
+</script>
+

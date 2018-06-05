@@ -186,6 +186,46 @@ if($op == "login") {
         } else redirige("index.php");
     }
 
+} else if($op == "deleteDifunto") {
+
+    $id = $_POST['id'];
+
+    // Borramos la relacion DIFUNTO - SERVICIO
+    $modulo = "servicio";
+    $cond = "id_dif='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos la relacion DIFUNTO - CLIENTE
+    $modulo = "difunto_cliente";
+    $cond = "id_dif='$id'";
+    $cliente = $ApiClient->select($modulo, $cond);
+    $id_cli = $cliente[0]->id_cli;
+
+    $modulo = "difunto_cliente";
+    $cond = "id_dif='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    $modulo = "cliente";
+    $cond = "id='$id_cli'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos la relacion DIFUNTO - FAMILIARES
+    $modulo = "difunto_familiares";
+    $cond = "id_dif='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos la relacion DIFUNTO - FACTURAS
+    $modulo = "difunto_facturas";
+    $cond = "id_dif='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos el DIFUNTO
+    $modulo = "difunto";
+    $cond = "id='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    echo 1;
+
 } else if($op == "nuevoCliente") {
 
     $datos = $_POST;
@@ -224,6 +264,44 @@ if($op == "login") {
 
         } else redirige("index.php");
     } else redirige("index.php");
+
+} else if($op == "nuevoCliente2") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+    unset($datos['nuevoCliente']); // Valor de la busqueda del difunto
+
+    if(!empty($datos) && $datos['c_nombre'] !== "") {
+
+        // Adaptamos los datos correctamente
+        $id_dif = $datos['c_id_dif'];
+        unset($datos['c_id_dif']);
+        $datos = json_encode($datos);
+        $json = json_decode(construyeJSON_Datos($datos));
+
+        // Preparamos la INSERCION del CLIENTE
+        $datos_cliente = $json->cliente;
+        $modulo = "cliente";
+
+        if ($ApiClient->insert($datos_cliente, $modulo)) {
+            // Obtenemos el ID del CLIENTE
+            $cond = "nombre='$datos_cliente->nombre'";
+            $campos = "id";
+            $id_cliente = $ApiClient->select($modulo, $cond, $campos);
+            $id_cliente = $id_cliente[0]->id;
+
+            // Creamos la relacion SERVICIO - CLIENTE
+            $datos_relacion = [
+                "id_dif" => $id_dif,
+                "id_cli" => $id_cliente
+            ];
+            $modulo = "difunto_cliente";
+
+            if ($ApiClient->insert($datos_relacion, $modulo)) echo "modulos/servicios/main.php?op=v_cliente&miga=cliente&ref=$id_cliente";
+            else echo "index.php";
+
+        } else echo "error";
+    } else echo "error";
 
 } else if($op == "buscarDifunto") {
 
@@ -294,6 +372,22 @@ if($op == "login") {
         else redirige("index.php");
 
     } else redirige("index.php");
+
+} else if($op == "deleteCliente") {
+
+    $id = $_POST['id'];
+
+    // Primero borramos la relacion DIFUNTO - CLIENTE
+    $modulo = "difunto_cliente";
+    $cond = "id_cli='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos el cliente
+    $modulo = "cliente";
+    $cond = "id='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    echo 1;
 
 } else if($op == "nuevaEsquela") {
 
@@ -413,20 +507,21 @@ if($op == "login") {
         redirige("modulos/documentos/main.php?op=$dir&ref=$id_dif");
     }
 
-} else if($op == "nuevoDocs") {
+} else if($op == "deleteDocs") {
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r("DENTRO", TRUE).PHP_EOL, FILE_APPEND );
-    $datos = $_POST;
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
+    $id = $_POST['id'];
 
-//    return json_encode($datos);
-//    return "hola
+    // Borramos los familiares
+    $modulo = "familiares";
+    $cond = "id_fam='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
 
-    $res = [
-        "datos" => "probando"
-    ];
+    // Borramos la relacion DIFUNTO - FAMILIARES
+    $modulo = "difunto_familiares";
+    $cond = "id_fam='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
 
-    echo "hola";
+    echo 1;
 
 } else if($op == "setEstadoEsqMisa") {
 
@@ -605,11 +700,26 @@ if($op == "login") {
         $cond = "id='$datos_cliente->id'";
         if(!$ApiClient->update($datos_cliente, $modulo, $cond)) redirige("index.php");
 
-
 //        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }
+
+} else if($op == "deleteFactura") {
+
+    $id = $_POST['id'];
+
+    // Borramos la factura
+    $modulo = "facturas";
+    $cond = "id_fact='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    // Borramos la relacion DIFUNTO - FACTURAS
+    $modulo = "difunto_facturas";
+    $cond = "id_fact='$id'";
+    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+
+    echo 1;
 
 } else if($op == "setEstadoFactura") {
 

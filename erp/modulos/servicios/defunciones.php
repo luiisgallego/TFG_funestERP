@@ -56,18 +56,6 @@ foreach ($defunciones as $def) {
                     <i class="fa fa-caret-square-o-right"></i>Listado
                 </div>
                 <div class="panel-body">
-                    <!-- *************** BUSCADOR **************** -->
-<!--                    <div class="row busqueda" >-->
-<!--                        <div class="col-md-8 col-md-offset-4">-->
-<!--                            <form class="navbar-form" role="search" method="post">-->
-<!--                                <div class="form-group col-md-8">-->
-<!--                                    <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                            <div  style="margin-top: 50px;"></div>-->
-<!--                        </div>-->
-<!--                    </div> <!-- busqueda -->
-                    <!-- *************** FIN BUSCADOR **************** -->
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
@@ -87,7 +75,7 @@ foreach ($defunciones as $def) {
                                         <a href="./main.php?op=v_defuncion&ref=<?= $def->id ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                                         <a href="./main.php?op=e_defuncion&ref=<?= $def->id ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
 <!--                                        <a href="#" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>-->
-                                        <a href="#" title="Borrar"><i class="fa fa-trash fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Borrar" name="<?= $def->id; ?>" onclick="borrarServicio(this);"><i class="fa fa-trash fa-fw iconos_a"></i></a>
                                     </td>
                                     <td class="id_td"><?=  $def->id; ?></td>
                                     <td><?= $def->nombre; ?></td>
@@ -104,3 +92,33 @@ foreach ($defunciones as $def) {
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
 </div> <!-- container-fluid -->
+
+<script>
+
+    function borrarServicio(info) {
+
+        var id = info.name;
+        var confirmar = confirm("¿Realmente desea eliminar el difunto con ID = " + id + " y todo el servicio relacionado?" );
+
+        if(confirmar) {
+            $.ajax({
+                type: "POST",
+                url: "../../procesa.php",
+                data: {
+                    op: "deleteDifunto",
+                    id: id
+                },
+                success: function (data) {
+
+                    if(data == 1) {
+                        location.reload();
+                    } else alertify.error("Error en el borrado.");
+
+                },
+                error: function () {
+                    alertify.error("Error en el borrado.");
+                }
+            });
+        }
+    }
+</script>

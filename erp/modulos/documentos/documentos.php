@@ -31,6 +31,7 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
 
         $aux = [
             "id_dif" => $id_dif,
+            "id_fam" => $ids->id_fam,
             "nombre" => $difunto[0]->nombre,
             "fecha_defuncion" => $servicio[0]->fecha_defuncion,
             "poblacion_entierro" => $servicio[0]->poblacion_entierro,
@@ -61,6 +62,7 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
 
     $aux = [
         "id_dif" => $id_dif,
+        "id_fam" => $relacion[0]->id_fam,
         "nombre" => $difunto[0]->nombre,
         "fecha_defuncion" => $servicio[0]->fecha_defuncion,
         "poblacion_entierro" => $servicio[0]->poblacion_entierro,
@@ -112,6 +114,7 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
 
         $aux = [
             "id_dif" => $id_dif,
+            "id_fam" => $relacion[0]->id_fam,
             "nombre" => $difunto[0]->nombre,
             "fecha_defuncion" => $servicio[0]->fecha_defuncion,
             "poblacion_entierro" => $servicio[0]->poblacion_entierro,
@@ -196,9 +199,9 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
                                         <?php } ?>
                                         <a href="./main.php?op=e_documentos&ref=<?= $datos['id_dif'] ?>&miga=<?= $miga ?>" title="Editar"><i class="fa fa-edit fa-fw iconos_a"></i></a>
                                         <a href="./<?= $plantilla ?>.php?ref=<?= $datos['id_dif'] ?>" title="Descargar"><i class="fa fa-download fa-fw iconos_a"></i></a>
-                                        <a href="#" title="Imprimir"><i class="fa fa-print fa-fw iconos_a"></i></a>
+                                        <a href="#" title="Borrar" name="<?= $datos['id_fam'] ?>" onclick="borrarDocs(this);"><i class="fa fa-trash fa-fw iconos_a"></i></a>
                                     </td>
-                                    <td class="id_td"><?= $datos['id_dif']; ?></td>
+                                    <td class="id_td"><?= $datos['id_fam']; ?></td>
                                     <td><?= $tipo; ?></td>
                                     <td><?= $datos['nombre']; ?></td>
                                     <td><?= $datos['fecha_defuncion']; ?></td>
@@ -213,3 +216,33 @@ if($op === "esquelas" || $op === "recordatorias") {     // NAVEGACION - ESQUELA 
         </div> <!-- col-md-12 -->
     </div> <!-- page_content -->
 </div> <!-- container-fluid -->
+
+<script>
+
+    function borrarDocs(info) {
+
+        var id = info.name;
+        var confirmar = confirm("¿Realmente desea eliminar el documento con ID = " + id + "?" );
+
+        if(confirmar) {
+            $.ajax({
+                type: "POST",
+                url: "../../procesa.php",
+                data: {
+                    op: "deleteDocs",
+                    id: id
+                },
+                success: function (data) {
+
+                    if(data == 1) {
+                        location.reload();
+                    } else alertify.error("Error en el borrado.");
+
+                },
+                error: function () {
+                    alertify.error("Error en el borrado.");
+                }
+            });
+        }
+    }
+</script>
