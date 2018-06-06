@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 /* ----------------------------------------------------------------------
                         FUNCIONES
 ---------------------------------------------------------------------- */
@@ -58,7 +59,7 @@ function construyeJSON_Datos($datos) {
  * @return bool true si es vacio
  */
 function compruebaVacio($datos, $excepciones = null){
-
+    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
     foreach ($datos as $clave => $valor) {
 
         if(!empty($valor) && !in_array($clave, $excepciones)) return false;

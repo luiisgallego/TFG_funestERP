@@ -1,11 +1,12 @@
 <div class="container-fluid">
-    <form class="form-horizontal" method="post" action="../../procesa.php">
+<!--    <form class="form-horizontal" method="post" action="../../procesa.php">-->
+    <form id="formFacturas" class="form-horizontal" method="post">
         <input type="hidden" name="op" value="nuevaFactura" />
 
         <div class="row page_header">
             <div class="col-md-3"><h1>Nueva Factura</h1></div>
             <div class="col-md-2 col-md-offset-1" style="margin-top: 5px;">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
+                <input id="btnNuevaFactura" type="button" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
             </div>
         </div>
 
@@ -31,3 +32,40 @@
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
+
+<script>
+    function validarForm() {
+
+        var concepto = $("#t_concepto_1");
+        var importe = $("#t_importe_1");
+
+        if(concepto.val() == "" || importe.val() == "") {
+            alertify.error("Faltan datos");
+
+            if(concepto.val() == "") concepto.focus();
+            else importe.focus();
+
+            return false;
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+
+        $("#btnNuevaFactura").click(function () {
+
+            if(validarForm()) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../procesa.php",
+                    data: $("#formFacturas").serialize(),
+                    success: function (data) {
+                        if(data != "error") redirigeJS(data);
+                        else alertify.error("La inserción ha fallado.");
+                    },
+                    error: function (data) { alertify.error("error"); }
+                });
+            }
+        });
+    });
+</script>

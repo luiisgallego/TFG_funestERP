@@ -3,7 +3,8 @@
 require '../../../config/API_Global.php';
 include_once('../../funciones.php');
 //include_once('./func_servicios.php');
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +66,13 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
             // Estamos editando pero no existe servicio en difunto
             if(hayServicio !== "1") input_servicio.attr("value","");
+
+            // Para colapsar los formularios
+            var op = '<?= $op ?>';
+            if(op == "nuevoServicio") {
+                $("#form_cliente").removeClass("in");
+                $("#form_familiares").removeClass("in");
+            }
         });
     </script>
 

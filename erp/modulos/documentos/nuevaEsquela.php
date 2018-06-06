@@ -3,13 +3,14 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
 -->
 
 <div class="container-fluid">
-    <form class="form-horizontal" method="post" action="../../procesa.php">
+<!--    <form class="form-horizontal" method="post" action="../../procesa.php">-->
+    <form id="formFamiliares" class="form-horizontal" method="post">
         <input type="hidden" name="op" value="nuevaEsquela" />
 
         <div class="row page_header">
             <div class="col-md-3"><h1>Nueva Esquela</h1></div>
             <div class="col-md-2 col-md-offset-1" style="margin-top: 5px;">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
+                <input id="btnNuevaEsquela" type="button" class="btn btn-primary btn-lg btn-block" value="Añadir datos">
             </div>
         </div>
 
@@ -29,10 +30,45 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
                 </div> <!-- busqueda -->
                 <!-- *************** FIN BUSCADOR **************** -->
 
-                <!-- Indicamos que nueva esquela para la BD ¿¿¿???? -->
                 <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
-
             </div> <!-- col-md-12 -->
         </div> <!-- page_content -->
     </form>
 </div> <!-- container-fluid -->
+
+<script>
+    function validarForm() {
+
+        var rol = $("#f_rol_1");
+        var nombre = $("#f_nombres_1");
+
+        if(rol.val() == "" || nombre.val() == "") {
+            alertify.error("Faltan datos");
+
+            if(rol.val() == "") rol.focus();
+            else nombre.focus();
+
+            return false;
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+
+        $("#btnNuevaEsquela").click(function () {
+
+            if(validarForm()) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../procesa.php",
+                    data: $("#formFamiliares").serialize(),
+                    success: function (data) {
+                        if(data != "error") redirigeJS(data);
+                        else alertify.error("La inserción ha fallado.");
+                    },
+                    error: function (data) { alertify.error("error"); }
+                });
+            }
+        });
+    });
+</script>

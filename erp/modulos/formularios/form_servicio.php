@@ -7,7 +7,7 @@
             <i class="fa fa-caret-square-o-right"></i>Datos Servicio
         </a>
     </div> <!-- panel-heading -->
-    <div id="form_servicio" class="panel-body collapse">
+    <div id="form_servicio" class="panel-body collapse in">
         <?php if($editar === true) { ?>
             <input type="hidden" name="s_id" value="<?= $servicio->id ?>" />
         <?php } ?>

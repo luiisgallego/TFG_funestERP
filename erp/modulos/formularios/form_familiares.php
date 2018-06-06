@@ -1,11 +1,11 @@
 <!-- ****************       FAMILIARES       ************************* -->
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <a href="#form_facturas" class="info_seccion" data-toggle="collapse">
+        <a href="#form_familiares" class="info_seccion" data-toggle="collapse">
             <i class="fa fa-caret-square-o-right"></i>Datos Familiares
         </a>
     </div> <!-- panel-heading -->
-    <div id="form_facturas" class="panel-body collapse in">
+    <div id="form_familiares" class="panel-body collapse in">
         <?php if($editar === true) { ?>
             <input type="hidden" name="f_id_dif" value="<?= $estructura['difunto']->id ?>" />
             <input type="hidden" name="f_id_fam" value="<?= $estructura['id_fam'] ?>" />
@@ -43,14 +43,14 @@
                         <label>Rol</label>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="text" class="form-control" name="f_rol_1" placeholder=""/>
+                            <input id="f_rol_1" type="text" class="form-control" name="f_rol_1" placeholder=""/>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <label>Nombres</label>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="text" class="form-control" name="f_nombres_1" placeholder=""/>
+                            <input id="f_nombres_1" type="text" class="form-control" name="f_nombres_1" placeholder=""/>
                         </div>
                     </div>
                     <div class="col-md-2">

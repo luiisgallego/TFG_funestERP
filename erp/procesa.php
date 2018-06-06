@@ -59,7 +59,7 @@ if($op == "login") {
                 $datos_servicio->id_dif = $id_difunto;
                 $modulo = "servicio";
 
-                if(!$ApiClient->insert($datos_servicio, $modulo)) redirige("index.php");
+                if(!$ApiClient->insert($datos_servicio, $modulo)) echo "error";
             }
 
             // Preparamos la INSERCION del CLIENTE y relacion DIFUNTO - CLIENTE
@@ -69,7 +69,7 @@ if($op == "login") {
 
                 // Primero insertamos el cliente
                 $modulo = "cliente";
-                if(!$ApiClient->insert($datos_cliente, $modulo)) redirige("index.php");
+                if(!$ApiClient->insert($datos_cliente, $modulo)) echo "error";
 
                 // Ahora creamos relacion con difunto
                 $cond = "nombre='$datos_cliente->nombre'";
@@ -82,7 +82,7 @@ if($op == "login") {
 
                 // Insertamos la relacion
                 $modulo = "difunto_cliente";
-                if(!$ApiClient->insert($difunto_cliente, $modulo)) redirige("index.php");
+                if(!$ApiClient->insert($difunto_cliente, $modulo)) echo "error";
             }
 
             // Preparamos la INSERCION de los FAMILIARES y relacion DIFUNTO - FAMILIAR
@@ -99,7 +99,7 @@ if($op == "login") {
                     "r_misa" => "1"
                 ];
                 $modulo = "difunto_familiares";
-                if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+                if(!$ApiClient->insert($datos_relacion, $modulo)) echo "error";
 
                 // Ahora obtenemos el ID para guardar en la segunda tabla
                 $cond = "id_dif='$id_difunto'";
@@ -120,18 +120,16 @@ if($op == "login") {
                         "nombres" => $datos_familiares[$i+1]
                     ];
 
-                    if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+                    if(!$ApiClient->insert($aux, $modulo)) echo "error";
                     $i = $i+2;
                 }
             }
+            file_put_contents (__DIR__."/SOMELOG.log" , print_r("FIN", TRUE).PHP_EOL, FILE_APPEND );
+            file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_difunto, TRUE).PHP_EOL, FILE_APPEND );
+            echo "modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto";
 
-            // Si el proceso ha ido bien
-            redirige("modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto");
-//            return;
-
-        } else redirige("index.php");
-
-    } else redirige("index.php");
+        } else echo "error";
+    } else echo "error";
 
 } else if($op == "updateDifunto") {
 
@@ -205,16 +203,40 @@ if($op == "login") {
     $cond = "id_dif='$id'";
     if(!$ApiClient->delete($modulo, $cond)) echo "error";
 
-    $modulo = "cliente";
-    $cond = "id='$id_cli'";
-    if(!$ApiClient->delete($modulo, $cond)) echo "error";
+    if($id_cli != ""){
+        $modulo = "cliente";
+        $cond = "id='$id_cli'";
+        if(!$ApiClient->delete($modulo, $cond)) echo "error";
+    }
 
     // Borramos la relacion DIFUNTO - FAMILIARES
+    $modulo = "difunto_familiares";
+    $cond = "id_dif='$id'";
+    $familiares = $ApiClient->select($modulo, $cond);
+    $id_fam = $familiares[0]->id_fam;
+
+    if($id_fam != ""){
+        $modulo = "familiares";
+        $cond = "id_fam='$id_fam'";
+        if(!$ApiClient->delete($modulo, $cond)) echo "error";
+    }
+
     $modulo = "difunto_familiares";
     $cond = "id_dif='$id'";
     if(!$ApiClient->delete($modulo, $cond)) echo "error";
 
     // Borramos la relacion DIFUNTO - FACTURAS
+    $modulo = "difunto_facturas";
+    $cond = "id_dif='$id'";
+    $facturas = $ApiClient->select($modulo, $cond);
+    $id_fact = $facturas[0]->id_fact;
+
+    if($id_fam != ""){
+        $modulo = "facturas";
+        $cond = "id_fact='$id_fact'";
+        if(!$ApiClient->delete($modulo, $cond)) echo "error";
+    }
+
     $modulo = "difunto_facturas";
     $cond = "id_dif='$id'";
     if(!$ApiClient->delete($modulo, $cond)) echo "error";
@@ -227,45 +249,6 @@ if($op == "login") {
     echo 1;
 
 } else if($op == "nuevoCliente") {
-
-    $datos = $_POST;
-    unset($datos['op']);
-    unset($datos['nuevoCliente']); // Valor de la busqueda del difunto
-
-    if(!empty($datos) && $datos['c_nombre'] !== "") {
-
-        // Adaptamos los datos correctamente
-        $id_dif = $datos['c_id_dif'];
-        unset($datos['c_id_dif']);
-        $datos = json_encode($datos);
-        $json = json_decode(construyeJSON_Datos($datos));
-
-        // Preparamos la INSERCION del CLIENTE
-        $datos_cliente = $json->cliente;
-        $modulo = "cliente";
-
-        if ($ApiClient->insert($datos_cliente, $modulo)) {
-
-            // Obtenemos el ID del CLIENTE
-            $cond = "nombre='$datos_cliente->nombre'";
-            $campos = "id";
-            $id_cliente = $ApiClient->select($modulo, $cond, $campos);
-            $id_cliente = $id_cliente[0]->id;
-
-            // Creamos la relacion SERVICIO - CLIENTE
-            $datos_relacion = [
-                "id_dif" => $id_dif,
-                "id_cli" => $id_cliente
-            ];
-            $modulo = "difunto_cliente";
-
-            if ($ApiClient->insert($datos_relacion, $modulo)) redirige("modulos/servicios/main.php?op=v_cliente&miga=cliente&ref=$id_cliente");
-            else redirige("index.php");
-
-        } else redirige("index.php");
-    } else redirige("index.php");
-
-} else if($op == "nuevoCliente2") {
 
     $datos = $_POST;
     unset($datos['op']);
@@ -298,7 +281,7 @@ if($op == "login") {
             $modulo = "difunto_cliente";
 
             if ($ApiClient->insert($datos_relacion, $modulo)) echo "modulos/servicios/main.php?op=v_cliente&miga=cliente&ref=$id_cliente";
-            else echo "index.php";
+            else echo "error";
 
         } else echo "error";
     } else echo "error";
@@ -324,6 +307,28 @@ if($op == "login") {
     $cond = "nombre LIKE '%$nom%'";
     $campos = "*";
     $res = $ApiClient->select($modulo, $cond, $campos);
+
+    $res_final = [];
+    foreach ($res as $resultado) {
+
+        $modulo = "difunto_cliente";
+        $id_dif = $resultado->id;
+        $cond = "id_dif = $id_dif";
+        $campos = "*";
+        $aux = $ApiClient->select($modulo, $cond, $campos);
+
+        if(empty($aux))  array_push($res_final, $resultado);
+    }
+
+    echo json_encode($res_final);
+
+} else if($op == "buscarDifunto_Disponible") {
+
+    $nom = $_POST['nombreDifunto'];
+
+    // Obtenemos los  DIFUNTO
+    $modulo = "difunto";
+    $res = $ApiClient->select($modulo);
 
     $res_final = [];
     foreach ($res as $resultado) {
@@ -393,9 +398,9 @@ if($op == "login") {
 
     $datos = $_POST;
     unset($datos['op']);
-    unset($datos['nuevaEsquela']); // Valor de la busqueda del difunto
+    unset($datos['nuevaEsquela2']); // Valor de la busqueda del difunto
 
-    if(!empty($datos)) {
+    if($datos['f_rol_1'] != "" && $datos['f_nombres_1'] != "") {
 
         // Adaptamos los datos correctamente
         $datos = json_encode($datos);
@@ -416,7 +421,7 @@ if($op == "login") {
             "r_misa" => "1"
         ];
         $modulo = "difunto_familiares";
-        if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+        if(!$ApiClient->insert($datos_relacion, $modulo)) echo "error";
 
         // Ahora obtenemos el ID para guardar en la segunda tabla
         $cond = "id_dif='$id_dif'";
@@ -437,13 +442,14 @@ if($op == "login") {
                 "nombres" => $datos_familiares[$i+1]
             ];
 
-            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+            if(!$ApiClient->insert($aux, $modulo)) echo "error";
             $i = $i+2;
         }
 
         /* Las esquelas las mostramos en función del difunto */
-        redirige("modulos/documentos/main.php?op=v_esquela&ref=$id_dif");
-    }
+        echo "modulos/documentos/main.php?op=v_esquela&ref=$id_dif";
+
+    } else echo "error";
 
 } else if($op == "updateDocumentos") {
     // ONLY UPDATE
@@ -576,7 +582,7 @@ if($op == "login") {
     unset($datos['op']);
     unset($datos['nuevaFactura']); // Valor de la busqueda del difunto
 
-    if(!empty($datos)) {
+    if($datos['t_concepto_1'] != "" && $datos['t_importe_1'] != "") {
 
         // Adaptamos los datos correctamente
         $datos = json_encode($datos);
@@ -598,7 +604,7 @@ if($op == "login") {
             "total" => "0"
         ];
         $modulo = "difunto_facturas";
-        if(!$ApiClient->insert($datos_relacion, $modulo)) redirige("index.php");
+        if(!$ApiClient->insert($datos_relacion, $modulo)) echo "error";
 
         // Ahora obtenemos el ID para guardar en la segunda tabla
         $cond = "id_dif='$id_dif'";
@@ -620,7 +626,7 @@ if($op == "login") {
                 "importe" => $datos_factura[$i+1]
             ];
 
-            if(!$ApiClient->insert($aux, $modulo)) redirige("index.php");
+            if(!$ApiClient->insert($aux, $modulo)) echo "error";
 
             $importe_total += $datos_factura[$i+1];
             $i = $i+2;
@@ -630,10 +636,11 @@ if($op == "login") {
         $datos_relacion['total'] = $importe_total;
         $modulo = "difunto_facturas";
         $cond = "id_dif='$id_dif'";
-        if(!$ApiClient->update($datos_relacion, $modulo, $cond))  redirige("index.php");
+        if(!$ApiClient->update($datos_relacion, $modulo, $cond))  echo "error";
 
-        redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
-    }
+        echo "modulos/contabilidad/main.php?op=v_factura&ref=$id_dif";
+
+    } else echo "error";
 
 } else if($op == "updateFacturas") {
 

@@ -17,16 +17,9 @@
                     <label>Nombre</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="text" class="form-control" name="d_nombre" value="<?= $difunto->nombre ?>" placeholder=""/>
+                        <input id="d_nombre" type="text" class="form-control" name="d_nombre" value="<?= $difunto->nombre ?>" placeholder=""/>
                     </div>
                 </div>
-<!--                <div class="col-md-3">-->
-<!--                    <label>Apellidos</label>-->
-<!--                    <div class="input-group">-->
-<!--                        <span class="input-group-addon"></span>-->
-<!--                        <input type="text" class="form-control" name="d_apellidos" placeholder=""/>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="col-md-3">
                     <label>DNI</label>
                     <div class="input-group">

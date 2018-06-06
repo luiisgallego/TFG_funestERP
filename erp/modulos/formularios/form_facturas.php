@@ -1,11 +1,11 @@
 <!-- ****************       FACTURAS       ************************* -->
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <a href="#form_familiares" class="info_seccion" data-toggle="collapse">
+        <a href="#form_facturas" class="info_seccion" data-toggle="collapse">
             <i class="fa fa-caret-square-o-right"></i>Datos Facturas
         </a>
     </div> <!-- panel-heading -->
-    <div id="form_familiares" class="panel-body collapse in">
+    <div id="form_facturas" class="panel-body collapse in">
         <?php if($editar === true) { ?>
             <input type="hidden" name="t_id_dif" value="<?= $estructura['difunto']->id ?>" />
             <input type="hidden" name="t_id_fact" value="<?= $estructura['relacion']->id_fact ?>" />
@@ -43,14 +43,14 @@
                         <label>Concepto</label>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="text" class="form-control" name="t_concepto_1" placeholder=""/>
+                            <input id="t_concepto_1" type="text" class="form-control" name="t_concepto_1" placeholder=""/>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <label>Importe</label>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="text" class="form-control" name="t_importe_1" placeholder=""/>
+                            <input id="t_importe_1" type="text" class="form-control" name="t_importe_1" placeholder=""/>
                         </div>
                     </div>
                     <div class="col-md-2">

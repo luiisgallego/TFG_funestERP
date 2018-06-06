@@ -109,11 +109,9 @@ foreach ($defunciones as $def) {
                     id: id
                 },
                 success: function (data) {
-
-                    if(data == 1) {
+                    if(data != "error") {
                         location.reload();
                     } else alertify.error("Error en el borrado.");
-
                 },
                 error: function () {
                     alertify.error("Error en el borrado.");
