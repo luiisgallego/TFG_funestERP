@@ -25,22 +25,22 @@
 <!--                </div> -->
                 <!-- *************** FIN BUSCADOR **************** -->
 
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-2">
+                <div class="row busqueda">
+                    <div class="col-md-4 col-md-offset-3">
                         <div class="panel panel-danger">
                             <div class="panel-heading info_seccion">
                                 <i class="fa fa-caret-square-o-right"></i>Difuntos sin Cliente
                             </div>
                             <div class="panel-body">
                                 <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table class="table table-striped table-bordered table-hover" style="margin-top: 20px;">
                                     <thead>
                                     <tr>
                                         <th>Nombre</th>
                                         <th style="width: 10px;">Seleccionar</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="tBdody"></tbody>
+                                    <tbody id="tBdodyCliente"></tbody>
                                 </table>
                             </div> <!-- panel-body-->
                         </div> <!-- panel -->
@@ -54,34 +54,14 @@
     </form>
 </div> <!-- container-fluid -->
 
+<script src="../func_aux.js"></script>
 <script>
-    window.onload = inicliente();
-
-    function validarForm() {
-
-        var nombre = $("#c_nombre");
-        var cont = 0;
-        var res = false;
-
-        $('#tBdody input[type=checkbox]:checked').each(function () {
-            cont++;
-        });
-
-        if(cont == 0) alertify.error("No has seleccionado ningun difunto");
-        else if(cont > 1) alertify.error("Solo puedes seleccionar un difunto");
-        else if(nombre.val() == "") {
-            alertify.error("Faltan datos");
-            nombre.focus();
-        } else res = true;
-
-        return res;
-    }
 
     $(document).ready(function () {
 
         $("#btnNuevoCliente").click(function () {
 
-            if(validarForm()) {
+            if(validarFormCliente()) {
                 $.ajax({
                     type: "POST",
                     url: "../../procesa.php",
@@ -95,25 +75,4 @@
         });
     });
 
-    function inicliente() {
-        $.post("../../procesa.php", {op: "buscarDifunto_Disponible"}, function (mensaje) {
-            console.log("eje");
-
-            var json = JSON.parse(mensaje);
-            var divBusqueda = $("#tBdody");
-
-            /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
-            var nombre = "c_id_dif";
-
-            // Construimos la estructura para mostrarla
-            for(i=0; i<json.length; i++){
-
-                var estructura = "<tr>"+
-                    "<td id='nom_dif'>" + json[i]['nombre']+ "</td>" +
-                    "<td><input id='id_difunto' class='micheck' type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' /></td>"+
-                    "</tr>";
-                divBusqueda.append(estructura);
-            }
-        });
-    }
 </script>

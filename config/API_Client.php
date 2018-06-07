@@ -259,9 +259,9 @@ class APIClient {
      */
     public function login($user, $pass) {
 
-        $row = $this->select("usuarios", "nombre = '$user' AND pass = '$pass'");
+        $row = $this->select("usuarios", "nombre = '$user'");
 
-        if($row[0]->nombre == $user) {
+        if($row[0]->pass == md5($pass)) {
             $this->loginInfo = $_SESSION["login_info"] = $row[0];
             return true;
         }

@@ -1,3 +1,9 @@
+<?php
+print("<pre>");
+print_r($_SESSION["prueba"]);
+print("</pre>");
+?>
+
 <!DOCTYPE html>
 <html>
     <head>

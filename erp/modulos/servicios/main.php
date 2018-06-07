@@ -74,6 +74,9 @@ error_reporting(0);
                 $("#form_familiares").removeClass("in");
             }
         });
+
+        window.onload = inicliente();
+
     </script>
 
 </body>

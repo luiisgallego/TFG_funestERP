@@ -15,12 +15,13 @@ if($op == "login") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    if($ApiClient->login($user, $pass)) header("Location: http://localhost/funerariagallego/erp/index.php");
-    else header("Location: http://localhost/funerariagallego/erp/login.php");
+    if($ApiClient->login($user, $pass)) redirige("index.php");
+    else redirige("login.php");
 
 } else if($op == "logout") {
 
-    $ApiClient->logout();
+//    $ApiClient->logout();
+    $_SESSION['login_info'] = null;
     header("Location: http://localhost/funerariagallego/erp/login.php");
 
 } else if($op == "nuevoServicio") {
@@ -124,8 +125,7 @@ if($op == "login") {
                     $i = $i+2;
                 }
             }
-            file_put_contents (__DIR__."/SOMELOG.log" , print_r("FIN", TRUE).PHP_EOL, FILE_APPEND );
-            file_put_contents (__DIR__."/SOMELOG.log" , print_r($id_difunto, TRUE).PHP_EOL, FILE_APPEND );
+
             echo "modulos/servicios/main.php?op=v_defuncion&ref=$id_difunto";
 
         } else echo "error";
@@ -328,7 +328,13 @@ if($op == "login") {
 
     // Obtenemos los  DIFUNTO
     $modulo = "difunto";
-    $res = $ApiClient->select($modulo);
+
+    if($nom != "") {
+
+        $cond = "nombre LIKE '%$nom%'";
+        $res = $ApiClient->select($modulo, $cond);
+
+    } else $res = $ApiClient->select($modulo);
 
     $res_final = [];
     foreach ($res as $resultado) {

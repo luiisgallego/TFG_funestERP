@@ -47,7 +47,7 @@
                     <label>Código Postal</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="number" class="form-control" name="c_codigo_postal" value="<?= $cliente->codigo_postal ?>" placeholder=""/>
+                        <input id="c_codigo_postal" type="number" class="form-control" name="c_codigo_postal" value="<?= $cliente->codigo_postal ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -61,7 +61,7 @@
                     <label>Email</label>
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <input type="email" class="form-control" name="c_email" value="<?= $cliente->email ?>" placeholder=""/>
+                        <input id="c_email" type="email" class="form-control" name="c_email" value="<?= $cliente->email ?>" placeholder=""/>
                     </div>
                 </div>
                 <div class="col-md-3">
