@@ -41,3 +41,32 @@
         </div>
     </nav> <!-- FIN NAVEGACION -->
 </div> <!-- FIN WRAPPER -->
+
+<div class="modal fade" id="modalRegistrar" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Registrar Nuevo Usuario</h4>
+            </div>
+
+            <div class="modal-body">
+
+
+            </div><!-- Fin Modal Body -->
+
+            <div class="modal-footer">
+                <button id="botonRegistrar" type="button" class="btn btn-info" >Registrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function registrarUsuario() {
+        $("#modalRegistrar").modal();
+    }
+</script>
+

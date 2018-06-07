@@ -82,9 +82,9 @@ array_push($notificaciones, $aux);
 
 //file_put_contents (__DIR__."/SOMELOG.log" , print_r($notificaciones, TRUE).PHP_EOL, FILE_APPEND );
 
-print("<pre>");
-print_r($_SESSION["login_info"]);
-print("</pre>");
+//print("<pre>");
+//print_r($_SESSION["login_info"]);
+//print("</pre>");
 ?>
 
 <!-- Dentro de page-wrapper -->

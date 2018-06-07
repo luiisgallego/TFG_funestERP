@@ -97,7 +97,7 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
     </div> <!-- row page_content -->
     <div class="row">
         <div class="col-md-3 col-md-offset-4">
-            <div id="botonModal" class="btn btn-primary btn-lg btn-block nuevo_servicio_button">Añadir difunto a cliente </div>
+            <div id="botonModalCliente" class="btn btn-primary btn-lg btn-block nuevo_servicio_button">Añadir difunto a cliente </div>
         </div>
     </div>
 </div> <!--  container-fluid -->
@@ -126,7 +126,7 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
                 <!-- *************** FIN BUSCADOR **************** -->
 
                 <div class="boton_modal">
-                    <button id="botonModal2" type="button" class="btn btn-info btn-lg">Añadir relación</button>
+                    <button id="botonModalCliente2" type="button" class="btn btn-info btn-lg">Añadir relación</button>
                 </div>
             </div><!-- Fin Modal Body -->
 
@@ -142,11 +142,11 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
     $(function () {     // DOCUMENT READY
 
         // ABRIMOS MODAL
-        $("#botonModal").click(function () {
+        $("#botonModalCliente").click(function () {
             $("#modalCliente").modal();
         });
 
-        $("#botonModal2").click(function () {
+        $("#botonModalCliente2").click(function () {
 
             var id_cliente = "<?php print_r($id_cliente); ?>";
             var id_difunto = $("#id_difunto").val();
