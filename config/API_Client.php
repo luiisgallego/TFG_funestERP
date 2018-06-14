@@ -254,9 +254,6 @@ class APIClient {
                        FIN FUNCIONES BASE SQL
    ---------------------------------------------------------------------- */
 
-    /**
-     * SELECT * FROM usuarios WHERE nombre = '$user' AND pass = '$pass'"
-     */
     public function login($user, $pass) {
 
         $row = $this->select("usuarios", "nombre = '$user'");

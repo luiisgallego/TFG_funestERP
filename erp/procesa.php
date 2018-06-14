@@ -24,6 +24,22 @@ if($op == "login") {
     $_SESSION['login_info'] = null;
     header("Location: http://localhost/funerariagallego/erp/login.php");
 
+} else if($op == "registrarUser") {
+
+    $datos = $_POST;
+    unset($datos['op']);
+
+    if($datos['nombre'] != "" && $datos['pass'] !=  ""){
+
+        $datos['pass'] = md5($datos['pass']);
+
+        $modulo = "usuarios";
+        if(!$ApiClient->insert($datos, $modulo)) echo "error";
+
+    } else echo "error";
+
+    echo 1;
+
 } else if($op == "nuevoServicio") {
 
     $datos = $_POST;

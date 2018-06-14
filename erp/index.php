@@ -42,6 +42,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
         <script src="../bootstrap/metisMenu/metisMenu.min.js"></script>
         <script src="js/metisMenuNavegacion.js"></script>
 
+        <!-- ALERTIFY -->
+        <link rel="stylesheet" href="./js/alertify/css/alertify.min.css">
+<!--        <link rel="stylesheet" href=./js/alertify/css/themes/default.min.css">-->
+        <script src="./js/alertify/alertify.min.js"></script>
+
         <!-- LINE CHART -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         

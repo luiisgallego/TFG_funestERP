@@ -37,7 +37,7 @@
                         <input type="hidden" name="op" value="login">
 
                         <div class="form-group">
-                            <label class="cols-sm-2 control-label">Username</label>
+                            <label class="cols-sm-2 control-label">Nombre</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="cols-sm-2 control-label">Password</label>
+                            <label class="cols-sm-2 control-label">Contraseña</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>

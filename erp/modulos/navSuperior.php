@@ -15,7 +15,7 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            <li><a href="../registrar.php"><i class="fa fa-user fa-fw"></i>Añadir Usuario</a></li>
+            <li><a href="#" onclick="registrarUsuario();"><i class="fa fa-user fa-fw"></i>Añadir Usuario</a></li>
 <!--            <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a></li>-->
             <li class="divider"></li>
             <li><a href="../procesa.php?op=logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>

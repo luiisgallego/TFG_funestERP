@@ -80,11 +80,6 @@ $txt = "<span class='not_numero'>" . $cont_fact_cobrar . "</span>" . "facturas s
 $aux = ["fact_sin_cobrar", $cont_fact_cobrar, $txt];
 array_push($notificaciones, $aux);
 
-//file_put_contents (__DIR__."/SOMELOG.log" , print_r($notificaciones, TRUE).PHP_EOL, FILE_APPEND );
-
-//print("<pre>");
-//print_r($_SESSION["login_info"]);
-//print("</pre>");
 ?>
 
 <!-- Dentro de page-wrapper -->
@@ -100,58 +95,63 @@ array_push($notificaciones, $aux);
     </div>
 
     <div class="row"> <!-- CONTENIDO CENTRAL -->
-        <div class="col-md-8">
-            <div class="panel panel-default">
-
-                <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i>Rendimiento mensual
-                    <div class="pull-right">
-                        <div class="btn-group">
-<!--                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">-->
-<!--                                Mes <span class="caret"></span>-->
-<!--                            </button>-->
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
+        <?php if($_SESSION["login_info"]->rol != "empleado"){ ?>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i>Rendimiento mensual
+                        <div class="pull-right">
+                            <div class="btn-group">
+    <!--                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">-->
+    <!--                                Mes <span class="caret"></span>-->
+    <!--                            </button>-->
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="panel-body">
-                    <div id="chart_div"></div>  <!-- GRAFICA -->
-                </div> <!-- Fin panel-body -->
-            </div> <!-- Fin panel -->
-        </div>
+                    <div class="panel-body">
+                        <div id="chart_div"></div>  <!-- GRAFICA -->
+                    </div> <!-- Fin panel-body -->
+                </div> <!-- Fin panel -->
 
-        <div class="col-md-4">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw" style="margin-right: 10px;"></i>Notificaciones
-                </div>
+            </div>
+        <?php } ?>
 
-                <div class="panel-body">
-                    <div class="list-group">
+        <?php if($_SESSION["login_info"]->rol != "empleado"){ ?>
+            <div class="col-md-4">
+        <?php } else { ?>
+            <div class="col-md-4 col-md-offset-3">
+        <?php } ?>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw" style="margin-right: 10px;"></i>Notificaciones
+                    </div>
 
-                        <?php foreach ($notificaciones as $notificacion) {
-                            if($notificacion[1] != 0) { ?>
-                            <div class="list-group-item">
-                                <i class="fa fa-comment fa-fw not"></i><?= $notificacion[2] ?>
-<!--                                <span class="pull-right text-muted small">-->
-<!--                                    <em>Hace 12 minutos</em>-->
-<!--                                </span>-->
-                            </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+
+                            <?php foreach ($notificaciones as $notificacion) {
+                                if($notificacion[1] != 0) { ?>
+                                <div class="list-group-item">
+                                    <i class="fa fa-comment fa-fw not"></i><?= $notificacion[2] ?>
+    <!--                                <span class="pull-right text-muted small">-->
+    <!--                                    <em>Hace 12 minutos</em>-->
+    <!--                                </span>-->
+                                </div>
+                                <?php } ?>
                             <?php } ?>
-                        <?php } ?>
 
-                    </div> <!-- list-group -->
-<!--                    <a href="#" class="btn btn-default btn-block">Ver todas</a>-->
-                </div> <!-- panel-body -->
-            </div> <!-- panel -->
-        </div> <!-- col-lg-4 -->
+                        </div> <!-- list-group -->
+                    </div> <!-- panel-body -->
+                </div> <!-- panel -->
+            </div> <!-- col-md-4 -->
     </div> <!-- row -->
 
 </div> <!-- container-fluid -->
