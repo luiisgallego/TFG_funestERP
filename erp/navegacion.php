@@ -68,5 +68,11 @@
     function registrarUsuario() {
         $("#modalRegistrar").modal();
     }
+
+    $(document).ready(function () {
+       $("#botonRegistrar").click(function () {
+          console.log("click");
+       });
+    });
 </script>
 

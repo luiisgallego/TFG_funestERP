@@ -17,18 +17,27 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
         <div class="row page_content">
             <div class="col-md-12">
 
-                <!-- *************** BUSCADOR **************** -->
                 <div class="row busqueda">
-                    <div class="col-md-8 col-md-offset-3">
-                        <form class="navbar-form" role="search" method="post">
-                            <div class="form-group col-md-8">
-                                <input type="text" class="form-control" name="nuevaEsquela" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
+                    <div class="col-md-4 col-md-offset-3">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading info_seccion">
+                                <i class="fa fa-caret-square-o-right"></i>Difuntos sin Documentos
                             </div>
-                        </form>
-                        <div id="resBusqueda"></div>
+                            <div class="panel-body">
+                                <input type="text" class="form-control" name="nuevaEsquela" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
+                                <table class="table table-striped table-bordered table-hover" style="margin-top: 20px;">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th style="width: 10px;">Seleccionar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tBdody"></tbody>
+                                </table>
+                            </div> <!-- panel-body-->
+                        </div> <!-- panel -->
                     </div>
-                </div> <!-- busqueda -->
-                <!-- *************** FIN BUSCADOR **************** -->
+                </div>
 
                 <div class="familiares"> <?php include('../formularios/form_familiares.php'); ?> </div>
             </div> <!-- col-md-12 -->

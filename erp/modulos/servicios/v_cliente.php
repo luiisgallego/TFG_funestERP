@@ -104,33 +104,35 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
 
 <!-- AÑADIR DIFUNTO A CLIENTE -->
 <div class="modal fade" id="modalCliente" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog ">
         <div class="modal-content">
 
-            <div class="modal-header">
-                <div>DIFUNTOS</div>
-            </div>
-
             <div class="modal-body">
-                <!-- *************** BUSCADOR **************** -->
-                <div class="row busqueda" >
-                    <div class="col-md-8 col-md-offset-4">
-                        <form class="navbar-form" role="search" method="post">
-                            <div class="form-group col-md-8">
-                                <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifuntoLimitado(this);" placeholder="Buscar difunto">
+                <div class="row busqueda">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading info_seccion">
+                                <i class="fa fa-caret-square-o-right"></i>Difuntos sin Cliente
                             </div>
-                        </form>
-                        <div id="resBusqueda" style="margin-top: 50px;"></div>
+                            <div class="panel-body">
+                                <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">
+                                <table class="table table-striped table-bordered table-hover" style="margin-top: 20px;">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th style="width: 10px;">Seleccionar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tBdody"></tbody>
+                                </table>
+                            </div> <!-- panel-body-->
+                        </div> <!-- panel -->
                     </div>
-                </div> <!-- busqueda -->
-                <!-- *************** FIN BUSCADOR **************** -->
-
-                <div class="boton_modal">
-                    <button id="botonModalCliente2" type="button" class="btn btn-info btn-lg">Añadir relación</button>
                 </div>
             </div><!-- Fin Modal Body -->
 
             <div class="modal-footer">
+                <button id="botonModalCliente2" type="button" class="btn btn-info" style="float: left;">Añadir relación</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

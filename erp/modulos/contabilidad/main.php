@@ -50,6 +50,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
                 input_facturas.attr("value","");
             }
         });
+
+        window.onload = iniBuscador("nuevaFactura");
+
     </script>
 
 </body>

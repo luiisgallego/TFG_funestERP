@@ -12,19 +12,6 @@
         <div class="row page_content">
             <div class="col-md-12">
 
-                <!-- *************** BUSCADOR **************** -->
-<!--                <div class="row busqueda">-->
-<!--                    <div class="col-md-8 col-md-offset-3">-->
-<!--                        <form class="navbar-form" role="search" method="post">-->
-<!--                            <div class="form-group col-md-8">-->
-<!--                                <input type="text" class="form-control" name="nuevoCliente" onkeyup="buscarDifunto(this);" placeholder="Buscar difunto">-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                        <div id="resBusqueda"> </div>-->
-<!--                    </div>-->
-<!--                </div> -->
-                <!-- *************** FIN BUSCADOR **************** -->
-
                 <div class="row busqueda">
                     <div class="col-md-4 col-md-offset-3">
                         <div class="panel panel-danger">
@@ -40,7 +27,7 @@
                                         <th style="width: 10px;">Seleccionar</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="tBdodyCliente"></tbody>
+                                    <tbody class="tBdody"></tbody>
                                 </table>
                             </div> <!-- panel-body-->
                         </div> <!-- panel -->

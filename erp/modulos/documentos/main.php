@@ -51,6 +51,9 @@ error_reporting(E_ERROR |  E_PARSE);
                 input_familiares.attr("value","");
             }
         });
+
+        window.onload = iniBuscador("nuevaEsquela");
+
     </script>
 </body>
 </html>

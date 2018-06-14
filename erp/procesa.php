@@ -325,6 +325,7 @@ if($op == "login") {
 } else if($op == "buscarDifunto_Disponible") {
 
     $nom = $_POST['nombreDifunto'];
+    $mod = $_POST['modulo'];
 
     // Obtenemos los  DIFUNTO
     $modulo = "difunto";
@@ -339,7 +340,7 @@ if($op == "login") {
     $res_final = [];
     foreach ($res as $resultado) {
 
-        $modulo = "difunto_cliente";
+        $modulo = $mod;
         $id_dif = $resultado->id;
         $cond = "id_dif = $id_dif";
         $campos = "*";

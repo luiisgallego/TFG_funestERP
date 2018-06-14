@@ -72,15 +72,22 @@ valor.change(function () {
     if(valor.val() === "Hombre") $(".d_hijo_de").text("Hijo de");
     else $(".d_hijo_de").text("Hija de");
 });
+
+/**
+ * Redirección desde JavaScript
+ */
+function redirigeJS(direccion){
+    var base = "http://localhost/funerariagallego/erp/";
+    window.location = base + direccion;
+}
+
 <!-- ******************************************************* -->
 
 function globalDifunto(nombre, mensaje, info) {
 
     var json = JSON.parse(mensaje);
-    var divBusqueda = $("#resBusqueda");
-    divBusqueda.html(""); // Limpiamos si hay datos mostrados
-
-    // console.log(json);
+    var body = $(".tBdody");
+    body.html("");          // Limpiamos si hay datos mostrados
 
     /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
     var nombre;
@@ -89,30 +96,6 @@ function globalDifunto(nombre, mensaje, info) {
     else if(info.name === "nuevaFactura"){
         nombre = "t_id_dif";  // FACTURAS
     }
-
-    // Construimos la estructura para mostrarla
-    for(i=0; i<json.length; i++){
-
-        // Para cada difunto, buscar si tiene ya su Esquela o Recordatoria correspondiente
-        // Si la tiene no mostrar
-        // ¡¡¡pensar!!!
-
-        var estructura = "<div class='row'>" +
-                            "<div class='col-md-5 col-md-offset-1' id='nom_dif'>" + json[i]['nombre']+ "</div>" +
-                            "<div class='col-md-2'><input id='id_difunto' type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' /></div>" +
-                        "</div>";
-        divBusqueda.append(estructura);
-    }
-}
-
-function globalDifunto2(nombre, mensaje, info) {
-
-    var json = JSON.parse(mensaje);
-    var body = $("#tBdodyCliente");
-    body.html(""); // Limpiamos si hay datos mostrados
-
-    /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
-    var nombre = "c_id_dif";
 
     for(i=0; i<json.length; i++){
 
@@ -127,53 +110,50 @@ function globalDifunto2(nombre, mensaje, info) {
 function buscarDifunto(info) {
 
     var nombre = $(".busqueda input").val();
-    // console.log(nombre);
-    // console.log(info.name);
 
-    if(nombre !== "") {
-
-        if(info.name == "nuevoCliente") {
-            $.post("../../procesa.php", {op: "buscarDifunto_Disponible",nombreDifunto: nombre}, function (mensaje) {
-
-                globalDifunto2(nombre, mensaje, info);
-
-            });
-        } else {
-            $.post("../../procesa.php", {op: "buscarDifunto",nombreDifunto: nombre}, function (mensaje) {
-
-                globalDifunto(nombre, mensaje, info);
-
-            });
-        }
-
-    } else {
-        inicliente();
-        $("#resBusqueda").html("");
+    var modulo;
+    if(info.name === "nuevoCliente") modulo = "difunto_cliente";
+    else if(info.name === "nuevaEsquela") modulo = "difunto_familiares";  // FAMILIARES
+    else if(info.name === "nuevaFactura"){
+        modulo = "difunto_facturas";  // FACTURAS
     }
-}
-
-function buscarDifuntoLimitado(info) {
-
-    var nombre = $(".busqueda input").val();
 
     if(nombre !== "") {
-        $.post("../../procesa.php", {op: "buscarDifunto_Limitado",nombreDifunto: nombre}, function (mensaje) {
+
+        $.post("../../procesa.php", {op: "buscarDifunto_Disponible", nombreDifunto: nombre, modulo: modulo}, function (mensaje) {
 
             globalDifunto(nombre, mensaje, info);
 
         });
+
     } else {
+        iniBuscador(info.name);
         $("#resBusqueda").html("");
     }
 }
 
-function inicliente() {
+function iniBuscador(name) {
 
-    var body = $("#tBdodyCliente");
+    var body = $(".tBdody");
     body.html("");
-    var nombre = "c_id_dif";
 
-    $.post("../../procesa.php", {op: "buscarDifunto_Disponible", nombreDifunto: ""}, function (mensaje) {
+    /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
+    var nombre;
+    var modulo;
+    if(name === "nuevoCliente") {           // CLIENTE
+        nombre = "c_id_dif";
+        modulo = "difunto_cliente";
+    }
+    else if(name === "nuevaEsquela") {      // FAMILIARES
+        nombre = "f_id_dif";
+        modulo = "difunto_familiares";
+    }
+    else if(name === "nuevaFactura"){       // FACTURAS
+        nombre = "t_id_dif";
+        modulo = "difunto_facturas";
+    }
+
+    $.post("../../procesa.php", {op: "buscarDifunto_Disponible", nombreDifunto: "", modulo: modulo}, function (mensaje) {
 
         var json = JSON.parse(mensaje);
 
@@ -186,13 +166,6 @@ function inicliente() {
             body.append(estructura);
         }
     });
-}
-
-<!-- ******************************************************* -->
-
-function redirigeJS(direccion){
-    var base = "http://localhost/funerariagallego/erp/";
-    window.location = base + direccion;
 }
 
 <!-- ******************************************************* -->
@@ -211,27 +184,15 @@ function validar_codigoPostal( dato ) {
     return regex.test(dato) ? true : false;
 }
 
-// function validar_telefono( dato ) {
-//     var regex = \+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8};
-//     return regex.test(dato) ? true : false;
-// }
-// function validar_dni( dato ) {
-//     var regex = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
-//     return regex.test(dato) ? true : false;
-// }
-
 function validarFormCliente() {
 
     var nombre = $("#c_nombre").val();
     var email = $("#c_email");
-    // var dni = $("#c_dni").val();
-    // var codigo_postal = $("#c_codigo_postal").val();
-    // var telefono = $("#c_telefono").val();
 
     var cont = 0;
     var res = false;
 
-    $('#tBdodyCliente input[type=checkbox]:checked').each(function () {
+    $('.tBdody input[type=checkbox]:checked').each(function () {
         cont++;
     });
 
@@ -247,23 +208,6 @@ function validarFormCliente() {
         email.focus();
         res = false;
     }
-
-    // else if(telefono != ""){
-    //     if(!validar_email(email)) {
-    //         alertify.error("Telefono incorrecto.");
-    //         telefono.focus();
-    //     }
-    // } else if(dni != ""){
-    //     if(!validar_email(email)) {
-    //         alertify.error("DNI incorrecto.");
-    //         dni.focus();
-    //     }
-    // }
-    // else if(codigo_postal != ""){
-    //     if(!validar_codigoPostal(email)) {
-    //         alertify.error("Codigo postal incorrecto.");
-    //         codigo_postal.focus();
-    // }
 
     return res;
 }

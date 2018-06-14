@@ -75,7 +75,7 @@ error_reporting(0);
             }
         });
 
-        window.onload = inicliente();
+        window.onload = iniBuscador("nuevoCliente");
 
     </script>
 
