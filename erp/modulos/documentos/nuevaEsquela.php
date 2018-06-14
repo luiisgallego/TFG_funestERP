@@ -45,28 +45,14 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
     </form>
 </div> <!-- container-fluid -->
 
+<script src="../func_aux.js"></script>
 <script>
-    function validarForm() {
-
-        var rol = $("#f_rol_1");
-        var nombre = $("#f_nombres_1");
-
-        if(rol.val() == "" || nombre.val() == "") {
-            alertify.error("Faltan datos");
-
-            if(rol.val() == "") rol.focus();
-            else nombre.focus();
-
-            return false;
-        }
-        return true;
-    }
 
     $(document).ready(function () {
 
         $("#btnNuevaEsquela").click(function () {
 
-            if(validarForm()) {
+            if(validarFormEsquela()) {
                 $.ajax({
                     type: "POST",
                     url: "../../procesa.php",
@@ -80,4 +66,5 @@ Contamos con que cada difunto lleva asociado un servicio antes de crear la esque
             }
         });
     });
+
 </script>

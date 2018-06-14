@@ -286,42 +286,6 @@ if($op == "login") {
         } else echo "error";
     } else echo "error";
 
-} else if($op == "buscarDifunto") {
-
-    $nom = $_POST['nombreDifunto'];
-
-    // Obtenemos los datos del posible/s DIFUNTO
-    $modulo = "difunto";
-    $cond = "nombre LIKE '%$nom%'";
-    $campos = "*";
-    $res = $ApiClient->select($modulo, $cond, $campos);
-
-    echo json_encode($res);
-
-} else if($op == "buscarDifunto_Limitado") {
-
-    $nom = $_POST['nombreDifunto'];
-
-    // Obtenemos los datos del posible/s DIFUNTO
-    $modulo = "difunto";
-    $cond = "nombre LIKE '%$nom%'";
-    $campos = "*";
-    $res = $ApiClient->select($modulo, $cond, $campos);
-
-    $res_final = [];
-    foreach ($res as $resultado) {
-
-        $modulo = "difunto_cliente";
-        $id_dif = $resultado->id;
-        $cond = "id_dif = $id_dif";
-        $campos = "*";
-        $aux = $ApiClient->select($modulo, $cond, $campos);
-
-        if(empty($aux))  array_push($res_final, $resultado);
-    }
-
-    echo json_encode($res_final);
-
 } else if($op == "buscarDifunto_Disponible") {
 
     $nom = $_POST['nombreDifunto'];
@@ -758,16 +722,12 @@ if($op == "login") {
     $cond = "id_fact='$id_fact'";
     if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
-
     echo 1;
 
 } else if($op == "ag_addEvent") {
 
     $datos = $_POST;
     unset($datos['op']);
-
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
     $modulo = "agenda";
     if(!$ApiClient->insert($datos, $modulo)) redirige("index.php");
@@ -779,8 +739,6 @@ if($op == "login") {
     $modulo = "agenda";
     $campos = "title, start, allDay";
     $info = $ApiClient->select($modulo,null, $campos);
-
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($info, TRUE).PHP_EOL, FILE_APPEND );
 
     echo json_encode($info);
 

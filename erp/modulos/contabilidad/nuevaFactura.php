@@ -42,28 +42,14 @@
     </form>
 </div> <!-- container-fluid -->
 
+<script src="../func_aux.js"></script>
 <script>
-    function validarForm() {
-
-        var concepto = $("#t_concepto_1");
-        var importe = $("#t_importe_1");
-
-        if(concepto.val() == "" || importe.val() == "") {
-            alertify.error("Faltan datos");
-
-            if(concepto.val() == "") concepto.focus();
-            else importe.focus();
-
-            return false;
-        }
-        return true;
-    }
 
     $(document).ready(function () {
 
         $("#btnNuevaFactura").click(function () {
 
-            if(validarForm()) {
+            if(validarFormFactura()) {
                 $.ajax({
                     type: "POST",
                     url: "../../procesa.php",
@@ -77,4 +63,5 @@
             }
         });
     });
+
 </script>

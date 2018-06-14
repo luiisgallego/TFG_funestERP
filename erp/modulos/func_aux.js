@@ -83,29 +83,10 @@ function redirigeJS(direccion){
 
 <!-- ******************************************************* -->
 
-function globalDifunto(nombre, mensaje, info) {
-
-    var json = JSON.parse(mensaje);
-    var body = $(".tBdody");
-    body.html("");          // Limpiamos si hay datos mostrados
-
-    /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
-    var nombre;
-    if(info.name === "nuevoCliente") nombre = "c_id_dif";
-    else if(info.name === "nuevaEsquela") nombre = "f_id_dif";  // FAMILIARES
-    else if(info.name === "nuevaFactura"){
-        nombre = "t_id_dif";  // FACTURAS
-    }
-
-    for(i=0; i<json.length; i++){
-
-        var estructura = "<tr>"+
-            "<td id='nom_dif'>" + json[i]['nombre']+ "</td>" +
-            "<td><input id='id_difunto' class='micheck' type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' /></td>"+
-            "</tr>";
-        body.append(estructura);
-    }
-}
+/**
+ * Para buscar dinamicamente los difuntos disponibles
+ * en función de donde vengamos
+ */
 
 function buscarDifunto(info) {
 
@@ -131,6 +112,38 @@ function buscarDifunto(info) {
         $("#resBusqueda").html("");
     }
 }
+
+/**
+ * Construye la estructura para mostrar dinamicamente
+ * los difuntos disponibles
+ */
+
+function globalDifunto(nombre, mensaje, info) {
+
+    var json = JSON.parse(mensaje);
+    var body = $(".tBdody");
+    body.html("");          // Limpiamos si hay datos mostrados
+
+    /* Tenemos que diferenciar el "name" que se enviará dependiendo de donde vengamos. */
+    var nombre;
+    if(info.name === "nuevoCliente") nombre = "c_id_dif";
+    else if(info.name === "nuevaEsquela") nombre = "f_id_dif";  // FAMILIARES
+    else if(info.name === "nuevaFactura"){
+        nombre = "t_id_dif";  // FACTURAS
+    }
+
+    for(i=0; i<json.length; i++){
+
+        var estructura = "<tr>"+
+            "<td id='nom_dif'>" + json[i]['nombre']+ "</td>" +
+            "<td><input id='id_difunto' class='micheck' type='checkbox' name='"+nombre+"' value='"+json[i]['id']+"' /></td>"+
+            "</tr>";
+        body.append(estructura);
+    }
+}
+/**
+ * Para mostrar los difuntos disponibles al acceder
+ */
 
 function iniBuscador(name) {
 
@@ -174,14 +187,54 @@ function iniBuscador(name) {
  *      VALIDACIONES
  */
 
-function validar_email( dato ) {
-    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(dato) ? true : false;
+function validarFormFactura() {
+
+    var concepto = $("#t_concepto_1");
+    var importe = $("#t_importe_1");
+
+    var cont = 0;
+    var res = false;
+
+    $('.tBdody input[type=checkbox]:checked').each(function () {
+        cont++;
+    });
+
+    if(cont == 0) alertify.error("No has seleccionado ningun difunto");
+    else if(cont > 1) alertify.error("Solo puedes seleccionar un difunto");
+    else if(concepto.val() == "") {
+        alertify.error("Faltan datos");
+        concepto.focus();
+    } else if(importe.val() == "") {
+        alertify.error("Faltan datos");
+        importe.focus();
+    } else res = true;
+
+    return res;
 }
 
-function validar_codigoPostal( dato ) {
-    var regex = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
-    return regex.test(dato) ? true : false;
+function validarFormEsquela() {
+
+    var rol = $("#f_rol_1");
+    var nombre = $("#f_nombres_1");
+
+    var cont = 0;
+    var res = false;
+
+    $('.tBdody input[type=checkbox]:checked').each(function () {
+        cont++;
+    });
+
+    if(cont == 0) alertify.error("No has seleccionado ningun difunto");
+    else if(cont > 1) alertify.error("Solo puedes seleccionar un difunto");
+    else if(rol.val() == "") {
+        alertify.error("Faltan datos");
+        rol.focus();
+    } else if(nombre.val() == "") {
+        alertify.error("Faltan datos");
+        nombre.focus();
+    } else res = true;
+
+    return res;
 }
 
 function validarFormCliente() {
@@ -210,6 +263,16 @@ function validarFormCliente() {
     }
 
     return res;
+}
+
+function validar_email( dato ) {
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(dato) ? true : false;
+}
+
+function validar_codigoPostal( dato ) {
+    var regex = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
+    return regex.test(dato) ? true : false;
 }
 
 <!-- ******************************************************* -->
