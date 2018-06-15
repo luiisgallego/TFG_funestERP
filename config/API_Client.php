@@ -24,12 +24,8 @@ class APIClient {
     }
 
     private function initParametros(){
-        // Util para cuando cerramos la ventana y la sesion no ha caducado
-        // y por tanto hay que reutilizar los datos de la API
-
 
         $this->loginInfo = $_SESSION["login_info"];
-
     }
 
     /* ----------------------------------------------------------------------
@@ -223,7 +219,7 @@ class APIClient {
         // Montamos la parte segunda de la consulta
         foreach ($valores as $var => $valor) {
             $aux = mysqli_real_escape_string($this->BD_CONEXION, $valor);
-            $sql .= "$var=" . "'$valor'" . ",";
+            $sql .= "$var=" . "'$aux'" . ",";
         }
 
         $sql = rtrim($sql, ",");                // Eliminamos la "," del final de la consulta
