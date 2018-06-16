@@ -1,8 +1,11 @@
 <?php
 session_start();
 require("../config/API_Global.php");
-//require("../config/sesion.php");
+include_once('funciones.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+if($_SESSION['login_info'] == "") header("Location: http://localhost/funerariagallego/index.php");
+
 ?>
 <!DOCTYPE html>
 <html>

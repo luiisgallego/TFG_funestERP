@@ -20,9 +20,8 @@ if($op == "login") {
 
 } else if($op == "logout") {
 
-//    $ApiClient->logout();
     $_SESSION['login_info'] = null;
-    header("Location: http://localhost/funerariagallego/erp/login.php");
+    header("Location: http://localhost/funerariagallego/index.php");
 
 } else if($op == "registrarUser") {
 

@@ -34,7 +34,6 @@ if($miga === "esquela" || $miga === "recordatoria") {       // ESQUELA
         "id_fam" => $id_fam
     ];
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
 ?>
 

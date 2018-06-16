@@ -203,14 +203,14 @@ class APIClient {
     /**
      * Actualizacion de registros en BD
      *
+     * UPDATE `modulo` SET `nom_valor1`=valor1,`nom_valor2`=valor1 WHERE 1
+     *
      * @param array|object $valores Valores a actualizar
      * @param string $modulo Módulo sobre el que actualizar
      * @param string $cond Condicion
      * @return bool true si ha tenido éxito
      */
     public function update($valores, $modulo, $cond){
-        /* Especial cuidado con la condicion, 1 actualiza el modulo al completo */
-        // UPDATE `modulo` SET `nom_valor1`=valor1,`nom_valor2`=valor1 WHERE 1
 
         // Inicializamos
         $valores = (object)$valores;

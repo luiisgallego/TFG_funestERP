@@ -42,7 +42,6 @@ if($miga == "") {               // FACTURA
     ];
 }
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 ?>
 
 <div class="container-fluid">

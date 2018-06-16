@@ -35,7 +35,6 @@ if($miga == "") {       // ESQUELA
         "familiares" => $familiares
     ];
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($estructura, TRUE).PHP_EOL, FILE_APPEND );
 }
 ?>
 
@@ -175,7 +174,7 @@ if($miga == "") {       // ESQUELA
                                     <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
                                     <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
                                     <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
-                                    <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
+                                    <span> Hermanos Políticos, Primos y demas familia.</span> <br>
                                     Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                                     descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
                                     lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las

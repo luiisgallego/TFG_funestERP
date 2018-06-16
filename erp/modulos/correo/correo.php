@@ -4,6 +4,8 @@ require '../../../config/API_Global.php';
 include_once('../../funciones.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+//file_put_contents (__DIR__."/SOMELOG.log" , print_r($_SESSION, TRUE).PHP_EOL, FILE_APPEND );
+
 $hostname = '{imap.gmail.com:993/imap/ssl}INBOX';
 $username = 'funerariagallego@gmail.com';
 $password = '2031994m';
@@ -35,8 +37,6 @@ if($emails) {
     }
 }
 imap_close($inbox);
-
-//file_put_contents (__DIR__."/SOMELOG.log" , print_r($_SESSION, TRUE).PHP_EOL, FILE_APPEND );
 ?>
 
 <!DOCTYPE html>
