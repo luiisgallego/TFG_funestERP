@@ -135,8 +135,6 @@ function format_edad($date) {
 
     $edad = $anio_act - $anio_nacimiento;
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($edad, TRUE).PHP_EOL, FILE_APPEND );
-
     return $edad;
 
 }

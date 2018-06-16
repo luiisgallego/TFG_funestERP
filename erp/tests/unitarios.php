@@ -2,7 +2,7 @@
 require '../../config/API_Global.php';
 
 function anotar($txt) {
-    file_put_contents (__DIR__."/TEST_UNITARIOS.log" , print_r($txt, TRUE).PHP_EOL, FILE_APPEND );
+    file_put_contents (__DIR__."/TEST_UNITARIOS2.log" , print_r($txt, TRUE).PHP_EOL, FILE_APPEND );
 }
 
 $txt = "............. PRUEBAS UNITARIAS DE LA API..........."; anotar($txt);

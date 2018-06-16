@@ -171,7 +171,7 @@ $estructura['difunto']->fecha_nacimiento = format_edad($estructura['difunto']->f
                                 <!--                                    <span>Su esposa: </span>María Josefa López, <span> Hija: </span> María Josefa Rodriguez López,-->
                                 <!--                                    <span> Hijo Político: </span>Eduardo Dominguez Aguilar, <span> Nieta: </span>Ainara Dominguez Rodriguez,-->
                                 <!--                                    <span> Hermanos: </span>Domingo, Teresa, Herminia y Angel Rodriguez Primo,-->
-                                <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
+                                <span> Hermanos Políticos, Primos y demas familia.</span> <br>
                                 Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno
                                 descanso de su alma, y la asistencia al funeral de corpórea in sepulto que tendrá
                                 lugar <span class="subrayado">el <?= $estructura['servicio']->fecha_entierro ?> a las

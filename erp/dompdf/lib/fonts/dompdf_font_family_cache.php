@@ -83,4 +83,10 @@
   'fontawesome' => array(
     'normal' => $fontDir . '\a6c14977f25e2cf9e6a2d89e4dc5417b',
   ),
+  'graduate' => array(
+    'normal' => $fontDir . '\281b892516bf0561ec46516bc7828911',
+  ),
+  'pacifico' => array(
+    'normal' => $fontDir . '\e2429f14b628c2c6fa5760deb8e12979',
+  ),
 ) ?>

@@ -247,7 +247,7 @@ if($op == "login") {
     $facturas = $ApiClient->select($modulo, $cond);
     $id_fact = $facturas[0]->id_fact;
 
-    if($id_fam != ""){
+    if($id_fact != ""){
         $modulo = "facturas";
         $cond = "id_fact='$id_fact'";
         if(!$ApiClient->delete($modulo, $cond)) echo "error";
@@ -539,8 +539,6 @@ if($op == "login") {
     $cond = "id_fam='$id_fam'";
     if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
 
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
-
     echo 1;
 
 } else if($op == "setEstadoRecordatoria") {
@@ -558,8 +556,6 @@ if($op == "login") {
     $modulo = "difunto_familiares";
     $cond = "id_fam='$id_fam'";
     if(!$ApiClient->update($datos, $modulo, $cond)) echo 0;
-
-//    file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
 
     echo 1;
 
@@ -693,8 +689,6 @@ if($op == "login") {
         $modulo = "cliente";
         $cond = "id='$datos_cliente->id'";
         if(!$ApiClient->update($datos_cliente, $modulo, $cond)) redirige("index.php");
-
-//        file_put_contents (__DIR__."/SOMELOG.log" , print_r($json, TRUE).PHP_EOL, FILE_APPEND );
 
         redirige("modulos/contabilidad/main.php?op=v_factura&ref=$id_dif");
     }

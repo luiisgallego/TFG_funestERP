@@ -211,7 +211,7 @@ $misa_emitida = $relacion[0]->misa_emitida;
                                             <?php foreach($estructura['familiares'] as $valor) { ?>
                                                 <span><?= $valor->rol ?>: </span> <?= $valor->nombres ?>,
                                             <?php } ?>
-                                            <span> Hermanos Políticos, Sobrinos y demas familia.</span> <br>
+                                            <span> Hermanos Políticos, Primos y demas familia.</span> <br>
 
                                             <?php if(!$misa_funeral) { ?>
                                                 Comunican a sus amistades tan sensible pérdida y les ruegan una oración por el eterno

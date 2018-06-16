@@ -175,7 +175,7 @@ $emitida = $relacion[0]->recordatoria_emitida;
                                     parte en el gozo de tus elegidos.
                                 </div>
                                 <div class="separado_row_doble" style="font-size: 70%;">Por nuestro Señor Jesucristo</div>
-                                <div class="separado_row" style="font-size: 70%;">Porcuna - Agosto - 2013</div>
+                                <div class="separado_row" style="font-size: 70%;">Porcuna - Junio - 2018</div>
                             </div>
                         </div>
                     </div>  <!-- contenido_general -->

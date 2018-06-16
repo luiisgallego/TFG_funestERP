@@ -2,7 +2,7 @@
 require '../../config/API_Global.php';
 
 function anotar($txt) {
-    file_put_contents (__DIR__."/TEST_INTEGRACION.log" , print_r($txt, TRUE).PHP_EOL, FILE_APPEND );
+    file_put_contents (__DIR__."/TEST_INTEGRACION2.log" , print_r($txt, TRUE).PHP_EOL, FILE_APPEND );
 }
 
 $txt = ".............PRUEBAS DE INTEGRACIÓN DEL SISTEMA..........."; anotar($txt);
@@ -136,12 +136,73 @@ anotar("");
 anotar("");
 
 
+$txt = ".........Añadimos ahora la relacion DIFUNTO_FACTURAS"; anotar($txt);
 
+$datos_difunto_factura = [
+    "id_dif" => $id_dif,
+    "fecha" => "1111-11-11",
+    "total" => "100",
+    "emitida" => "0",
+    "cobrada" => "0",
+];
 
+$txt = "Los datos utilizados son los siguientes:"; anotar($txt);
+anotar($datos_difunto_factura);
+
+anotar("");
+$res = $ApiClient->insert($datos_difunto_factura, "difunto_facturas");
+$txt = ($res == true) ? "Inserción realizada con exito." : "La inserción ha fallado";
+anotar($txt);
+anotar("");
+
+$txt = "Realizamos un SELECT para verificar la inserción:"; anotar($txt);
+$select_difunto_facturas = $ApiClient->select("difunto_facturas", "id_dif = '$id_dif'");
+$id_difunto_facturas = $select_difunto_facturas[0]->id_fact;
+$txt = "Obteniendo el siguiente resultado:"; anotar($txt);
+anotar($select_difunto_facturas);
+anotar("");
+anotar("");
+
+$txt = ".........Añadimos ahora la FACTURA"; anotar($txt);
+
+$datos_facturas = [
+    "id_fact" => $id_difunto_facturas,
+    "concepto" => "testConcepto",
+    "importe" => "100",
+];
+
+$txt = "Los datos utilizados son los siguientes:"; anotar($txt);
+anotar($datos_facturas);
+
+anotar("");
+$res = $ApiClient->insert($datos_facturas, "facturas");
+$txt = ($res == true) ? "Inserción realizada con exito." : "La inserción ha fallado";
+anotar($txt);
+anotar("");
+
+$txt = "Realizamos un SELECT para verificar la inserción:"; anotar($txt);
+$select_factura = $ApiClient->select("facturas", "id_fact = '$id_difunto_facturas'");
+$id_factura = $select_factura[0]->id_fact;
+$txt = "Obteniendo el siguiente resultado:"; anotar($txt);
+anotar($select_factura);
+anotar("");
+anotar("");
 /******************** ............ BORRADO ............. ***********************/
 
 $txt = ".........BORRADO DE DATOS"; anotar($txt);
 $txt = "Tenemos que seguir el proceso inverso al de insercion"; anotar($txt);
+anotar("");
+
+$txt = "BORRAMOS la FACTURA"; anotar($txt);
+$res = $ApiClient->delete("facturas", "id_fact = '$id_factura'");
+$txt = ($res == true) ? "DELETE realizado con exito." : "El DELETE ha fallado";
+anotar($txt);
+anotar("");
+
+$txt = "BORRAMOS el DIFUNTO_FACTURAS"; anotar($txt);
+$res = $ApiClient->delete("difunto_facturas", "id_fact = '$id_difunto_facturas'");
+$txt = ($res == true) ? "DELETE realizado con exito." : "El DELETE ha fallado";
+anotar($txt);
 anotar("");
 
 $txt = "BORRAMOS el DIFUNTO_CLIENTE"; anotar($txt);
@@ -169,22 +230,7 @@ $txt = ($res == true) ? "DELETE realizado con exito." : "El DELETE ha fallado";
 anotar($txt);
 anotar("");
 
+anotar("");anotar("");anotar("");
+$txt = "De esta manera podríamos constuir una integración de parte del sistema."; anotar($txt);
+$txt = "Concluyendo que se realiza correctamente."; anotar($txt);
 
-
-
-
-
-
-
-
-
-
-$datos_familiares = [
-    "rol" => "rol1",
-    "nombres" => "nombre1",
-];
-
-$datos_facturas = [
-    "concepto" => "testNombre",
-    "importe" => "77777777J",
-];
