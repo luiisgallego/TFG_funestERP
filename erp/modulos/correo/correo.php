@@ -21,7 +21,7 @@ if($emails) {
 
     foreach($emails as $email_number) {
         $overview = imap_fetch_overview($inbox,$email_number,0);
-        $mensaje = imap_fetchbody($inbox,$email_number,2);
+        $mensaje = imap_fetchbody($inbox,$email_number, 2);
 
         $aux = [
             "id" => $cont,
@@ -36,6 +36,7 @@ if($emails) {
         $cont++;
     }
 }
+
 imap_close($inbox);
 ?>
 
@@ -79,8 +80,8 @@ imap_close($inbox);
                                                     <td style="width: 50px;">
                                                         <a href="./mensaje.php?id=<?= $mensaje['id'] ?>" title="Ver"><i class="fa fa-eye fa-fw"></i></a>
                                                     </td>
-                                                    <td><?=  $mensaje['asunto']; ?></td>
                                                     <td><?=  $mensaje['remitente']; ?></td>
+                                                    <td><?=  $mensaje['asunto']; ?></td>
                                                     <td><?=  $mensaje['fecha']; ?></td>
                                                 </tr>
                                             <?php } ?>
@@ -141,11 +142,12 @@ imap_close($inbox);
                                         mensaje: mensaje
                                     },
                                     success: function (data) {
-
-                                        console.log(data);
-
-                                        if(data == 1) alertify.success("Mensaje Enviado");
-                                        else alertify.error("Error al enviar: " + data);
+                                        alertify.success("Mensaje Enviado");
+                                        $("#modalNuevoMensaje").modal('hide');
+//                                        console.log(data);
+//
+//                                        if(data == 1) alertify.success("Mensaje Enviado");
+//                                        else alertify.error("Error al enviar: " + data);
                                     },
                                     error: function () {
                                         alertify.error("Error.");

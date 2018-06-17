@@ -6,6 +6,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $id = $_GET['id'];
 $correo = $_SESSION['correos'][$id];
+
 ?>
 
 <!DOCTYPE html>

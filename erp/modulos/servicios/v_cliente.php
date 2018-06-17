@@ -62,39 +62,39 @@ $difuntosCliente = $ApiClient->select("difunto_cliente", "id_cli='$id_cliente'")
             </div>
         </div>
     </div> <!-- row navegacion -->
+
     <div class="row page_content">
         <div class="col-md-12">
-            <div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Cliente</div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="row diseño_span">
-                                    <div class="col-md-6"><span>Nombre: </span><?= $cliente->nombre ?></div>
-                                    <div class="col-md-3"><span>DNI: </span><?= $cliente->dni ?></div>
-                                    <div class="col-md-3"><span>Dirección: </span><?= $cliente->direccion ?></div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row diseño_span">
-                                    <div class="col-md-3"><span>Población: </span><?= $cliente->poblacion ?></div>
-                                    <div class="col-md-3"><span>Código Postal:: </span><?= $cliente->codigo_postal ?></div>
-                                    <div class="col-md-3"><span>Telefono: </span><?= $cliente->telefono ?></div>
-                                    <div class="col-md-3"><span>Email: </span><?= $cliente->email ?></div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row diseño_span">
-                                    <div class="col-md-3"><span>Cuenta Bancaria: </span><?= $cliente->cuenta_bancaria ?></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div> <!-- panel-body -->
-                </div> <!-- panel panel-primary -->
-            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading info_seccion"><i class="fa fa-caret-square-o-right"></i>Datos Cliente</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row diseño_span">
+                                <div class="col-md-6"><span>Nombre: </span><?= $cliente->nombre ?></div>
+                                <div class="col-md-3"><span>DNI: </span><?= $cliente->dni ?></div>
+                                <div class="col-md-3"><span>Dirección: </span><?= $cliente->direccion ?></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row diseño_span">
+                                <div class="col-md-3"><span>Población: </span><?= $cliente->poblacion ?></div>
+                                <div class="col-md-3"><span>Código Postal: </span><?= $cliente->codigo_postal ?></div>
+                                <div class="col-md-3"><span>Telefono: </span><?= $cliente->telefono ?></div>
+                                <div class="col-md-3"><span>Email: </span><?= $cliente->email ?></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row diseño_span">
+                                <div class="col-md-3"><span>Cuenta Bancaria: </span><?= $cliente->cuenta_bancaria ?></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div> <!-- panel-body -->
+            </div> <!-- panel panel-primary -->
         </div> <!-- col-md-12 -->
     </div> <!-- row page_content -->
+
     <div class="row">
         <div class="col-md-3 col-md-offset-4">
             <div id="botonModalCliente" class="btn btn-primary btn-lg btn-block nuevo_servicio_button">Añadir difunto a cliente </div>

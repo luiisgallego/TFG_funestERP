@@ -11,8 +11,6 @@ $direccion = $_POST['direccion'];
 $asunto = $_POST['asunto'];
 $mensaje = $_POST['mensaje'];
 
-file_put_contents (__DIR__."/SOMELOG.log" , print_r($datos, TRUE).PHP_EOL, FILE_APPEND );
-
 $mail = new PHPMailer;                              //Create a new PHPMailer instance
 $mail->isSMTP();                                    //Tell PHPMailer to use SMTP
 
@@ -29,8 +27,8 @@ $mail->SMTPAuth = true;
 
 $mail->Username = "lgaq94@gmail.com";
 $mail->Password = "77375026";
-$mail->setFrom($direccion, 'Luis Gallego');       //Set who the message is to be sent from
-$mail->addAddress($direccion, 'Luis Gallego');        // Direccion y quien lo envia
+$mail->setFrom($direccion, 'Funeraria Gallego');       //Set who the message is to be sent from
+$mail->addAddress($direccion, 'Funeraria Gallego');        // Direccion y quien lo envia
 $mail->Subject = $asunto;                           // Asunto
 //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
 //$msg = "<h1>hola</h1>";

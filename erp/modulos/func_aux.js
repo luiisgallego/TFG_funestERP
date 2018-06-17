@@ -202,11 +202,15 @@ function validarFormFactura() {
     if(cont == 0) alertify.error("No has seleccionado ningun difunto");
     else if(cont > 1) alertify.error("Solo puedes seleccionar un difunto");
     else if(concepto.val() == "") {
+
         alertify.error("Faltan datos");
         concepto.focus();
+
     } else if(importe.val() == "") {
+
         alertify.error("Faltan datos");
         importe.focus();
+
     } else res = true;
 
     return res;

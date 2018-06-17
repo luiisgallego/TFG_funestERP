@@ -55,8 +55,10 @@
                     url: "../../procesa.php",
                     data: $("#formFacturas").serialize(),
                     success: function (data) {
+
                         if(data != "error") redirigeJS(data);
                         else alertify.error("La inserción ha fallado.");
+
                     },
                     error: function (data) { alertify.error("error"); }
                 });
