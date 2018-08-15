@@ -8,7 +8,6 @@
         <meta name="author" content="Luis Gallego Quero">
         <title>Servicios Funerarios Gallego </title>
         <link rel="icon" href="../img/favicon.ico">
-        <!-- HOLA -->
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
